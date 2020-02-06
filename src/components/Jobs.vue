@@ -3,8 +3,15 @@
     <h4 class="vue-title">{{messagetitle}}</h4>
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
-        <a slot="edit" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editJob(props.row._id)"></a>
-        <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
+        <!-- Driver -->
+        <a slot="accept" v-if="driver" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="acceptJob(props.row._id)"></a>
+        <p v-else>Only Drivers have this right, to apply as a driver click <a href="/RegisterAsDriver">here</a></p>
+
+        <!-- User -->
+        <a slot="edit" v-if="user" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editJob(props.row._id)"></a>
+        <p v-else>You can only edit your item</p>
+        <a slot="delete" v-if="user" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
+        <p v-else>You can only delete your item</p>
       </v-client-table>
     </div>
   </div>
@@ -14,6 +21,7 @@
 import Vue from 'vue'
 import VueTables from 'vue-tables-2'
 import JobService from '../services/JobService'
+import firebase from 'firebase'
 
 Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
 
@@ -25,7 +33,7 @@ export default {
       jobs: [],
       props: ['_id'],
       errors: [],
-      columns: ['name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'edit', 'delete'],
+      columns: ['name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'accept', 'edit', 'delete'],
       options: {
         perPage: 8,
         headings: {
@@ -42,6 +50,16 @@ export default {
   // Fetches Items when the component is created.
   created () {
     this.loadJobs()
+    var loggedUser = this
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        loggedUser.user = user
+        loggedUser.name = loggedUser.user.displayName
+        loggedUser.photo = loggedUser.user.photoURL
+        loggedUser.userId = loggedUser.user.uid
+      }
+    })
+    this.user = firebase.auth().currentUser || false
   },
   methods: {
     loadJobs: function () {

@@ -26,6 +26,7 @@ export default {
   data () {
     return {
       job: {
+        photo: '',
         name: '',
         deliveryRequest: '',
         place: '',

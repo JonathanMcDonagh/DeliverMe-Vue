@@ -1,11 +1,15 @@
 <template>
   <form @submit.prevent="submit">
 
+    <div class="form-group" v-if="user" :class="{ 'form-group--error': $v.photo }">
+      <img :src="photo" style="height: 200px; width: 200px; border-radius: 50%"/>
+    </div>
+
     <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
-      <label class="form__label">Name</label>
+      <label class="form__label"></label>
       <input class="form__input" v-model.trim="$v.name.$model"/>
     </div>
-    <div class="error" v-if="!$v.name.required">Name is Required</div>
+    <div class="error" v-if="!$v.name.required">This field is Required</div>
     <div class="error" v-if="!$v.name.minLength">Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
 
     <div class="form-group" :class="{ 'form-group--error': $v.deliveryRequest.$error }">
@@ -58,6 +62,7 @@ import Vue from 'vue'
 import VueForm from 'vueform'
 import Vuelidate from 'vuelidate'
 import { required, minLength } from 'vuelidate/lib/validators'
+import firebase from 'firebase'
 
 Vue.use(VueForm, {
   inputClasses: {
@@ -70,10 +75,11 @@ Vue.use(Vuelidate)
 
 export default {
   name: 'FormData',
-  props: ['jobBtnTitle', 'job'],
+  props: ['jobBtnTitle', 'job', 'user'],
   data () {
     return {
       messagetitle: ' Job ',
+      photo: this.job.photo,
       name: this.job.name,
       deliveryRequest: this.job.deliveryRequest,
       place: this.job.place,
@@ -109,6 +115,18 @@ export default {
       minLength: minLength(4)
     }
   },
+  created () {
+    var loggedUser = this
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        loggedUser.user = user
+        loggedUser.name = loggedUser.user.displayName
+        loggedUser.photo = loggedUser.user.photoURL
+        loggedUser.userId = loggedUser.user.uid
+      }
+    })
+    this.user = firebase.auth().currentUser || false
+  },
   methods: {
     submit () {
       console.log('submit!')
@@ -121,6 +139,7 @@ export default {
         setTimeout(() => {
           this.submitStatus = 'OK'
           var job = {
+            photo: this.photo,
             name: this.name,
             deliveryRequest: this.deliveryRequest,
             place: this.place,
