@@ -9,12 +9,22 @@
           <b-nav-item to="/jobs">Manage Delivery</b-nav-item>
           <b-nav-item to="/job">Request Delivery</b-nav-item>
         </b-navbar-nav>
-        <b-navbar-nav class="ml-auto" right>
-          <b-nav-item v-if="photo"><img :src="photo" style="width: 25px; height: 25px; border-radius: 50%"></b-nav-item>
+
+        <!-- user nav -->
+        <b-navbar-nav class="ml-auto" right v-if="user">
+          <b-nav-item v-show="photo"><img :src="photo" style="width: 25px; height: 25px; border-radius: 50%"></b-nav-item>
+
+          <b-nav-item v-if="user">{{name}}</b-nav-item>
           <b-nav-item to="/login" v-else>Login</b-nav-item>
           <b-nav-item @click="logOut" v-if="user">Log Out</b-nav-item>
-          <b-nav-item to="/RegisterAsDriver" v-else>Register</b-nav-item>
         </b-navbar-nav>
+
+        <!-- user signed out nav -->
+        <b-navbar-nav class="ml-auto" right v-else>
+          <b-nav-item to="/login">Login</b-nav-item>
+          <b-nav-item to="/RegisterAsDriver">Register</b-nav-item>
+        </b-navbar-nav>
+
       </b-collapse>
     </b-navbar>
     <router-view/>
@@ -63,6 +73,14 @@ export default {
 </script>
 
 <style>
+  body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    bottom: 0;
+    right: 0;
+    margin:0;
+    padding:0;
+  }
   #app {
     font-family:helvetica neue,Helvetica,Roboto,Arial,sans-serif;
     font-size:1rem;

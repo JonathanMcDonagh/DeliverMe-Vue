@@ -11,7 +11,6 @@
 
 <style>
   #homePageBG {
-    background-image: url("../assets/HomeBG.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     padding: 20%;

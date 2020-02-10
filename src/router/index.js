@@ -5,12 +5,13 @@ import Edit from '../components/Edit'
 import Jobs from '../components/Jobs'
 import Job from '../components/Job'
 import DriverSignUp from '../components/DriverSignUp'
-import Auth from '../components/Auth'
+import Auth from '../components/UserLogin'
 import DriverLogin from '../components/DriverLogin'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
+  mode: 'history', // to remove the aanoying # in url
   routes: [
     {
       path: '/',
@@ -37,11 +38,17 @@ export default new Router({
       path: '/RegisterAsDriver',
       name: 'DriverSignUp',
       component: DriverSignUp,
-      props: true
+      meta: {
+        guest: true
+      }
     },
-    { path: '/driverlogin',
+    {
+      path: '/driverlogin',
       name: 'DriverLogin',
-      component: DriverLogin
+      component: DriverLogin,
+      meta: {
+        guest: true
+      }
     },
     { path: '/login',
       name: 'Auth',
@@ -49,3 +56,5 @@ export default new Router({
     }
   ]
 })
+
+export default router

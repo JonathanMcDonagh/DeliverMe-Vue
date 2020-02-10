@@ -4,14 +4,12 @@
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
         <!-- Driver -->
-        <a slot="accept" v-if="driver" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="acceptJob(props.row._id)"></a>
+        <a slot="accept" v-if="user" slot-scope="props" @click="acceptJob(props.row._id)">Accept</a>
         <p v-else>Only Drivers have this right, to apply as a driver click <a href="/RegisterAsDriver">here</a></p>
 
         <!-- User -->
         <a slot="edit" v-if="user" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editJob(props.row._id)"></a>
-        <p v-else>You can only edit your item</p>
         <a slot="delete" v-if="user" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
-        <p v-else>You can only delete your item</p>
       </v-client-table>
     </div>
   </div>
