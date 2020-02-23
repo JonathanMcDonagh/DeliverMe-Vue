@@ -3,6 +3,6 @@ export const config = {
   authDomain: 'deliverme-wit.firebaseapp.com',
   databaseURL: 'https://deliverme-wit.firebaseio.com',
   projectId: 'deliverme-wit',
-  storageBucket: 'deliverme-wit.appspot.com',
+  storageBucket: 'gs://deliverme-wit.appspot.com/',
   messagingSenderId: '902093639897'
 }

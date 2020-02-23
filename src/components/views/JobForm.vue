@@ -1,12 +1,9 @@
 <template>
   <form @submit.prevent="submit">
 
-    <div class="form-group" v-if="user" :class="{ 'form-group--error': $v.photo }">
-      <img :src="photo" style="height: 200px; width: 200px; border-radius: 50%"/>
-    </div>
-
+    <div v-show="step === 1">
     <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
-      <label class="form__label"></label>
+      <label class="form__label">Name</label>
       <input class="form__input" v-model.trim="$v.name.$model"/>
     </div>
     <div class="error" v-if="!$v.name.required">This field is Required</div>
@@ -32,6 +29,7 @@
     </div>
     <div class="error" v-if="!$v.deliveryFee.required">This field is Required</div>
     <div class="error" v-if="!$v.deliveryFee.minLength">Field must have at least {{$v.deliveryFee.$params.minLength.min}} letters.</div>
+      <div class="error" v-if="!$v.deliveryFee.maxLength">Field must only have {{$v.deliveryFee.$params.maxLength.max}} letters.</div>
 
     <div class="form-group" :class="{ 'form-group--error': $v.dropOffLocation.$error }">
       <label class="form__label">Drop Off Location</label>
@@ -47,9 +45,16 @@
     <div class="error" v-if="!$v.dropOffTime.required">This field is Required</div>
     <div class="error" v-if="!$v.dropOffTime.minLength">Field must have at least {{$v.dropOffTime.$params.minLength.min}} letters.</div>
 
-    <p>
+      <button class="btn btn-primary btn1" id="nextBtn" @click.prevent="next()">Go To Payment ⇢</button>
+    </div>
+
+    <div v-show="step === 2">
+
+      <button class="btn btn-primary btn1" @click.prevent="prev()">⇠ Go Back</button><br>
+      <p>
       <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Request Delivery</button>
     </p>
+    </div>
 
     <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your request someone will be in contact with you shortly</p>
     <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Fill in the Form Correctly.</p>
@@ -61,7 +66,7 @@
 import Vue from 'vue'
 import VueForm from 'vueform'
 import Vuelidate from 'vuelidate'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import firebase from 'firebase'
 
 Vue.use(VueForm, {
@@ -78,8 +83,9 @@ export default {
   props: ['jobBtnTitle', 'job', 'user'],
   data () {
     return {
+      step: 1,
       messagetitle: ' Job ',
-      photo: this.job.photo,
+      userId: this.userId,
       name: this.job.name,
       deliveryRequest: this.job.deliveryRequest,
       place: this.job.place,
@@ -104,7 +110,8 @@ export default {
     },
     deliveryFee: {
       required,
-      minLength: minLength(1)
+      minLength: minLength(1),
+      maxLength: maxLength(2)
     },
     dropOffLocation: {
       required,
@@ -139,7 +146,7 @@ export default {
         setTimeout(() => {
           this.submitStatus = 'OK'
           var job = {
-            photo: this.photo,
+            userId: this.userId,
             name: this.name,
             deliveryRequest: this.deliveryRequest,
             place: this.place,
@@ -152,6 +159,12 @@ export default {
           this.$emit('job-is-created-updated', this.job)
         }, 500)
       }
+    },
+    prev () {
+      this.step--
+    },
+    next () {
+      this.step++
     }
   }
 }
@@ -223,5 +236,12 @@ export default {
   }
   .error:focus {
     outline-color: #ffa519;
+  }
+
+  button {
+    margin-top: 10px;
+    width: 10%;
+    cursor: pointer;
+    margin-bottom: 50px;
   }
 </style>

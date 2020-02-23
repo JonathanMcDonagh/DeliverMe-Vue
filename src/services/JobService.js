@@ -19,5 +19,8 @@ export default {
       JSON.stringify(job, null, 5))
     return Api().put(`/job/${id}/update`, job,
       { headers: {'Content-type': 'application/json'} })
+  },
+  fetchJobsByUser (userId) {
+    return Api().get(`/users/${userId}/jobs`)
   }
 }

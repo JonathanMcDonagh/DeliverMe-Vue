@@ -1,17 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
-import Edit from '../components/Edit'
-import Jobs from '../components/Jobs'
-import Job from '../components/Job'
-import DriverSignUp from '../components/DriverSignUp'
-import Auth from '../components/UserLogin'
-import DriverLogin from '../components/DriverLogin'
+import Home from '../components/views/Home'
+import Edit from '../components/activities/Edit'
+import Jobs from '../components/views/Jobs'
+import Job from '../components/activities/Job'
+import DriverSignUp from '../components/authentication/DriverSignUp'
+import Auth from '../components/authentication/UserLogin'
+import DriverLogin from '../components/authentication/DriverLogin'
+import ManageJobs from '../components/activities/ManageJobs'
 
 Vue.use(Router)
 
 let router = new Router({
-  mode: 'history', // to remove the aanoying # in url
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -22,6 +23,11 @@ let router = new Router({
       path: '/jobs',
       name: 'Jobs',
       component: Jobs
+    },
+    {
+      path: '/managejobs',
+      name: 'ManageJobs',
+      component: ManageJobs
     },
     {
       path: '/job',

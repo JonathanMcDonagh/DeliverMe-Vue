@@ -8,15 +8,15 @@
             <job-form :job="job" jobBtnTitle="Update Job"
                            @job-is-created-updated="updateJob"></job-form>
           </template>
-        </div><!-- /col -->
-      </div><!-- /row -->
-    </div><!-- /container -->
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import JobForm from './JobForm'
-import JobService from '../services/JobService'
+import JobForm from '../views/JobForm'
+import JobService from '../../services/JobService'
 
 export default {
   data () {
@@ -68,6 +68,7 @@ export default {
     width: 95%;
     margin: 0 auto;
   }
+
   .vue-title {
     margin-top: 30px;
     text-align: center;

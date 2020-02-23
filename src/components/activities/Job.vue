@@ -15,9 +15,9 @@
 <script>
 import Vue from 'vue'
 import VueSweetalert from 'vue-sweetalert'
-import JobService from '../services/JobService'
+import JobService from '../../services/JobService'
 import {Vuelidate} from 'vuelidate'
-import JobForm from './JobForm'
+import JobForm from '../views/JobForm'
 
 Vue.use(Vuelidate)
 Vue.use(VueSweetalert)
@@ -42,9 +42,11 @@ export default {
   },
   methods: {
     submitJob: function (job) {
+      console.log()
       JobService.postJob(job)
         .then(response => {
           console.log(response)
+          this.$router.push('/jobs')
         })
         .catch(error => {
           this.errors.push(error)

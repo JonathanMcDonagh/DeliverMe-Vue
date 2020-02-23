@@ -3,13 +3,9 @@
     <h4 class="vue-title">{{messagetitle}}</h4>
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
-        <!-- Driver -->
-        <a slot="accept" v-if="user" slot-scope="props" @click="acceptJob(props.row._id)">Accept</a>
-        <p v-else>Only Drivers have this right, to apply as a driver click <a href="/RegisterAsDriver">here</a></p>
-
         <!-- User -->
-        <a slot="edit" v-if="user" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editJob(props.row._id)"></a>
-        <a slot="delete" v-if="user" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
+        <a slot="edit" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editJob(props.row._id)"></a>
+        <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
       </v-client-table>
     </div>
   </div>
@@ -18,11 +14,10 @@
 <script>
 import Vue from 'vue'
 import VueTables from 'vue-tables-2'
-import JobService from '../services/JobService'
+import JobService from '../../services/JobService'
 import firebase from 'firebase'
 
 Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
-
 export default {
   name: 'Jobs',
   data () {
@@ -31,7 +26,7 @@ export default {
       jobs: [],
       props: ['_id'],
       errors: [],
-      columns: ['name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'accept', 'edit', 'delete'],
+      columns: ['name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'edit', 'delete'],
       options: {
         perPage: 8,
         headings: {
@@ -124,4 +119,5 @@ export default {
     font-size: 30pt;
     margin-bottom: 10px;
   }
+
 </style>
