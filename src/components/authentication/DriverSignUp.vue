@@ -239,30 +239,30 @@ export default {
     outline-color: #8E8;
   }
   .error {
-    border-color: #28A745;
-    background: #28A745;
+    border-color: #3AAFA9;
+    background: #3AAFA9;
     color: whitesmoke;
   }
   .btn-primary {
-    background-color: #28A745;
-    border-color: #28A745;
+    background-color: #3AAFA9;
+    border-color: #3AAFA9;
     color: #fff;
   }
   .btn-primary:hover {
-    color: #28A745;
-    border: 2px solid #28A745;
+    color: #3AAFA9;
+    border: 2px solid #3AAFA9;
     background-color: white;
   }
 
   .navbtn {
-    background-color: #28A745;
-    border-color: #28A745;
+    background-color: #3AAFA9;
+    border-color: #3AAFA9;
     color: white;
   }
 
   .navbtn:hover {
-    color: #28A745;
-    border: 2px solid #28A745;
+    color: #3AAFA9;
+    border: 2px solid #3AAFA9;
     background-color: white;
   }
   .error:focus {

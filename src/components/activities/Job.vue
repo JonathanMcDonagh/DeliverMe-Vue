@@ -67,5 +67,6 @@ export default {
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;
+    color: #17252A;
   }
 </style>

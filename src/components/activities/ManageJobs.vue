@@ -22,7 +22,7 @@ export default {
   name: 'Jobs',
   data () {
     return {
-      messagetitle: ' Jobs ',
+      messagetitle: ' Manage Deliveries ',
       jobs: [],
       props: ['_id'],
       errors: [],

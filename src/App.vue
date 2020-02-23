@@ -1,10 +1,10 @@
 <!--suppress CssUnknownTarget -->
 <template>
   <div id="app">
-    <b-navbar toggleable="md" id="navbg" variant="info" type="dark">
+    <b-navbar toggleable="md" id="navbg" class="navbar navbar-expand-lg navbar-light bg-light">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <b-navbar-brand href="#">
-        <img src="https://placekitten.com/g/30/30" class="d-inline-block align-top" alt="Kitten">
+        <!-- <img src="#" class="d-inline-block align-top" alt="logo"> -->
         DeliverMe
       </b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
@@ -32,6 +32,7 @@
     </b-navbar>
     <router-view/>
   </div>
+
 
 </template>
 
@@ -66,16 +67,6 @@ export default {
       }
     })
     this.user = firebase.auth().currentUser || false
-
-    var loggedDriver = this
-    firebase.auth().onAuthStateChanged(function (driver) {
-      if (driver) {
-        loggedDriver.driver = driver
-        loggedDriver.email = loggedUser.driver.email
-        loggedDriver.driverId = loggedUser.driver.uid
-      }
-    })
-    this.driver = firebase.auth().currentUser || false
   },
   methods: {
     logOut () {

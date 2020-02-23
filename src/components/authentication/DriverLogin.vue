@@ -53,13 +53,13 @@ export default {
   font-size: 15pt;
 }
 .loginBtn {
-  background-color: #28A745;
-  border-color: #28A745;
+  background-color: #3AAFA9;
+  border-color: #3AAFA9;
   color: white;
 }
 .loginBtn:hover {
-  color: #28A745;
-  border: 2px solid #28A745;
+  color: #3AAFA9;
+  border: 2px solid #3AAFA9;
   background-color: white;
 }
 input {

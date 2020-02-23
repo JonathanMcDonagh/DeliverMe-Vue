@@ -74,5 +74,6 @@ export default {
     text-align: center;
     font-size: 45pt;
     margin-bottom: 10px;
+    color: #17252A;
   }
 </style>
