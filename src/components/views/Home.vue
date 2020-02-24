@@ -15,7 +15,6 @@
       <div class="col-md-6 content1-right">
         <h3>Why use DeliverMe<span class="blinker">?</span></h3>
         <p>Write About</p>
-        <button type="button" class="btn btn-default">Register as a driver (STYLE BUTTON)</button>
       </div>
     </div>
   </div>
@@ -61,7 +60,9 @@
   }
 
   .home-main{
-    background: #3AAFA9;
+    background-image: url("../../assets/DeliverMeBG.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
     color:#fff;
     padding: 13%;
     text-align: center;

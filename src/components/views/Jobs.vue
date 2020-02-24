@@ -4,7 +4,7 @@
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
         <!-- Driver -->
-        <a slot="accept" v-if="user" slot-scope="props" @click="acceptJob(props.row._id)">Accept</a>
+        <a slot="accept" v-if="user" slot-scope="props" class="fa fa-check-circle-o fa-2x" @click="acceptJob(props.row._id)"></a>
         <p v-else>Only Drivers have this right, to apply as a driver click <a href="/RegisterAsDriver">here</a></p>
       </v-client-table>
     </div>
@@ -44,7 +44,6 @@ export default {
   // Fetches Items when the component is created.
   created () {
     this.loadJobs()
-
     var loggedUser = this
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -68,6 +67,39 @@ export default {
           this.errors.push(error)
           console.log(error)
         })
+    },
+    acceptJob: function () {
+      this.$swal({
+        title: 'Are you sure you want to accept this job?',
+        text: 'You can\'t undo this action later',
+        type: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'OK Accept Job',
+        cancelButtonText: 'No Take Me Back',
+        showCloseButton: true
+        // showLoaderOnConfirm: true
+      }).then((result) => {
+        console.log('SWAL Result : ' + result)
+        if (result === true) {
+          JobService()
+            .then(response => {
+              // JSON responses are automatically parsed.
+              this.message = response.data
+              console.log(this.message)
+              this.loadJobs()
+              // Vue.nextTick(() => this.$refs.vuetable.refresh())
+              this.$swal('Accepted', 'You successfully accepted this job ')
+            })
+            .catch(error => {
+              this.$swal('ERROR', 'Something went wrong trying to accept ' + error, 'error')
+              this.errors.push(error)
+              console.log(error)
+            })
+        } else {
+          console.log('SWAL Else Result : ' + result)
+          this.$swal('Cancelled', 'Item is still there!', 'info')
+        }
+      })
     }
   }
 }

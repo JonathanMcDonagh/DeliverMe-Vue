@@ -3,7 +3,7 @@
     <h2 class="vue-title">Login</h2>
     <input type="text" v-model="email" placeholder="Email"><br>
     <input type="password" v-model="password" placeholder="Password"><br>
-    <button @click="login" class="loginBtn">Log in</button><br>
+    <button @click="login" class="btn btn-primary btn1">Log in</button><br>
     <span class="backText">Not registered as a driver? Click <router-link to="/RegisterAsDriver">Here</router-link> to register.</span>
   </div>
 </template>

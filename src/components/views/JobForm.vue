@@ -24,7 +24,7 @@
     <div class="error" v-if="!$v.place.minLength">Description must have at least {{$v.place.$params.minLength.min}} letters.</div>
 
     <div class="form-group" :class="{ 'form-group--error': $v.deliveryFee.$error }">
-      <label class="form__label">How much are you willing to pay for delivery?</label>
+      <label class="form__label">How much are you willing to pay for delivery? (€)</label>
       <input class="form__input" v-model.trim="$v.deliveryFee.$model"/>
     </div>
     <div class="error" v-if="!$v.deliveryFee.required">This field is Required</div>
@@ -45,7 +45,11 @@
     <div class="error" v-if="!$v.dropOffTime.required">This field is Required</div>
     <div class="error" v-if="!$v.dropOffTime.minLength">Field must have at least {{$v.dropOffTime.$params.minLength.min}} letters.</div>
 
-      <button class="btn btn-primary btn1" id="nextBtn" @click.prevent="next()">Go To Payment ⇢</button>
+      <p>
+        <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Pay With Cash</button>
+      </p>
+
+      <button class="btn btn-primary btn1" id="nextBtn" @click.prevent="next()">Go To Online Payment ⇢</button>
     </div>
 
     <div v-show="step === 2">

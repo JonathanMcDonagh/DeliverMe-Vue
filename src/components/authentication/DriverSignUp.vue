@@ -4,10 +4,10 @@
       <b-card
         header="Driver Form"
         header-tag="header"
-        footer="*Note - "
+        footer="*Note - If do not have a full licence and wish to sign up doing deliveries by bike please upload proof of address with a valid ID (i.e. Passport or Age Card).
+                You may only delivery small items"
         footer-tag="footer"
       >
-
     <h3 class="vue-title">Driver Registration</h3>
     <div class="container mt-3 mt-sm-5">
       <div class="row justify-content-center">
@@ -40,7 +40,7 @@
               </div>
               <div class="error" v-if="!$v.password.required">Password is Required</div>
 
-              <label class="signUpLabels">Please note we require proof of a Full Drivers Licence and proof Billing Address</label><br>
+              <label class="signUpLabels">Please note we require proof of a Full Drivers Licence (see note below if you wish to do deliveries by bike) and proof Billing Address</label><br>
               <label class="signUpLabels">Click 'Next' below to upload your forms </label><br>
               <button class="btn btn-primary btn1" @click.prevent="next()">Next ⇢</button>
             </div>
@@ -49,20 +49,20 @@
               <label class="signUpLabels">Please upload a clear image of your forms</label><br>
 
               <div>
-                <div >
-                  <p>Upload proof of driving licence:</p>
-                  <input type="file" @change="previewImage" accept="image/*" >
-                </div>
-                <div>
-                  <p>Progress: {{uploadValue.toFixed()+"%"}}
-                    <progress id="progress" :value="uploadValue" max="100" ></progress></p>
-                </div>
-                <div v-if="imageData!=null">
-                  <img class="preview" :src="picture">
-                  <br>
-                  <button class="btn btn-primary btn1" @click="onUpload">Upload</button>
-                </div>
+              <div >
+                <p>Upload proof of driving licence (Image name format example - YOURFULLNAME_DL and YOURFULLNAME_POA)</p>
+                <input type="file" @change="previewImage" accept="image/*" >
               </div>
+              <div>
+                <p>Progress: {{uploadValue.toFixed()+"%"}}
+                  <progress id="progress" :value="uploadValue" max="100" ></progress></p>
+              </div>
+              <div v-if="imageData!=null">
+                <img class="preview" :src="picture">
+                <br>
+                <button class="btn btn-primary btn1" @click="onUpload">Upload</button>
+              </div>
+            </div>
 
               <button class="btn btn-primary btn1" @click.prevent="prev()">Go Back</button><br>
 
@@ -288,5 +288,9 @@ export default {
 
   img.preview {
     width: 200px;
+  }
+
+  .signUpLabels {
+    text-align: center;
   }
 </style>

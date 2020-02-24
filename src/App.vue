@@ -1,6 +1,7 @@
 <!--suppress CssUnknownTarget -->
 <template>
   <div id="app">
+
     <b-navbar toggleable="md" id="navbg" class="navbar navbar-expand-lg navbar-light bg-light">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <b-navbar-brand href="#">
@@ -18,7 +19,7 @@
         <!-- user nav -->
         <b-navbar-nav class="ml-auto" right v-if="user">
           <b-nav-item v-show="photo"><img :src="photo" style="width: 25px; height: 25px; border-radius: 50%"></b-nav-item>
-          <b-nav-item v-if="user">{{name}}</b-nav-item>
+          <b-nav-item v-if="user">{{name || email}}</b-nav-item>
           <b-nav-item @click="logOut" v-if="user">Log Out</b-nav-item>
         </b-navbar-nav>
 
@@ -31,8 +32,8 @@
       </b-collapse>
     </b-navbar>
     <router-view/>
-  </div>
 
+</div>
 
 </template>
 

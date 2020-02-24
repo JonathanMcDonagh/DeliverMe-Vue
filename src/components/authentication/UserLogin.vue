@@ -6,7 +6,7 @@
     <div id="firebaseui-auth-container" data-upgraded=",MaterialButton"></div>
     </div>
 
-    <button class="btn btn-primary btn1" to="/driverlogin">Log in as driver</button>
+    <button class="btn btn-primary btn1" ><router-link to="/driverlogin">Log in as driver</router-link></button>
 
   </div>
 </template>

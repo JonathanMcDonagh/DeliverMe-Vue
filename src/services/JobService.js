@@ -11,6 +11,12 @@ export default {
   deleteJob (id) {
     return Api().delete(`/jobs/${id}`)
   },
+  acceptJob (id, job) {
+    console.log('REQUESTING ' + job._id + ' ' +
+      JSON.stringify(job, null, 5))
+    return Api().put(`/job/${id}/accept`, job,
+      { headers: {'Content-type': 'application/json'} })
+  },
   fetchJob (id) {
     return Api().get(`/jobs/${id}`)
   },
