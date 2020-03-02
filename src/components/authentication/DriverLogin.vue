@@ -41,7 +41,7 @@ export default {
 
 <style scoped>  /* "scoped" attribute limit the CSS to this component only */
 .vue-title {
-  margin-top: 30px;
+  margin-top: 100px;
   text-align: center;
   font-size: 45pt;
   margin-bottom: 10px;

@@ -16,7 +16,6 @@ import Vue from 'vue'
 import VueTables from 'vue-tables-2'
 import JobService from '../../services/JobService'
 import firebase from 'firebase'
-
 Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
 export default {
   name: 'Jobs',
@@ -114,10 +113,9 @@ export default {
     margin: 0 auto;
   }
   .vue-title {
-    margin-top: 15px;
+    margin-top: 100px;
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;
   }
-
 </style>

@@ -2,48 +2,49 @@
   <form @submit.prevent="submit">
 
     <div v-show="step === 1">
-    <div class="form-group" :class="{ 'form-group--error': $v.name.$error }">
+      <div class="form-content align-center">
+    <div class="form-group"  :class="{ 'form-group--error': $v.name.$error }">
       <label class="form__label">Name</label>
       <input class="form__input" v-model.trim="$v.name.$model"/>
+      <div class="error" v-if="!$v.name.required">This field is Required</div>
+      <div class="error" v-if="!$v.name.minLength">Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
     </div>
-    <div class="error" v-if="!$v.name.required">This field is Required</div>
-    <div class="error" v-if="!$v.name.minLength">Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
 
     <div class="form-group" :class="{ 'form-group--error': $v.deliveryRequest.$error }">
       <label class="form__label">What do you need delivered?</label>
       <input class="form__input" v-model.trim="$v.deliveryRequest.$model"/>
+      <div class="error" v-if="!$v.deliveryRequest.required">This field is Required</div>
+      <div class="error" v-if="!$v.deliveryRequest.minLength">Field must have at least {{$v.deliveryRequest.$params.minLength.min}} letters.</div>
     </div>
-    <div class="error" v-if="!$v.deliveryRequest.required">This field is Required</div>
-    <div class="error" v-if="!$v.deliveryRequest.minLength">Field must have at least {{$v.deliveryRequest.$params.minLength.min}} letters.</div>
 
     <div class="form-group" :class="{ 'form-group--error': $v.place.$error }">
       <label class="form__label">Place</label>
       <input class="form__input" v-model.trim="$v.place.$model"/>
+      <div class="error" v-if="!$v.place.required">This field is Required</div>
+      <div class="error" v-if="!$v.place.minLength">Description must have at least {{$v.place.$params.minLength.min}} letters.</div>
     </div>
-    <div class="error" v-if="!$v.place.required">This field is Required</div>
-    <div class="error" v-if="!$v.place.minLength">Description must have at least {{$v.place.$params.minLength.min}} letters.</div>
 
     <div class="form-group" :class="{ 'form-group--error': $v.deliveryFee.$error }">
       <label class="form__label">How much are you willing to pay for delivery? (€)</label>
       <input class="form__input" v-model.trim="$v.deliveryFee.$model"/>
-    </div>
-    <div class="error" v-if="!$v.deliveryFee.required">This field is Required</div>
-    <div class="error" v-if="!$v.deliveryFee.minLength">Field must have at least {{$v.deliveryFee.$params.minLength.min}} letters.</div>
+      <div class="error" v-if="!$v.deliveryFee.required">This field is Required</div>
+      <div class="error" v-if="!$v.deliveryFee.minLength">Field must have at least {{$v.deliveryFee.$params.minLength.min}} letters.</div>
       <div class="error" v-if="!$v.deliveryFee.maxLength">Field must only have {{$v.deliveryFee.$params.maxLength.max}} letters.</div>
+    </div>
 
     <div class="form-group" :class="{ 'form-group--error': $v.dropOffLocation.$error }">
       <label class="form__label">Drop Off Location</label>
       <input class="form__input" v-model.trim="$v.dropOffLocation.$model"/>
+      <div class="error" v-if="!$v.dropOffLocation.required">This field is Required</div>
+      <div class="error" v-if="!$v.dropOffLocation.minLength">Field must have at least {{$v.dropOffLocation.$params.minLength.min}} letters.</div>
     </div>
-    <div class="error" v-if="!$v.dropOffLocation.required">This field is Required</div>
-    <div class="error" v-if="!$v.dropOffLocation.minLength">Field must have at least {{$v.dropOffLocation.$params.minLength.min}} letters.</div>
 
     <div class="form-group" :class="{ 'form-group--error': $v.dropOffTime.$error }">
       <label class="form__label">Drop Off Time</label>
       <input class="form__input" v-model.trim="$v.dropOffTime.$model"/>
+      <div class="error" v-if="!$v.dropOffTime.required">This field is Required</div>
+      <div class="error" v-if="!$v.dropOffTime.minLength">Field must have at least {{$v.dropOffTime.$params.minLength.min}} letters.</div>
     </div>
-    <div class="error" v-if="!$v.dropOffTime.required">This field is Required</div>
-    <div class="error" v-if="!$v.dropOffTime.minLength">Field must have at least {{$v.dropOffTime.$params.minLength.min}} letters.</div>
 
       <p>
         <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Pay With Cash</button>
@@ -63,6 +64,7 @@
     <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your request someone will be in contact with you shortly</p>
     <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Fill in the Form Correctly.</p>
     <p class="typo__p" v-if="submitStatus === 'PENDING'">adding...</p>
+    </div>
   </form>
 </template>
 
@@ -89,7 +91,6 @@ export default {
     return {
       step: 1,
       messagetitle: ' Job ',
-      userId: this.userId,
       name: this.job.name,
       deliveryRequest: this.job.deliveryRequest,
       place: this.job.place,
@@ -140,43 +141,35 @@ export default {
   },
   methods: {
     submit () {
-      console.log('submit!')
-      this.$v.$touch()
-      if (this.$v.$invalid) {
-        this.submitStatus = 'ERROR'
-      } else {
-        // do your submit logic here
-        this.submitStatus = 'PENDING'
-        setTimeout(() => {
-          this.submitStatus = 'OK'
-          var job = {
-            userId: this.userId,
-            name: this.name,
-            deliveryRequest: this.deliveryRequest,
-            place: this.place,
-            deliveryFee: this.deliveryFee,
-            dropOffLocation: this.dropOffLocation,
-            dropOffTime: this.dropOffTime
-          }
-          this.job = job
-          console.log('Submitting in JobForm : ' + JSON.stringify(this.job, null, 5))
-          this.$emit('job-is-created-updated', this.job)
-        }, 500)
-      }
-    },
-    prev () {
-      this.step--
-    },
-    next () {
-      this.step++
+      this.submitStatus = 'PENDING'
+      setTimeout(() => {
+        this.submitStatus = 'OK'
+        var job = {
+          name: this.name,
+          deliveryRequest: this.deliveryRequest,
+          place: this.place,
+          deliveryFee: this.deliveryFee,
+          dropOffLocation: this.dropOffLocation,
+          dropOffTime: this.dropOffTime
+        }
+        this.job = job
+        console.log('Submitting in JobForm : ' + JSON.stringify(this.job, null, 5))
+        this.$emit('job-is-created-updated', this.job)
+      }, 500)
     }
+  },
+  prev () {
+    this.step--
+  },
+  next () {
+    this.step++
   }
 }
 </script>
 
 <style scoped>
   .vue-title {
-    margin-top: 30px;
+    margin-top: 100px;
     text-align: center;
     font-size: 45pt;
     margin-bottom: 10px;
@@ -228,15 +221,18 @@ export default {
     border-color: #3AAFA9;
     background: #3AAFA9;
     color: whitesmoke;
+    border-radius: 1.5rem;
   }
   .btn-primary {
     background-color: #3AAFA9;
     border-color: #3AAFA9;
+    border-radius: 1.5rem;
   }
   .btn-primary:hover {
     color: #3AAFA9;
     border: 2px solid #3AAFA9;
     background-color: white;
+    border-radius: 1.5rem;
   }
   .error:focus {
     outline-color: #ffa519;
@@ -247,5 +243,9 @@ export default {
     width: 10%;
     cursor: pointer;
     margin-bottom: 50px;
+  }
+
+  input.form__input {
+    border-radius: 30px;
   }
 </style>

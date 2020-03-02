@@ -111,7 +111,7 @@ export default {
     margin: 0 auto;
   }
   .vue-title {
-    margin-top: 15px;
+    margin-top: 100px;
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;

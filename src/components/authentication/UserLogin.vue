@@ -1,9 +1,11 @@
 <template>
   <div>
-    <h4 class="vue-title">Sign In</h4>
+    <h2 class="vue-title">Sign In</h2>
 
     <div id="firebaseui-container">
-    <div id="firebaseui-auth-container" data-upgraded=",MaterialButton"></div>
+    <div id="firebaseui-auth-container" data-upgraded=",MaterialButton">
+
+    </div>
     </div>
 
     <button class="btn btn-primary btn1" ><router-link to="/driverlogin">Log in as driver</router-link></button>
@@ -37,7 +39,7 @@ export default {
 
 <style>
   .vue-title {
-    margin-top: 15px;
+    margin-top: 100px;
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;

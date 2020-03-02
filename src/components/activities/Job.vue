@@ -46,7 +46,8 @@ export default {
       JobService.postJob(job)
         .then(response => {
           console.log(response)
-          this.$router.push('/jobs')
+          console.log(job)
+          this.$router.push('/managejobs')
         })
         .catch(error => {
           this.errors.push(error)
@@ -63,10 +64,19 @@ export default {
     margin: 0 auto;
   }
   .vue-title {
-    margin-top: 15px;
+    margin-top: 100px;
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;
     color: #17252A;
+  }
+
+  .form-content {
+    padding: 5%;
+    border: 1px solid #ced4da;
+    margin-bottom: 2%;
+  }
+  .form-control {
+    border-radius: 1.5rem;
   }
 </style>

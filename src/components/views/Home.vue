@@ -78,12 +78,12 @@
   .home-main button{
     background: #fff;
     color: #000;
-    border-radius: 0;
     font-weight: 700;
     width: 16%;
     height: 50px;
     top: 4%;
     margin-top: 3%;
+    border-radius: 1.5rem;
   }
   .home-main button:hover{
     transition: 1s ease;

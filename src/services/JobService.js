@@ -1,4 +1,4 @@
-import Api from '@/services/api'
+import Api from '../services/api'
 
 export default {
   fetchJobs () {
@@ -26,7 +26,7 @@ export default {
     return Api().put(`/job/${id}/update`, job,
       { headers: {'Content-type': 'application/json'} })
   },
-  fetchJobsByUser (userId) {
-    return Api().get(`/users/${userId}/jobs`)
+  fetchJobsByDriver (driverID) {
+    return Api().get(`/drivers/${driverID}/jobs`)
   }
 }

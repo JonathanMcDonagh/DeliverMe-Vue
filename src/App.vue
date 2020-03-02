@@ -2,11 +2,10 @@
 <template>
   <div id="app">
 
-    <b-navbar toggleable="md" id="navbg" class="navbar navbar-expand-lg navbar-light bg-light">
+    <b-navbar toggleable="md" id="navbg" class="navbar fixed-top navbar navbar-expand-lg navbar-light bg-light">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-      <b-navbar-brand href="#">
-        <!-- <img src="#" class="d-inline-block align-top" alt="logo"> -->
-        DeliverMe
+      <b-navbar-brand href="/">
+         <img src="https://firebasestorage.googleapis.com/v0/b/deliverme-wit.appspot.com/o/DeliverMeLogo.png?alt=media&token=ca97d768-3902-41e1-9d99-510ab48679a9" height="50" class="d-inline-block align-top" alt="logo">
       </b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
@@ -34,7 +33,6 @@
     <router-view/>
 
 </div>
-
 </template>
 
 <script>
@@ -71,17 +69,17 @@ export default {
   },
   methods: {
     logOut () {
-      firebase.auth().signOut()
-        .then(
-          Vue.toasted.show('You are logged out').goAway(5000)
-        )
+      firebase.auth().signOut().then(() => {
+        this.user = null
+        Vue.toasted.show('You are logged out').goAway(5000)
+        // eslint-disable-next-line handle-callback-err,no-undef
+      }).catch(err => console.log(error))
     }
   }
 }
 </script>
 
 <style>
-
   body {
     background-size: cover;
     background-repeat: no-repeat;
@@ -99,4 +97,13 @@ export default {
     color: #2c3e50;
   }
 
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+  }
 </style>
