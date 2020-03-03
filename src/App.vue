@@ -83,6 +83,7 @@ export default {
   body {
     background-size: cover;
     background-repeat: no-repeat;
+    background-color: #feffff;
     bottom: 0;
     right: 0;
     margin:0;

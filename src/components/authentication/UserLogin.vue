@@ -1,5 +1,12 @@
 <template>
   <div>
+    <b-card-group id="userLoginCard">
+      <b-card
+        header="Sign In"
+        header-tag="header"
+        footer="*Note - "
+        footer-tag="footer"
+      >
     <h2 class="vue-title">Sign In</h2>
 
     <div id="firebaseui-container">
@@ -9,7 +16,8 @@
     </div>
 
     <button class="btn btn-primary btn1" ><router-link to="/driverlogin">Log in as driver</router-link></button>
-
+      </b-card>
+    </b-card-group>
   </div>
 </template>
 
@@ -39,10 +47,15 @@ export default {
 
 <style>
   .vue-title {
-    margin-top: 100px;
+    margin-top: 30px;
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;
+  }
+
+  #userLoginCard {
+    width: 40%;
+    margin: 100px auto;
   }
 
   .firebaseui-idp-icon {

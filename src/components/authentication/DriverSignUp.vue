@@ -15,37 +15,32 @@
 
               <form @submit.prevent="submit">
 
-                <div v-show="step === 1">
                   <div class="form-group" :class="{ 'form-group--error': $v.fname.$error }">
                     <label class="form-control-label" name="fname">First Name</label>
                     <input class="form__input" type="text" v-model.trim="fname"/>
+                    <div class="error" v-if="!$v.fname.required">First Name is Required</div>
                   </div>
-                  <div class="error" v-if="!$v.fname.required">First Name is Required</div>
 
                   <div class="form-group" :class="{ 'form-group--error': $v.lname.$error }">
                     <label class="form-control-label" name="lname">Last Name</label>
                     <input class="form__input" type="text" v-model.trim="lname"/>
+                    <div class="error" v-if="!$v.lname.required">Last Name is Required</div>
                   </div>
-                  <div class="error" v-if="!$v.lname.required">Last Name is Required</div>
 
                   <div class="form-group" :class="{ 'form-group--error': $v.email.$error }">
                     <label class="form-control-label" name="email">Email</label>
                     <input class="form__input" type="text" v-model.trim="email"/>
+                    <div class="error" v-if="!$v.email.required">Email is Required</div>
                   </div>
-                  <div class="error" v-if="!$v.email.required">Email is Required</div>
 
                   <div class="form-group" :class="{ 'form-group--error': $v.password.$error }">
                     <label class="form-control-label" name="password">Password</label>
                     <input class="form__input" type="password" v-model.trim="password"/>
+                    <div class="error" v-if="!$v.password.required">Password is Required</div>
                   </div>
-                  <div class="error" v-if="!$v.password.required">Password is Required</div>
 
                   <label class="signUpLabels">Please note we require proof of a Full Drivers Licence (see note below if you wish to do deliveries by bike) and proof Billing Address</label><br>
-                  <label class="signUpLabels">Click 'Next' below to upload your forms </label><br>
-                  <button class="btn btn-primary btn1" @click.prevent="next()">Next ⇢</button>
-                </div>
 
-                <div v-show="step === 2">
                   <label class="signUpLabels">Please upload a clear image of your forms</label><br>
 
                   <div >
@@ -61,10 +56,6 @@
                     <br>
                     <button class="btn btn-primary btn1" @click="onUpload">Upload</button>
                   </div>
-
-                </div>
-
-                <button class="btn btn-primary btn1" @click.prevent="prev()">Go Back</button><br>
 
                 <p>
                   <button class="btn btn-primary btn1" @click="signUp" type="submit" :disabled="submitStatus === 'PENDING'">Register</button>
@@ -147,12 +138,6 @@ export default {
         }
       )
     },
-    prev () {
-      this.step--
-    },
-    next () {
-      this.step++
-    },
     previewImage (event) {
       this.uploadValue = 0
       this.picture = null
@@ -179,7 +164,7 @@ export default {
 <style scoped>
   #driverCard {
     width: 80%;
-    margin: 30px auto;
+    margin: 100px auto;
   }
   .vue-title {
     margin-top: 30px;
@@ -234,16 +219,22 @@ export default {
     border-color: #3AAFA9;
     background: #3AAFA9;
     color: whitesmoke;
+    border-radius: 1.5rem;
+  }
+  input.form__input {
+    border-radius: 30px;
   }
   .btn-primary {
     background-color: #3AAFA9;
-    border-color: #3AAFA9;
+    border: 2px solid #3AAFA9;
     color: #fff;
+    border-radius: 1.5rem;
   }
   .btn-primary:hover {
     color: #3AAFA9;
     border: 2px solid #3AAFA9;
     background-color: white;
+    border-radius: 1.5rem;
   }
   .navbtn {
     background-color: #3AAFA9;
