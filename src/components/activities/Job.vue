@@ -42,9 +42,15 @@ export default {
   },
   methods: {
     submitJob: function (job) {
-      console.log()
+      if (this.$store.getters['user/user']) {
+        job.usertoken = this.$store.getters['user/user'].uid
+      } else {
+        job.usertoken = 'anon'
+      }
       JobService.postJob(job)
         .then(response => {
+          console.log('submitJob!')
+          console.log('Submitting in submitJob : ' + JSON.stringify(job, null, 5))
           console.log(response)
           console.log(job)
           this.$router.push('/managejobs')

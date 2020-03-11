@@ -26,7 +26,7 @@ export default {
     return Api().put(`/job/${id}/update`, job,
       { headers: {'Content-type': 'application/json'} })
   },
-  fetchJobsByDriver (driverID) {
-    return Api().get(`/drivers/${driverID}/jobs`)
+  fetchUserJobs (userId) {
+    return Api().get(`/donations/${userId}`)
   }
 }

@@ -9,10 +9,9 @@
       </b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item to="/">Home</b-nav-item>
-          <b-nav-item to="/jobs">All Deliveries</b-nav-item>
-          <b-nav-item to="/managejobs">My Deliveries</b-nav-item>
-          <b-nav-item to="/job">Request Delivery</b-nav-item>
+          <b-nav-item v-if="user" to="/jobs">All Deliveries</b-nav-item>
+          <b-nav-item v-if="user" to="/managejobs">My Deliveries</b-nav-item>
+          <b-nav-item v-if="user" to="/job">Request Delivery</b-nav-item>
         </b-navbar-nav>
 
         <!-- user nav -->
@@ -83,7 +82,6 @@ export default {
   body {
     background-size: cover;
     background-repeat: no-repeat;
-    background-color: #feffff;
     bottom: 0;
     right: 0;
     margin:0;

@@ -141,28 +141,34 @@ export default {
   },
   methods: {
     submit () {
+      console.log('submit!')
+      this.$v.$touch()
       this.submitStatus = 'PENDING'
-      setTimeout(() => {
-        this.submitStatus = 'OK'
-        var job = {
-          name: this.name,
-          deliveryRequest: this.deliveryRequest,
-          place: this.place,
-          deliveryFee: this.deliveryFee,
-          dropOffLocation: this.dropOffLocation,
-          dropOffTime: this.dropOffTime
-        }
-        this.job = job
-        console.log('Submitting in JobForm : ' + JSON.stringify(this.job, null, 5))
-        this.$emit('job-is-created-updated', this.job)
-      }, 500)
+      if (this.$v.$invalid) {
+        this.submitStatus = 'ERROR'
+      } else {
+        setTimeout(() => {
+          this.submitStatus = 'OK'
+          var job = {
+            name: this.name,
+            deliveryRequest: this.deliveryRequest,
+            place: this.place,
+            deliveryFee: this.deliveryFee,
+            dropOffLocation: this.dropOffLocation,
+            dropOffTime: this.dropOffTime
+          }
+          this.job = job
+          console.log('Submitting in JobForm : ' + JSON.stringify(this.job, null, 5))
+          this.$emit('job-is-created-updated', this.job)
+        }, 500)
+      }
+    },
+    prev () {
+      this.step--
+    },
+    next () {
+      this.step++
     }
-  },
-  prev () {
-    this.step--
-  },
-  next () {
-    this.step++
   }
 }
 </script>

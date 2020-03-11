@@ -35,7 +35,8 @@ export default {
           deliveryFee: 'Delivery Fee',
           dropOffLocation: 'Drop Off Location',
           dropOffTime: 'Drop Off Time'
-        }
+        },
+        uniqueKey: '_id'
       }
     }
   },
@@ -55,9 +56,8 @@ export default {
   },
   methods: {
     loadJobs: function () {
-      JobService.fetchJobs()
+      JobService.fetchUserJobs(this.$store.getters['user/user'].uid)
         .then(response => {
-          // JSON responses are automatically parsed.
           this.jobs = response.data
           console.log(this.jobs)
         })
