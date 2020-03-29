@@ -1,88 +1,108 @@
 <template>
-  <div class="login">
-    <h2 class="vue-title">Login</h2>
-    <input type="text" v-model="email" placeholder="Email"><br>
-    <input type="password" v-model="password" placeholder="Password"><br>
-    <button @click="login" class="btn btn-primary btn1">Log in</button><br>
-    <span class="backText">Not registered as a driver? Click <router-link to="/RegisterAsDriver">Here</router-link> to register.</span>
+  <div class="hero">
+    <h3 class="vue-title"><i style="padding: 3px"></i>{{messagetitle}}</h3>
+    <div class="container login-form">
+      <form @submit.prevent="submit">
+        <div class="form-content align-center">
+          <div class="column">
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="Email Address*" required="" v-model="email" />
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="Password*" required="" v-model="password" />
+            </div>
+          </div>
+          <button class="btnSubmit" type="submit" :disabled="submitStatus === 'PENDING'">Login</button>
+        </div>
+        <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for logging in!</p>
+        <p class="typo__p" v-if="submitStatus === 'PENDING'">logging in...</p>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
-import firebase from 'firebase'
-import Toasted from 'vue-toasted'
+import AuthService from '../../services/AuthService'
 import Vue from 'vue'
-// eslint-disable-next-line no-undef
-Vue.use(Toasted)
+import VueForm from 'vueform'
+
+Vue.use(VueForm, {
+  inputClasses: {
+    valid: 'form-control-success',
+    invalid: 'form-control-danger'
+  }
+})
+
 export default {
-  name: 'login',
   data () {
     return {
+      messagetitle: 'Login',
       email: '',
-      password: ''
+      password: '',
+      error: '',
+      submitStatus: null
     }
   },
   methods: {
-    login: function () {
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-        (user) => {
-          this.$router.replace('/#/')
-          // eslint-disable-next-line no-undef
-          Vue.toasted.show('You have successfully logged in using the email: ' + this.email).goAway(5000)
-        },
-        (err) => {
-          alert('Oops. ' + err.message)
+    submit () {
+      console.log('submit')
+      // do your submit logic here
+      this.submitStatus = 'PENDING'
+      setTimeout(() => {
+        var credentials = {
+          email: this.email,
+          password: this.password
         }
-      )
+        this.credentials = credentials
+        this.loginDriver(this.credentials)
+      }, 500)
+    },
+    loginDriver: function (credentials) {
+      console.log('LoginDriver')
+      AuthService.login(credentials)
+        .then(response => {
+          // JSON responses are automatically parsed.
+          this.submitStatus = 'OK'
+          console.log(response)
+          this.$store.dispatch('setToken', response.data.token)
+          this.$store.dispatch('setDriver', response.data.driver)
+          this.$router.push('/jobs')
+        })
+        .catch(err => {
+          console.log(err)
+          this.$swal({
+            title: `${err.response.data.message}`,
+            type: 'error',
+            showLoaderOnConfirm: true
+          })
+        })
     }
   }
 }
 </script>
 
-<style scoped>  /* "scoped" attribute limit the CSS to this component only */
-.vue-title {
-  margin-top: 100px;
-  text-align: center;
-  font-size: 45pt;
-  margin-bottom: 10px;
-}
-.login {
-  margin-top: 40px;
-}
-.backText {
-  font-size: 15pt;
-}
-.loginBtn {
-  background-color: #3AAFA9;
-  border-color: #3AAFA9;
-  color: white;
-}
-.loginBtn:hover {
-  color: #3AAFA9;
-  border: 2px solid #3AAFA9;
-  background-color: white;
-}
-input {
-  margin: 10px 0;
-  width: 20%;
-  padding: 15px;
-}
-button {
-  margin-top: 20px;
-  width: 10%;
-  cursor: pointer;
-}
-p {
-  margin-top: 40px;
-  font-size: 13px;
-}
-p a {
-  text-decoration: underline;
-  cursor: pointer;
-}
-span {
-  display: block;
-  margin-top: 20px;
-  font-size: 11px;
-}
+<style scoped>
+  .vue-title {
+    margin-top: 100px;
+    text-align: center;
+    font-size: 30pt;
+    margin-bottom: 10px;
+  }
+  .form-content {
+    padding: 5%;
+    border: 1px solid #ced4da;
+    margin-bottom: 2%;
+  }
+  .form-control {
+    border-radius: 1.5rem;
+  }
+  .btnSubmit {
+    border: none;
+    border-radius: 1.5rem;
+    padding: 1%;
+    width: 20%;
+    cursor: pointer;
+    background: #3AAFA9;
+    color: #fff;
+  }
 </style>

@@ -1,84 +1,61 @@
 <template>
-  <div id="app1" class="hero">
-    <b-card-group id="driverCard">
-      <b-card
-        header="Driver Form"
-        header-tag="header"
-        footer="*Note - If do not have a full licence and wish to sign up doing deliveries by bike please upload proof of address with a valid ID (i.e. Passport or Age Card).
-                You may only delivery small items"
-        footer-tag="footer"
-      >
-        <h3 class="vue-title">Driver Registration</h3>
-        <div class="container mt-3 mt-sm-5">
-          <div class="row justify-content-center">
-            <div class="col-md-6">
+  <div class="hero">
+    <h3 class="vue-title"><i style="padding: 3px"></i>{{messagetitle}}</h3>
+    <div class="container register-form">
+      <form @submit.prevent="submit">
+        <div class="form-content align-center">
+          <div class="column">
+            <div class="form-group">
+              <input type="text" class="form-control" name="fname" placeholder="First Name*" required="" v-model.trim="fname" />
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="lname" placeholder="Last Name*" required="" v-model="lname" />
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" name="email" placeholder="Email Address*" required="" v-model="email" />
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" name="password" placeholder="Password*" required="" v-model="password" />
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" name="passwordconfirm" placeholder="Confirm Password*" required=""
+                     v-model="confirmpassword" />
+            </div>
 
-              <form @submit.prevent="submit">
+            <label class="signUpLabels">Please note we require proof of a Full Drivers Licence (see note below if you wish to do deliveries by bike) and proof Billing Address</label><br>
 
-                  <div class="form-group" :class="{ 'form-group--error': $v.fname.$error }">
-                    <label class="form-control-label" name="fname">First Name</label>
-                    <input class="form__input" type="text" v-model.trim="fname"/>
-                    <div class="error" v-if="!$v.fname.required">First Name is Required</div>
-                  </div>
+            <label class="signUpLabels">Please upload a clear image of your forms</label><br>
 
-                  <div class="form-group" :class="{ 'form-group--error': $v.lname.$error }">
-                    <label class="form-control-label" name="lname">Last Name</label>
-                    <input class="form__input" type="text" v-model.trim="lname"/>
-                    <div class="error" v-if="!$v.lname.required">Last Name is Required</div>
-                  </div>
+            <div >
+              <p>Upload proof of driving licence (Image name format example - YOURFULLNAME_DL and YOURFULLNAME_POA)</p>
+              <input type="file" @change="previewImage" accept="image/*" >
+            </div>
 
-                  <div class="form-group" :class="{ 'form-group--error': $v.email.$error }">
-                    <label class="form-control-label" name="email">Email</label>
-                    <input class="form__input" type="text" v-model.trim="email"/>
-                    <div class="error" v-if="!$v.email.required">Email is Required</div>
-                  </div>
+            <div>
+              <p>Progress: {{uploadValue.toFixed()+"%"}}
+                <progress id="progress" :value="uploadValue" max="100" ></progress></p>
+            </div>
+            <div v-if="imageData!=null">
+              <img class="preview" :src="picture">
+              <br>
+              <button class="btn btn-primary btn1" @click="onUpload">Upload</button>
+            </div>
 
-                  <div class="form-group" :class="{ 'form-group--error': $v.password.$error }">
-                    <label class="form-control-label" name="password">Password</label>
-                    <input class="form__input" type="password" v-model.trim="password"/>
-                    <div class="error" v-if="!$v.password.required">Password is Required</div>
-                  </div>
-
-                  <label class="signUpLabels">Please note we require proof of a Full Drivers Licence (see note below if you wish to do deliveries by bike) and proof Billing Address</label><br>
-
-                  <label class="signUpLabels">Please upload a clear image of your forms</label><br>
-
-                  <div >
-                    <p>Upload proof of driving licence (Image name format example - YOURFULLNAME_DL and YOURFULLNAME_POA)</p>
-                    <input type="file" @change="previewImage" accept="image/*" >
-                  </div>
-                  <div>
-                    <p>Progress: {{uploadValue.toFixed()+"%"}}
-                      <progress id="progress" :value="uploadValue" max="100" ></progress></p>
-                  </div>
-                  <div v-if="imageData!=null">
-                    <img class="preview" :src="picture">
-                    <br>
-                    <button class="btn btn-primary btn1" @click="onUpload">Upload</button>
-                  </div>
-
-                <p>
-                  <button class="btn btn-primary btn1" @click="signUp" type="submit" :disabled="submitStatus === 'PENDING'">Register</button>
-                </p>
-                <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your help!</p>
-                <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Fill in the Form Correctly.</p>
-                <p class="typo__p" v-if="submitStatus === 'PENDING'">adding...</p>
-
-            </form>
-          </div><!-- /col -->
-        </div><!-- /row -->
-     </div><!-- /container -->
-    </b-card>
-  </b-card-group>
+          </div>
+          <button class="btnSubmit" type="submit" :disabled="submitStatus === 'PENDING'">Register</button>
+          <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Check if the passwords match</p>
+          <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for Registering!</p>
+          <p class="typo__p" v-if="submitStatus === 'PENDING'">Pending...</p>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
+import AuthService from '../../services/AuthService'
 import Vue from 'vue'
 import VueForm from 'vueform'
-import { required } from 'vuelidate/lib/validators'
-import {Vuelidate} from 'vuelidate'
-import VueSweetalert from 'vue-sweetalert'
 import firebase from 'firebase'
 
 Vue.use(VueForm, {
@@ -87,56 +64,82 @@ Vue.use(VueForm, {
     invalid: 'form-control-danger'
   }
 })
-Vue.use(Vuelidate)
-Vue.use(VueSweetalert)
+
 export default {
-  name: 'DriverSignUp',
   data () {
     return {
-      step: 1,
+      messagetitle: 'Register',
       fname: '',
       lname: '',
       email: '',
-      fullLicenceUrl: '',
-      billingAddressUrl: '',
       password: '',
+      confirmpassword: '',
+      driver: {},
       submitStatus: null,
       imageData: null,
       picture: null,
       uploadValue: 0
     }
   },
-  validations: {
-    fname: {
-      required
-    },
-    lname: {
-      required
-    },
-    email: {
-      required
-    },
-    password: {
-      required
-    },
-    fullLicenceUrl: {
-      required
-    },
-    billingAddressUrl: {
-      required
-    }
-  },
   methods: {
-    signUp: function (email, password) {
-      firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
-        (driver) => {
-          this.$router.replace('/jobs')
-          Vue.toasted.show('You have successfully signed up using the email: ' + this.email).goAway(5000)
-        },
-        (err) => {
-          alert('Oops. ' + err.message)
+    submit () {
+      console.log('submit!')
+      // do your submit logic here
+      this.submitStatus = 'PENDING'
+      setTimeout(() => {
+        if (this.password === this.confirmpassword) {
+          this.submitStatus = 'OK'
+          var driver = {
+            fname: this.fname,
+            lname: this.lname,
+            email: this.email,
+            password: this.password
+          }
+          this.driver = driver
+          console.log('Submitting in Register : ' + JSON.stringify(this.driver, null, 5))
+          this.submitDriver(this.driver)
+        } else {
+          // alert('Please ensure passwords match')
+          this.submitStatus = 'ERROR'
+          this.$swal({
+            title: 'Please Ensure the passwords both match',
+            type: 'warning',
+            showLoaderOnConfirm: true
+          })
         }
-      )
+      }, 500)
+    },
+    submitDriver: function (driver) {
+      console.log('submitDriver')
+      AuthService.register(driver)
+        .then(response => {
+          // JSON responses are automatically parsed.
+          console.log(response)
+          console.log(driver)
+          this.loginDriver(this.driver)
+        })
+        .catch(err => {
+          this.errors.push(err)
+          console.log(err)
+        })
+    },
+    loginDriver: function (driver) {
+      const credentials = {
+        email: driver.email,
+        password: driver.password
+      }
+      AuthService.login(credentials)
+        .then(response => {
+          // JSON responses are automatically parsed.
+          console.log(response)
+          // localStorage.setItem('token', response.data.token)
+          this.$store.dispatch('setToken', response.data.token)
+          this.$store.dispatch('setDriver', response.data.driver)
+          this.$router.push('/')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     previewImage (event) {
       this.uploadValue = 0
@@ -162,107 +165,29 @@ export default {
 </script>
 
 <style scoped>
-  #driverCard {
-    width: 80%;
-    margin: 100px auto;
-  }
   .vue-title {
-    margin-top: 30px;
+    margin-top: 100px;
     text-align: center;
-    font-size: 45pt;
+    font-size: 30pt;
     margin-bottom: 10px;
   }
-  #app1 {
-    width: 95%;
-    margin: 0 auto;
+  .form-content {
+    padding: 5%;
+    border: 1px solid #ced4da;
+    margin-bottom: 2%;
   }
-  .required-field > label::after {
-    content: '*';
-    color: red;
-    margin-left: 0.25rem;
-  }
-  .item-form .form-control-label.text-left{
-    text-align: left;
-  }
-  label {
-    display: inline-block;
-    width: 540px;
-    text-align: left;
-    font-size: x-large;
-  }
-  .typo__p {
-    width: 540px;
-    font-size: x-large;
-  }
-  .btn1 {
-    width: 300px;
-    font-size: x-large;
-  }
-  p {
-    margin-top: 20px;
-  }
-  input {
-    border: 1px solid silver;
-    border-radius: 4px;
-    background: white;
-    padding: 5px 10px;
-    width: 540px;
-  }
-  .dirty {
-    border-color: #5A5;
-    background: #EFE;
-  }
-  .dirty:focus {
-    outline-color: #8E8;
-  }
-  .error {
-    border-color: #3AAFA9;
-    background: #3AAFA9;
-    color: whitesmoke;
+  .form-control {
     border-radius: 1.5rem;
   }
-  input.form__input {
-    border-radius: 30px;
-  }
-  .btn-primary {
-    background-color: #3AAFA9;
-    border: 2px solid #3AAFA9;
-    color: #fff;
+  .btnSubmit {
+    border: none;
     border-radius: 1.5rem;
-  }
-  .btn-primary:hover {
-    color: #3AAFA9;
-    border: 2px solid #3AAFA9;
-    background-color: white;
-    border-radius: 1.5rem;
-  }
-  .navbtn {
-    background-color: #3AAFA9;
-    border-color: #3AAFA9;
-    color: white;
-  }
-  .navbtn:hover {
-    color: #3AAFA9;
-    border: 2px solid #3AAFA9;
-    background-color: white;
-  }
-  .error:focus {
-    outline-color: #ffa519;
-  }
-  button {
-    margin-top: 10px;
-    width: 10%;
+    padding: 1%;
+    width: 20%;
+    margin-bottom: 10px;
     cursor: pointer;
-    margin-bottom: 50px;
-  }
-  span {
-    display: block;
-    margin-top: 20px;
-    font-size: 11px;
-  }
-  #fullLicence img, billingAddress img {
-    max-width: 100%;
-    max-height: 500px;
+    background: #3AAFA9;
+    color: #fff;
   }
   img.preview {
     width: 200px;

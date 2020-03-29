@@ -2,19 +2,27 @@
   <div class="hero">
 
   <div class="container-fluid home-main">
-    <h2>DeliverMe</h2>
-    <button type="button" class="btn btn-default">View Deliveries</button>
+    <button type="button" class="btn btn-default"><router-link style="color: #3AAFA9" to="/driverlogin">View Deliveries</router-link></button>
   </div>
   <div class="container-fluid home-content1">
     <div class="row">
       <div class="col-md-6 content1-left">
         <h3>What is DeliverMe<span class="blinker">?</span></h3>
-        <p>Write About</p>
+        <p class="homePageText">DeliverMe is an online delivery service that allows user to pick the
+        price of their own delivery, a price they are comfortable paying. The bigger
+        the size of the item typically the higher the cost of the delivery.
+        A driver can accept a delivery request a user makes which the can then discuss
+        further through a phone number</p>
         <!-- <div class="content1-left"></div> -->
       </div>
       <div class="col-md-6 content1-right">
         <h3>Why use DeliverMe<span class="blinker">?</span></h3>
-        <p>Write About</p>
+        <p class="homePageText">DeliverMe is good for the everyday busy person who may not have the time
+        to pick up everyday items such as a small shopping list, laundry or items
+        you set as click and collect. But you may want to be a delivery driver which
+        you can do with car or bike or even just walk to get it for someone to earn
+        some extra cash for possibly Taxi drivers, students or someone who just wants
+        to make some extra money</p>
       </div>
     </div>
   </div>
@@ -108,6 +116,10 @@
   }
   .home-content2 p span{
     font-weight: 500;
+  }
+
+  .homePageText {
+    font-size: 20px;
   }
 
 </style>

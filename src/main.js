@@ -10,10 +10,14 @@ import VueRouter from 'vue-router'
 import firebase from 'firebase'
 import router from './router'
 import {config} from './helpers/firebaseConfig'
+import store from './store/store'
+import {sync} from 'vuex-router-sync'
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(VueSweetalert2)
+
+sync(store, router)
 
 Vue.config.productionTip = false
 
@@ -21,6 +25,8 @@ Vue.config.productionTip = false
 // Firebase login
 new Vue({
   router,
+  store,
+  components: { App },
   created () {
     firebase.initializeApp(config)
     firebase.auth().onAuthStateChanged((user) => {
@@ -58,4 +64,9 @@ firebase.auth().onAuthStateChanged(() => {
       render: h => h(App)
     }).$mount('#app')
   }
+})
+
+/* eslint-disable no-new */
+new Vue({
+
 })

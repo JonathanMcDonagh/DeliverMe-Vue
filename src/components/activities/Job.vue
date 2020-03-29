@@ -5,7 +5,7 @@
       <div class="row justify-content-center">
         <div class="col-md-6">
           <job-form :job="job" jobBtnTitle="Submit Job"
-                         @job-is-created-updated="submitJob"></job-form>
+                    @job-is-created-updated="submitJob"></job-form>
         </div><!-- /col -->
       </div><!-- /row -->
     </div><!-- /container -->
@@ -18,10 +18,8 @@ import VueSweetalert from 'vue-sweetalert'
 import JobService from '../../services/JobService'
 import {Vuelidate} from 'vuelidate'
 import JobForm from '../views/JobForm'
-
 Vue.use(Vuelidate)
 Vue.use(VueSweetalert)
-
 export default {
   data () {
     return {
@@ -42,15 +40,9 @@ export default {
   },
   methods: {
     submitJob: function (job) {
-      if (this.$store.getters['user/user']) {
-        job.usertoken = this.$store.getters['user/user'].uid
-      } else {
-        job.usertoken = 'anon'
-      }
+      console.log()
       JobService.postJob(job)
         .then(response => {
-          console.log('submitJob!')
-          console.log('Submitting in submitJob : ' + JSON.stringify(job, null, 5))
           console.log(response)
           console.log(job)
           this.$router.push('/managejobs')
@@ -76,7 +68,6 @@ export default {
     margin-bottom: 10px;
     color: #17252A;
   }
-
   .form-content {
     padding: 5%;
     border: 1px solid #ced4da;

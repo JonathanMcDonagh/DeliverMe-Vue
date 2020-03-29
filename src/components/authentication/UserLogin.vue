@@ -25,7 +25,7 @@ export default {
     var ui = new firebaseui.auth.AuthUI(firebase.auth())
     var uiConfig = {
       signInFlow: 'popup',
-      signInSuccessUrl: '/',
+      signInSuccessUrl: '/job',
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,

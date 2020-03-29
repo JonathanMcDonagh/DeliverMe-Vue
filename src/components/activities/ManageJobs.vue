@@ -16,7 +16,9 @@ import Vue from 'vue'
 import VueTables from 'vue-tables-2'
 import JobService from '../../services/JobService'
 import firebase from 'firebase'
+
 Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
+
 export default {
   name: 'Jobs',
   data () {
@@ -35,8 +37,7 @@ export default {
           deliveryFee: 'Delivery Fee',
           dropOffLocation: 'Drop Off Location',
           dropOffTime: 'Drop Off Time'
-        },
-        uniqueKey: '_id'
+        }
       }
     }
   },
@@ -56,8 +57,9 @@ export default {
   },
   methods: {
     loadJobs: function () {
-      JobService.fetchUserJobs(this.$store.getters['user/user'].uid)
+      JobService.fetchJobs()
         .then(response => {
+          // JSON responses are automatically parsed.
           this.jobs = response.data
           console.log(this.jobs)
         })

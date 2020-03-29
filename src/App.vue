@@ -5,20 +5,25 @@
     <b-navbar toggleable="md" id="navbg" class="navbar fixed-top navbar navbar-expand-lg navbar-light bg-light">
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
       <b-navbar-brand href="/">
-         <img src="https://firebasestorage.googleapis.com/v0/b/deliverme-wit.appspot.com/o/DeliverMeLogo.png?alt=media&token=ca97d768-3902-41e1-9d99-510ab48679a9" height="50" class="d-inline-block align-top" alt="logo">
+        <img src="https://firebasestorage.googleapis.com/v0/b/deliverme-wit.appspot.com/o/DeliverMeLogo.png?alt=media&token=ca97d768-3902-41e1-9d99-510ab48679a9" height="50" class="d-inline-block align-top" alt="logo">
       </b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item v-if="user" to="/jobs">All Deliveries</b-nav-item>
+          <b-nav-item v-if="$store.state.isDriverLoggedIn" to="/jobs">All Deliveries</b-nav-item>
           <b-nav-item v-if="user" to="/managejobs">My Deliveries</b-nav-item>
           <b-nav-item v-if="user" to="/job">Request Delivery</b-nav-item>
         </b-navbar-nav>
 
         <!-- user nav -->
         <b-navbar-nav class="ml-auto" right v-if="user">
-          <b-nav-item v-show="photo"><img :src="photo" style="width: 25px; height: 25px; border-radius: 50%"></b-nav-item>
-          <b-nav-item v-if="user">{{name || email}}</b-nav-item>
-          <b-nav-item @click="logOut" v-if="user">Log Out</b-nav-item>
+           <b-nav-item v-show="photo"><img :src="photo" style="width: 25px; height: 25px; border-radius: 50%"></b-nav-item>
+           <b-nav-item>{{name || email}}</b-nav-item>
+           <b-nav-item @click="logOut">Log Out</b-nav-item>
+        </b-navbar-nav>
+
+        <b-navbar-nav class="ml-auto" right v-else-if="$store.state.isDriverLoggedIn">
+          <b-nav-item>Welcome {{fname}} {{lname}}</b-nav-item>
+          <b-nav-item @click="logOut">Log Out</b-nav-item>
         </b-navbar-nav>
 
         <!-- user and driver signed out nav -->
@@ -30,31 +35,33 @@
       </b-collapse>
     </b-navbar>
     <router-view/>
-
-</div>
+  </div>
 </template>
 
 <script>
 import Toasted from 'vue-toasted'
 import Vue from 'vue'
 import firebase from 'firebase'
+import AuthService from './services/AuthService'
 
 // eslint-disable-next-line no-undef
 Vue.use(Toasted)
-
 export default {
   name: 'App',
   data () {
     return {
       photo: '',
+      fname: '',
+      lname: '',
       name: '',
-      email: '',
-      password: ''
+      email: ''
     }
+  },
+  mounted () {
+    this.loadDriverDetails()
   },
   created () {
     var loggedUser = this
-
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         loggedUser.user = user
@@ -65,6 +72,8 @@ export default {
       }
     })
     this.user = firebase.auth().currentUser || false
+
+    this.getDriver()
   },
   methods: {
     logOut () {
@@ -73,6 +82,27 @@ export default {
         Vue.toasted.show('You are logged out').goAway(5000)
         // eslint-disable-next-line handle-callback-err,no-undef
       }).catch(err => console.log(error))
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setDriver', null)
+      window.location.reload()
+      this.$router.push('/')
+    },
+    getDriver: function () {
+      AuthService.getOneDriver(this.$router.params)
+        .then(response => {
+          this.temp = response.data
+          this.driver = this.temp[0]
+          this.childDataLoaded = true
+          this.fname = this.driver.fname
+        })
+        .catch(error => {
+          this.errors.push(error)
+          console.log(error)
+        })
+    },
+    loadDriverDetails () {
+      this.fname = this.$store.state.driver.fname
+      this.lname = this.$store.state.driver.lname
     }
   }
 }
@@ -95,7 +125,6 @@ export default {
     text-align: center;
     color: #2c3e50;
   }
-
   .footer {
     position: fixed;
     left: 0;

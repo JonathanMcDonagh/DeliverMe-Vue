@@ -43,18 +43,12 @@ let router = new Router({
     {
       path: '/RegisterAsDriver',
       name: 'DriverSignUp',
-      component: DriverSignUp,
-      meta: {
-        guest: true
-      }
+      component: DriverSignUp
     },
     {
       path: '/driverlogin',
       name: 'DriverLogin',
-      component: DriverLogin,
-      meta: {
-        guest: true
-      }
+      component: DriverLogin
     },
     { path: '/login',
       name: 'Auth',
