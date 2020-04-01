@@ -1,25 +1,34 @@
 <template>
   <div class="hero">
-    <h3 class="vue-title"><i style="padding: 3px"></i>{{messagetitle}}</h3>
+    <h3 class="vue-title">Driver Sign Up</h3>
     <div class="container register-form">
       <form @submit.prevent="submit">
         <div class="form-content align-center">
           <div class="column">
             <div class="form-group">
               <input type="text" class="form-control" name="fname" placeholder="First Name*" required="" v-model.trim="fname" />
+              <div class="error" v-if="!$v.fname.required">First Name is Required</div>
             </div>
+
             <div class="form-group">
               <input type="text" class="form-control" name="lname" placeholder="Last Name*" required="" v-model="lname" />
+              <div class="error" v-if="!$v.lname.required">Last Name is Required</div>
             </div>
+
             <div class="form-group">
               <input type="email" class="form-control" name="email" placeholder="Email Address*" required="" v-model="email" />
+              <div class="error" v-if="!$v.email.required">Email is Required</div>
             </div>
+
             <div class="form-group">
               <input type="password" class="form-control" name="password" placeholder="Password*" required="" v-model="password" />
+              <div class="error" v-if="!$v.password.required">Password is Required</div>
             </div>
+
             <div class="form-group">
               <input type="password" class="form-control" name="passwordconfirm" placeholder="Confirm Password*" required=""
                      v-model="confirmpassword" />
+              <div class="error" v-if="!$v.confirmpassword.required">Confirm Password is Required</div>
             </div>
 
             <label class="signUpLabels">Please note we require proof of a Full Drivers Licence (see note below if you wish to do deliveries by bike) and proof Billing Address</label><br>
@@ -30,19 +39,18 @@
               <p>Upload proof of driving licence (Image name format example - YOURFULLNAME_DL and YOURFULLNAME_POA)</p>
               <input type="file" @change="previewImage" accept="image/*" >
             </div>
-
             <div>
               <p>Progress: {{uploadValue.toFixed()+"%"}}
                 <progress id="progress" :value="uploadValue" max="100" ></progress></p>
+              <div class="error" v-if="!$v.required">Please upload your form to display register button</div>
             </div>
             <div v-if="imageData!=null">
               <img class="preview" :src="picture">
               <br>
-              <button class="btn btn-primary btn1" @click="onUpload">Upload</button>
+              <button class="btnSubmit" type="submit" @click="onUpload" :disabled="submitStatus === 'PENDING'">Register</button>
             </div>
 
           </div>
-          <button class="btnSubmit" type="submit" :disabled="submitStatus === 'PENDING'">Register</button>
           <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Check if the passwords match</p>
           <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for Registering!</p>
           <p class="typo__p" v-if="submitStatus === 'PENDING'">Pending...</p>
@@ -57,6 +65,7 @@ import AuthService from '../../services/AuthService'
 import Vue from 'vue'
 import VueForm from 'vueform'
 import firebase from 'firebase'
+import { required } from 'vuelidate/lib/validators'
 
 Vue.use(VueForm, {
   inputClasses: {
@@ -79,6 +88,23 @@ export default {
       imageData: null,
       picture: null,
       uploadValue: 0
+    }
+  },
+  validations: {
+    fname: {
+      required
+    },
+    lname: {
+      required
+    },
+    email: {
+      required
+    },
+    password: {
+      required
+    },
+    confirmpassword: {
+      required
     }
   },
   methods: {
@@ -135,7 +161,8 @@ export default {
           // localStorage.setItem('token', response.data.token)
           this.$store.dispatch('setToken', response.data.token)
           this.$store.dispatch('setDriver', response.data.driver)
-          this.$router.push('/')
+          // window.location.reload()
+          // this.$router.push('/')
         })
         .catch(err => {
           console.log(err)
@@ -194,5 +221,12 @@ export default {
   }
   .signUpLabels {
     text-align: center;
+  }
+  .error {
+    border-color: #3AAFA9;
+    background: #3AAFA9;
+    color: whitesmoke;
+    border-radius: 1.5rem;
+    margin-top:0;
   }
 </style>

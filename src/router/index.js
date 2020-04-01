@@ -8,6 +8,10 @@ import DriverSignUp from '../components/authentication/DriverSignUp'
 import Auth from '../components/authentication/UserLogin'
 import DriverLogin from '../components/authentication/DriverLogin'
 import ManageJobs from '../components/activities/ManageJobs'
+import Map from '../components/views/Map'
+import AdminLogin from '../components/authentication/AdminLogin'
+import UserJobs from '../components/activities/UserJobs'
+import ManageDrivers from '../components/activities/ManageDrivers'
 
 Vue.use(Router)
 
@@ -28,6 +32,16 @@ let router = new Router({
       path: '/managejobs',
       name: 'ManageJobs',
       component: ManageJobs
+    },
+    {
+      path: '/managedrivers',
+      name: 'ManageDrivers',
+      component: ManageDrivers
+    },
+    {
+      path: '/myjobs',
+      name: 'UserJobs',
+      component: UserJobs
     },
     {
       path: '/job',
@@ -53,6 +67,14 @@ let router = new Router({
     { path: '/login',
       name: 'Auth',
       component: Auth
+    },
+    { path: '/admin',
+      name: 'AdminLogin',
+      component: AdminLogin
+    },
+    { path: '/map',
+      name: 'Map',
+      component: Map
     }
   ]
 })

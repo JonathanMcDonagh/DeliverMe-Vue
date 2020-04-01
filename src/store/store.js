@@ -21,6 +21,17 @@ const store = new Vuex.Store({
         state.isDriverLoggedIn = false
       }
     },
+    setAdminToken (state, token) {
+      state.token = token
+      if (token) {
+        state.isAdminLoggedIn = true
+      } else {
+        state.isAdminLoggedIn = false
+      }
+    },
+    setAdmin (state, admin) {
+      state.admin = admin
+    },
     setDriver (state, driver) {
       state.driver = driver
     }
@@ -31,6 +42,12 @@ const store = new Vuex.Store({
     },
     setDriver ({commit}, driver) {
       commit('setDriver', driver)
+    },
+    setAdminToken ({commit}, token) {
+      commit('setAdminToken', token)
+    },
+    setAdmin ({commit}, admin) {
+      commit('setAdmin', admin)
     }
   }
 })

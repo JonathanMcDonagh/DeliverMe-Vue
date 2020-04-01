@@ -26,7 +26,7 @@ export default {
     return Api().put(`/job/${id}/update`, job,
       { headers: {'Content-type': 'application/json'} })
   },
-  fetchUserJobs (userId) {
-    return Api().get(`/donations/${userId}`)
+  fetchUserJobs (usertoken) {
+    return Api().get(`/jobs/${usertoken}`)
   }
 }

@@ -2,7 +2,7 @@
   <div class="hero">
 
   <div class="container-fluid home-main">
-    <button type="button" class="btn btn-default"><router-link style="color: #3AAFA9" to="/driverlogin">View Deliveries</router-link></button>
+    <button type="button" class="btn btn-default"><router-link style="color: #3AAFA9" to="/jobs">View Deliveries</router-link></button>
   </div>
   <div class="container-fluid home-content1">
     <div class="row">

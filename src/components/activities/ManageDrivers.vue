@@ -2,10 +2,12 @@
   <div class="hero">
     <h4 class="vue-title">{{messagetitle}}</h4>
     <div id="app1">
-      <v-client-table :columns="columns" :data="jobs" :options="options">
+      <v-client-table :columns="columns" :data="drivers" :options="options">
         <!-- User -->
-        <a slot="edit" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editJob(props.row._id)"></a>
-        <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
+       <!--
+        <a slot="edit" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editDriver(props.row._id)"></a>
+        -->
+        <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteDriver(props.row._id)"></a>
       </v-client-table>
     </div>
   </div>
@@ -14,28 +16,25 @@
 <script>
 import Vue from 'vue'
 import VueTables from 'vue-tables-2'
-import JobService from '../../services/JobService'
+import DriverService from '../../services/DriverService'
 
 Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
 
 export default {
-  name: 'Jobs',
+  name: 'drivers',
   data () {
     return {
-      messagetitle: ' Manage Deliveries ',
-      jobs: [],
+      messagetitle: ' Manage Drivers ',
+      drivers: [],
       props: ['_id'],
       errors: [],
-      columns: ['name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'edit', 'delete'],
+      columns: ['fname', 'lname', 'email', 'delete'],
       options: {
         perPage: 8,
         headings: {
-          name: 'Name',
-          deliveryRequest: 'Delivery Request',
-          place: 'Collection Place',
-          deliveryFee: 'Delivery Fee',
-          dropOffLocation: 'Drop Off Location',
-          dropOffTime: 'Drop Off Time'
+          fname: 'First Name',
+          lname: 'Last Name',
+          email: 'Email'
         },
         uniqueKey: '_id'
       }
@@ -48,32 +47,31 @@ export default {
   },
   // Fetches Items when the component is created.
   created () {
-    this.loadJobs()
+    this.loadDrivers()
     this.$store.dispatch('setUser')
     let user = this.$store.getters.getUser
     console.log(user) // this works!!!
     this.$set(this.user, 'uid', user.uid)
   },
   methods: {
-    loadJobs: function () {
-
-      JobService.fetchJobs()
+    loadDrivers: function () {
+      DriverService.fetchDrivers()
         .then(response => {
           // JSON responses are automatically parsed.
-          this.jobs = response.data
-          console.log(this.jobs)
+          this.drivers = response.data
+          console.log(this.drivers)
         })
         .catch(error => {
           this.errors.push(error)
           console.log(error)
         })
     },
-    editJob: function (id) {
+    editDriver: function (id) {
       this.$router.params = id
       this.$router.push('edit')
       console.log(this.$router.params)
     },
-    deleteJob: function (id) {
+    deleteDriver: function (id) {
       this.$swal({
         title: 'Are you sure?',
         text: 'You can\'t undo this action',
@@ -87,14 +85,14 @@ export default {
         console.log('SWAL Result : ' + result)
         if (result === true) {
           // JobService.deleteJob(this.$store.getters['user/user'].uid, id)
-          JobService.deleteJob(id)
+          DriverService.deleteDriver(id)
             .then(response => {
               // JSON responses are automatically parsed.
               this.message = response.data
               console.log(this.message)
-              this.loadJobs()
+              this.loadDrivers()
               // Vue.nextTick(() => this.$refs.vuetable.refresh())
-              this.$swal('Deleted', 'You successfully deleted this job ' + JSON.stringify(response.data, null, 5), 'success')
+              this.$swal('Deleted', 'You successfully deleted this driver ' + JSON.stringify(response.data, null, 5), 'success')
             })
             .catch(error => {
               this.$swal('ERROR', 'Something went wrong trying to Delete ' + error, 'error')
@@ -102,7 +100,7 @@ export default {
               console.log(error)
             })
         } else {
-          this.$swal('Cancelled', 'Your job is still there!', 'info')
+          this.$swal('Cancelled', 'Your driver is still there!', 'info')
         }
       })
     }

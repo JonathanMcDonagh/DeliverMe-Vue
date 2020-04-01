@@ -8,25 +8,26 @@
         <img src="https://firebasestorage.googleapis.com/v0/b/deliverme-wit.appspot.com/o/DeliverMeLogo.png?alt=media&token=ca97d768-3902-41e1-9d99-510ab48679a9" height="50" class="d-inline-block align-top" alt="logo">
       </b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
-        <b-navbar-nav>
+        <b-navbar-nav v-if="user || $store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn">
+          <b-nav-item v-if="user || $store.state.isDriverLoggedIn" to="/">Home</b-nav-item>
           <b-nav-item v-if="$store.state.isDriverLoggedIn" to="/jobs">All Deliveries</b-nav-item>
-          <b-nav-item v-if="user" to="/managejobs">My Deliveries</b-nav-item>
+          <b-nav-item v-if="user" to="/myjobs">My Deliveries</b-nav-item>
           <b-nav-item v-if="user" to="/job">Request Delivery</b-nav-item>
+          <b-nav-item v-if="user" to="/map">Map</b-nav-item>
+
+          <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/jobs">All Deliveries List</b-nav-item>
+          <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/managejobs">Manage Deliveries List</b-nav-item>
+          <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/managedrivers">Manage Drivers List</b-nav-item>
         </b-navbar-nav>
 
         <!-- user nav -->
-        <b-navbar-nav class="ml-auto" right v-if="user">
-           <b-nav-item v-show="photo"><img :src="photo" style="width: 25px; height: 25px; border-radius: 50%"></b-nav-item>
-           <b-nav-item>{{name || email}}</b-nav-item>
-           <b-nav-item @click="logOut">Log Out</b-nav-item>
+        <b-navbar-nav class="ml-auto" right v-if="user || $store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn">
+          <b-nav-item v-show="photo"><img :src="photo" style="width: 25px; height: 25px; border-radius: 50%"></b-nav-item>
+          <b-nav-item>Welcome {{name || fname || adminEmail }}</b-nav-item>
+          <b-nav-item v-if="user || $store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" @click="logOut">Log Out</b-nav-item>
         </b-navbar-nav>
 
-        <b-navbar-nav class="ml-auto" right v-else-if="$store.state.isDriverLoggedIn">
-          <b-nav-item>Welcome {{fname}} {{lname}}</b-nav-item>
-          <b-nav-item @click="logOut">Log Out</b-nav-item>
-        </b-navbar-nav>
-
-        <!-- user and driver signed out nav -->
+        <!-- user, driver and admin signed out nav -->
         <b-navbar-nav class="ml-auto" right v-else>
           <b-nav-item to="/login">Login</b-nav-item>
           <b-nav-item to="/RegisterAsDriver">Register As Driver</b-nav-item>
@@ -35,6 +36,7 @@
       </b-collapse>
     </b-navbar>
     <router-view/>
+    <sitefooter></sitefooter>
   </div>
 </template>
 
@@ -43,6 +45,7 @@ import Toasted from 'vue-toasted'
 import Vue from 'vue'
 import firebase from 'firebase'
 import AuthService from './services/AuthService'
+import Footer from './components/views/Footer.vue'
 
 // eslint-disable-next-line no-undef
 Vue.use(Toasted)
@@ -54,11 +57,13 @@ export default {
       fname: '',
       lname: '',
       name: '',
-      email: ''
+      email: '',
+      driverEmail: '',
+      adminEmail: ''
     }
   },
-  mounted () {
-    this.loadDriverDetails()
+  components: {
+    'sitefooter': Footer
   },
   created () {
     var loggedUser = this
@@ -73,6 +78,8 @@ export default {
     })
     this.user = firebase.auth().currentUser || false
 
+    this.loadDriverDetails()
+    this.loadAdminDetails()
     this.getDriver()
   },
   methods: {
@@ -84,6 +91,8 @@ export default {
       }).catch(err => console.log(error))
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setDriver', null)
+      this.$store.dispatch('setAdminToken', null)
+      this.$store.dispatch('setAdmin', null)
       window.location.reload()
       this.$router.push('/')
     },
@@ -103,6 +112,10 @@ export default {
     loadDriverDetails () {
       this.fname = this.$store.state.driver.fname
       this.lname = this.$store.state.driver.lname
+      this.driverEmail = this.$store.state.driver.email
+    },
+    loadAdminDetails () {
+      this.adminEmail = this.$store.state.driver.email
     }
   }
 }
@@ -133,5 +146,12 @@ export default {
     background-color: red;
     color: white;
     text-align: center;
+  }
+
+  .VueTables__child-row-toggler--closed::before {
+    content: "View Phone Number +";
+  }
+  .VueTables__child-row-toggler--open::before {
+    content: "Hide Phone Number -";
   }
 </style>

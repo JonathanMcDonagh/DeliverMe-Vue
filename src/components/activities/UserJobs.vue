@@ -3,11 +3,8 @@
     <h4 class="vue-title">{{messagetitle}}</h4>
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
-        <!-- Driver -->
-        <a v-if="$store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" slot="child_row" slot-scope="props">
-          <div class="vue-message">This users phone number is: [ {{props.row.phoneNum}} ]</div>
-        </a>
-        <p v-else>Only drivers registered with DeliverMe have this right</p>
+        <a slot="edit" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editJob(props.row._id)"></a>
+        <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
       </v-client-table>
     </div>
   </div>
@@ -26,11 +23,10 @@ export default {
   data () {
     return {
       messagetitle: ' All Jobs ',
-      usertoken: '',
       jobs: [],
       props: ['_id'],
       errors: [],
-      columns: ['name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime'],
+      columns: ['name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'edit', 'delete'],
       options: {
         perPage: 8,
         headings: {
@@ -67,6 +63,9 @@ export default {
     }
   },
   methods: {
+    /*
+  ADD fetch jobs by user token
+   */
     loadJobs: function () {
       JobService.fetchJobs()
         .then(response => {
@@ -79,43 +78,43 @@ export default {
           console.log(error)
         })
     },
-    acceptJob: function () {
+    editJob: function (id) {
+      this.$router.params = id
+      this.$router.push('edit')
+      console.log(this.$router.params)
+    },
+    deleteJob: function (id) {
       this.$swal({
-        title: 'Are you sure you want to accept this job?',
-        text: 'You can\'t undo this action later',
-        type: 'info',
+        title: 'Are you sure?',
+        text: 'You can\'t undo this action',
+        type: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'OK Accept Job',
-        cancelButtonText: 'No Take Me Back',
-        showCloseButton: true
-        // showLoaderOnConfirm: true
+        confirmButtonText: 'OK Delete it',
+        cancelButtonText: 'Cancel',
+        showCloseButton: true,
+        showLoaderOnConfirm: true
       }).then((result) => {
         console.log('SWAL Result : ' + result)
         if (result === true) {
-          JobService()
+          // JobService.deleteJob(this.$store.getters['user/user'].uid, id)
+          JobService.deleteJob(id)
             .then(response => {
               // JSON responses are automatically parsed.
               this.message = response.data
               console.log(this.message)
               this.loadJobs()
               // Vue.nextTick(() => this.$refs.vuetable.refresh())
-              this.$swal('Accepted', 'You successfully accepted this job ')
+              this.$swal('Deleted', 'You successfully deleted this job ' + JSON.stringify(response.data, null, 5), 'success')
             })
             .catch(error => {
-              this.$swal('ERROR', 'Something went wrong trying to accept ' + error, 'error')
+              this.$swal('ERROR', 'Something went wrong trying to Delete ' + error, 'error')
               this.errors.push(error)
               console.log(error)
             })
         } else {
-          console.log('SWAL Else Result : ' + result)
-          this.$swal('Cancelled', 'Item is still there!', 'info')
+          this.$swal('Cancelled', 'Your job is still there!', 'info')
         }
       })
-    },
-    loadDriverDetails () {
-      this.fname = this.$store.state.driver.fname
-      this.lname = this.$store.state.driver.lname
-      this.driverEmail = this.$store.state.driver.email
     }
   }
 }

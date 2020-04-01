@@ -18,8 +18,10 @@ import VueSweetalert from 'vue-sweetalert'
 import JobService from '../../services/JobService'
 import {Vuelidate} from 'vuelidate'
 import JobForm from '../views/JobForm'
+
 Vue.use(Vuelidate)
 Vue.use(VueSweetalert)
+
 export default {
   data () {
     return {
@@ -30,7 +32,8 @@ export default {
         place: '',
         deliveryFee: '',
         dropOffLocation: '',
-        dropOffTime: ''
+        dropOffTime: '',
+        phoneNum: ''
       },
       messagetitle: ' Request Delivery '
     }
@@ -38,13 +41,23 @@ export default {
   components: {
     'job-form': JobForm
   },
+  computed: {
+    user () {
+      return this.$store.getters.getUser
+    }
+  },
   methods: {
     submitJob: function (job) {
-      console.log()
+      if (this.$store.getters['user/user']) {
+        job.usertoken = this.$store.getters['user/user'].uid
+      } else {
+        job.usertoken = 'anon'
+      }
       JobService.postJob(job)
         .then(response => {
+          console.log('submitJob!')
+          console.log('Submitting in submitJob : ' + JSON.stringify(job, null, 5))
           console.log(response)
-          console.log(job)
           this.$router.push('/managejobs')
         })
         .catch(error => {
@@ -68,12 +81,5 @@ export default {
     margin-bottom: 10px;
     color: #17252A;
   }
-  .form-content {
-    padding: 5%;
-    border: 1px solid #ced4da;
-    margin-bottom: 2%;
-  }
-  .form-control {
-    border-radius: 1.5rem;
-  }
+
 </style>

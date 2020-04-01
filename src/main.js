@@ -12,6 +12,7 @@ import router from './router'
 import {config} from './helpers/firebaseConfig'
 import store from './store/store'
 import {sync} from 'vuex-router-sync'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
@@ -20,6 +21,13 @@ Vue.use(VueSweetalert2)
 sync(store, router)
 
 Vue.config.productionTip = false
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyBVY2P4Ozdla2V4bhwo2CQbuTxTFkufsdE',
+    libraries: 'places' // necessary for places input
+  }
+})
 
 /* eslint-disable no-new */
 // Firebase login
@@ -30,11 +38,7 @@ new Vue({
   created () {
     firebase.initializeApp(config)
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.$router.push('/')
-      } else {
-        this.$router.push('/')
-      }
+
     })
   },
   el: '#app',

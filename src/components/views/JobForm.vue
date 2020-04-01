@@ -46,6 +46,13 @@
           <div class="error" v-if="!$v.dropOffTime.minLength">Field must have at least {{$v.dropOffTime.$params.minLength.min}} letters.</div>
         </div>
 
+        <div class="form-group" :class="{ 'form-group--error': $v.phoneNum.$error }">
+          <label class="form__label">Phone Number</label>
+          <input class="form__input" v-model.trim="$v.phoneNum.$model"/>
+          <div class="error" v-if="!$v.phoneNum.required">This field is Required</div>
+          <div class="error" v-if="!$v.phoneNum.minLength">Field must have at least {{$v.phoneNum.$params.minLength.min}} numbers.</div>
+        </div>
+
         <p>
           <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Pay With Cash</button>
         </p>
@@ -54,7 +61,6 @@
       </div>
 
       <div v-show="step === 2">
-
         <button class="btn btn-primary btn1" @click.prevent="prev()">⇠ Go Back</button><br>
         <p>
           <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Request Delivery</button>
@@ -74,13 +80,16 @@ import VueForm from 'vueform'
 import Vuelidate from 'vuelidate'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import firebase from 'firebase'
+
 Vue.use(VueForm, {
   inputClasses: {
     valid: 'form-control-success',
     invalid: 'form-control-danger'
   }
 })
+
 Vue.use(Vuelidate)
+
 export default {
   name: 'FormData',
   props: ['jobBtnTitle', 'job', 'user'],
@@ -94,6 +103,7 @@ export default {
       deliveryFee: this.job.deliveryFee,
       dropOffLocation: this.job.dropOffLocation,
       dropOffTime: this.job.dropOffTime,
+      phoneNum: this.job.phoneNum,
       submitStatus: null
     }
   },
@@ -122,6 +132,10 @@ export default {
     dropOffTime: {
       required,
       minLength: minLength(4)
+    },
+    phoneNum: {
+      required,
+      minLength: minLength(8)
     }
   },
   created () {
@@ -147,7 +161,8 @@ export default {
           place: this.place,
           deliveryFee: this.deliveryFee,
           dropOffLocation: this.dropOffLocation,
-          dropOffTime: this.dropOffTime
+          dropOffTime: this.dropOffTime,
+          phoneNum: this.phoneNum
         }
         this.job = job
         console.log('Submitting in JobForm : ' + JSON.stringify(this.job, null, 5))
@@ -241,6 +256,6 @@ export default {
     margin-bottom: 50px;
   }
   input.form__input {
-    border-radius: 30px;
-  }
+       border-radius: 30px;
+     }
 </style>

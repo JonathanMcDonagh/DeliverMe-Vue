@@ -1,15 +1,23 @@
 <template>
-  <div>
-    <h2 class="vue-title">Sign In</h2>
+  <div class="hero">
+    <h3 class="vue-title">Sign In</h3>
+    <div class="container register-form">
+        <div class="form-content align-center">
+          <div class="column">
+            <div class="form-group">
 
-    <div id="firebaseui-container">
-    <div id="firebaseui-auth-container" data-upgraded=",MaterialButton">
+              <div id="firebaseui-container">
+              <div id="firebaseui-auth-container" data-upgraded=",MaterialButton">
 
+              </div>
+              </div>
+
+              <button class="btn btn-primary btn1" ><router-link to="/driverlogin" class="driverLoginBtn">Log in as driver</router-link></button>
+
+            </div>
+          </div>
+        </div>
     </div>
-    </div>
-
-    <button class="btn btn-primary btn1" ><router-link to="/driverlogin">Log in as driver</router-link></button>
-
   </div>
 </template>
 
@@ -25,7 +33,7 @@ export default {
     var ui = new firebaseui.auth.AuthUI(firebase.auth())
     var uiConfig = {
       signInFlow: 'popup',
-      signInSuccessUrl: '/job',
+      signInSuccessUrl: '/',
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -78,6 +86,14 @@ export default {
     width: 100%;
   }
 
+  #app > div:nth-child(2) > button > a {
+    color: #ffffff;
+  }
+
+  #app > div:nth-child(2) > button > a:hover {
+    color: #3AAFA9;
+  }
+
   .btn-primary {
     background-color: #3AAFA9;
     border-color: #3AAFA9;
@@ -103,6 +119,16 @@ export default {
     width: 10%;
     cursor: pointer;
     margin-bottom: 50px;
+  }
+
+  .form-content {
+    padding: 5%;
+    border: 1px solid #ced4da;
+    margin-bottom: 2%;
+  }
+
+  .form-control {
+    border-radius: 1.5rem;
   }
 
   @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);

@@ -1,6 +1,6 @@
 <template>
   <div class="hero">
-    <h3 class="vue-title">Driver Login</h3>
+    <h3 class="vue-title">Admin Login</h3>
     <div class="container login-form">
       <form @submit.prevent="submit">
         <div class="form-content align-center">
@@ -49,25 +49,25 @@ export default {
       // do your submit logic here
       this.submitStatus = 'PENDING'
       setTimeout(() => {
-        var credentials = {
+        var adminCredentials = {
           email: this.email,
           password: this.password
         }
-        this.credentials = credentials
-        this.loginDriver(this.credentials)
+        this.adminCredentials = adminCredentials
+        this.loginAdmin(this.adminCredentials)
       }, 500)
     },
-    loginDriver: function (credentials) {
-      console.log('LoginDriver')
-      AuthService.driverLogin(credentials)
+    loginAdmin: function (adminCredentials) {
+      console.log('LoginAdmin')
+      AuthService.adminLogin(adminCredentials)
         .then(response => {
           // JSON responses are automatically parsed.
           this.submitStatus = 'OK'
           console.log(response)
-          this.$store.dispatch('setToken', response.data.token)
-          this.$store.dispatch('setDriver', response.data.driver)
+          this.$store.dispatch('setAdminToken', response.data.token)
+          this.$store.dispatch('setAdmin', response.data.admin)
           window.location.reload()
-          this.$router.push('/jobs')
+          this.$router.push('/')
         })
         .catch(err => {
           console.log(err)
