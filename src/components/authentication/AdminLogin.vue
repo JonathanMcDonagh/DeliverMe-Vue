@@ -49,17 +49,17 @@ export default {
       // do your submit logic here
       this.submitStatus = 'PENDING'
       setTimeout(() => {
-        var adminCredentials = {
+        var credentials = {
           email: this.email,
           password: this.password
         }
-        this.adminCredentials = adminCredentials
-        this.loginAdmin(this.adminCredentials)
+        this.credentials = credentials
+        this.loginAdmin(this.credentials)
       }, 500)
     },
-    loginAdmin: function (adminCredentials) {
+    loginAdmin: function (credentials) {
       console.log('LoginAdmin')
-      AuthService.adminLogin(adminCredentials)
+      AuthService.adminLogin(credentials)
         .then(response => {
           // JSON responses are automatically parsed.
           this.submitStatus = 'OK'
