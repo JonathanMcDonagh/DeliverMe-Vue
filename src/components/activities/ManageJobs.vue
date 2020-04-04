@@ -36,27 +36,16 @@ export default {
           deliveryFee: 'Delivery Fee',
           dropOffLocation: 'Drop Off Location',
           dropOffTime: 'Drop Off Time'
-        },
-        uniqueKey: '_id'
+        }
       }
-    }
-  },
-  computed: {
-    user () {
-      return this.$store.getters.getUser
     }
   },
   // Fetches Items when the component is created.
   created () {
     this.loadJobs()
-    this.$store.dispatch('setUser')
-    let user = this.$store.getters.getUser
-    console.log(user) // this works!!!
-    this.$set(this.user, 'uid', user.uid)
   },
   methods: {
     loadJobs: function () {
-
       JobService.fetchJobs()
         .then(response => {
           // JSON responses are automatically parsed.
@@ -86,8 +75,8 @@ export default {
       }).then((result) => {
         console.log('SWAL Result : ' + result)
         if (result === true) {
-          // JobService.deleteJob(this.$store.getters['user/user'].uid, id)
-          JobService.deleteJob(id)
+          JobService.deleteJob(this.$store.getters['user/user'].uid, id)
+          // JobService.deleteJob(id)
             .then(response => {
               // JSON responses are automatically parsed.
               this.message = response.data

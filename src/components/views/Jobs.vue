@@ -26,7 +26,7 @@ export default {
   data () {
     return {
       messagetitle: ' All Jobs ',
-      usertoken: '',
+      usertoken: 'R8q5iHQcLeQP2CEfBzgZGD9igRS2',
       jobs: [],
       props: ['_id'],
       errors: [],
@@ -60,11 +60,6 @@ export default {
     this.user = firebase.auth().currentUser || false
 
     this.loadDriverDetails()
-  },
-  computed: {
-    user () {
-      return this.$store.getters['user/user']
-    }
   },
   methods: {
     loadJobs: function () {

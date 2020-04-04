@@ -13,9 +13,6 @@ export default {
     return Api().put(`/drivers/${id}/update`, driver,
       { headers: {'Content-type': 'application/json'} })
   },
-  fetchUserJobs (usertoken) {
-    return Api().get(`/jobs/${usertoken}`)
-  },
   deleteDriver (id) {
     return Api().delete(`/drivers/${id}`)
   }

@@ -26,7 +26,7 @@
 
         <div class="form-group" :class="{ 'form-group--error': $v.deliveryFee.$error }">
           <label class="form__label">How much are you willing to pay for delivery? (€)</label>
-          <input class="form__input" v-model.trim="$v.deliveryFee.$model"/>
+          <input class="form__input" type="number" v-model.trim="$v.deliveryFee.$model"/>
           <div class="error" v-if="!$v.deliveryFee.required">This field is Required</div>
           <div class="error" v-if="!$v.deliveryFee.minLength">Field must have at least {{$v.deliveryFee.$params.minLength.min}} letters.</div>
           <div class="error" v-if="!$v.deliveryFee.maxLength">Field must only have {{$v.deliveryFee.$params.maxLength.max}} letters.</div>
@@ -48,7 +48,7 @@
 
         <div class="form-group" :class="{ 'form-group--error': $v.phoneNum.$error }">
           <label class="form__label">Phone Number</label>
-          <input class="form__input" v-model.trim="$v.phoneNum.$model"/>
+          <input class="form__input" type="number" v-model.trim="$v.phoneNum.$model"/>
           <div class="error" v-if="!$v.phoneNum.required">This field is Required</div>
           <div class="error" v-if="!$v.phoneNum.minLength">Field must have at least {{$v.phoneNum.$params.minLength.min}} numbers.</div>
         </div>
@@ -79,7 +79,6 @@ import Vue from 'vue'
 import VueForm from 'vueform'
 import Vuelidate from 'vuelidate'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
-import firebase from 'firebase'
 
 Vue.use(VueForm, {
   inputClasses: {
@@ -92,7 +91,7 @@ Vue.use(Vuelidate)
 
 export default {
   name: 'FormData',
-  props: ['jobBtnTitle', 'job', 'user'],
+  props: ['jobBtnTitle', 'job'],
   data () {
     return {
       step: 1,
@@ -138,43 +137,38 @@ export default {
       minLength: minLength(8)
     }
   },
-  created () {
-    var loggedUser = this
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        loggedUser.user = user
-        loggedUser.name = loggedUser.user.displayName
-        loggedUser.photo = loggedUser.user.photoURL
-        loggedUser.userId = loggedUser.user.uid
-      }
-    })
-    this.user = firebase.auth().currentUser || false
-  },
   methods: {
+    prev () {
+      this.step--
+    },
+    next () {
+      this.step++
+    },
     submit () {
-      this.submitStatus = 'PENDING'
-      setTimeout(() => {
-        this.submitStatus = 'OK'
-        var job = {
-          name: this.name,
-          deliveryRequest: this.deliveryRequest,
-          place: this.place,
-          deliveryFee: this.deliveryFee,
-          dropOffLocation: this.dropOffLocation,
-          dropOffTime: this.dropOffTime,
-          phoneNum: this.phoneNum
-        }
-        this.job = job
-        console.log('Submitting in JobForm : ' + JSON.stringify(this.job, null, 5))
-        this.$emit('job-is-created-updated', this.job)
-      }, 500)
+      console.log('submit!')
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        this.submitStatus = 'ERROR'
+      } else {
+        // do your submit logic here
+        this.submitStatus = 'PENDING'
+        setTimeout(() => {
+          this.submitStatus = 'OK'
+          var job = {
+            name: this.name,
+            deliveryRequest: this.deliveryRequest,
+            place: this.place,
+            deliveryFee: this.deliveryFee,
+            dropOffLocation: this.dropOffLocation,
+            dropOffTime: this.dropOffTime,
+            phoneNum: this.phoneNum
+          }
+          this.job = job
+          console.log('Submitting in JobForm : ' + JSON.stringify(this.job, null, 5))
+          this.$emit('job-is-created-updated', this.job)
+        }, 500)
+      }
     }
-  },
-  prev () {
-    this.step--
-  },
-  next () {
-    this.step++
   }
 }
 </script>

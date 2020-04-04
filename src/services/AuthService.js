@@ -11,7 +11,7 @@ export default {
   getOneDriver (id) {
     return Api().get(`/drivers/${id}`)
   },
-  adminLogin (adminCredentials) {
-    return Api().post('/admins/login', adminCredentials)
+  adminLogin (credentials) {
+    return Api().post('/admins/login', credentials)
   }
 }
