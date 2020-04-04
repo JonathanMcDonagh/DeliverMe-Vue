@@ -27,7 +27,6 @@ export default {
   data () {
     return {
       job: {
-        photo: '',
         name: '',
         deliveryRequest: '',
         place: '',
@@ -35,7 +34,8 @@ export default {
         dropOffLocation: '',
         dropOffTime: '',
         phoneNum: '',
-        usertoken: firebase.auth().currentUser.uid
+        usertoken: firebase.auth().currentUser.uid,
+        profilephoto: firebase.auth().currentUser.photoURL
       },
       messagetitle: ' Request Delivery '
     }
@@ -63,6 +63,7 @@ export default {
   methods: {
     submitJob: function (job) {
       job.usertoken = firebase.auth().currentUser.uid
+      job.profilephoto = firebase.auth().currentUser.photoURL
 
       JobService.postJob(job)
         .then(response => {

@@ -11,7 +11,7 @@ import Map from '../components/views/Map'
 import AdminLogin from '../components/authentication/AdminLogin'
 import UserJobs from '../components/activities/UserJobs'
 import ManageDrivers from '../components/activities/ManageDrivers'
-import Login from '../components/authentication/Login'
+import Login from '../components/authentication/UserLogin'
 
 Vue.use(Router)
 

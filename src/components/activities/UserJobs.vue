@@ -3,6 +3,14 @@
     <h3 class="vue-title">{{messagetitle}}</h3>
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
+        <a slot="user" slot-scope="props">
+          <div v-if="props.row.profilephoto">
+            <img :src="props.row.profilephoto" class="profileImage">
+          </div>
+          <div v-else>
+            <img src="../../assets/blankprofile.png" class="profileImage"><br>
+          </div>
+        </a>
         <!-- User -->
         <a slot="edit" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editJob(props.row._id)"></a>
         <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
@@ -21,12 +29,13 @@ export default {
   data () {
     return {
       messagetitle: ' My Jobs ',
-      columns: ['name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'edit', 'delete'],
+      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'edit', 'delete'],
       jobs: [],
       props: ['_id'],
       errors: [],
       options: {
         headings: {
+          user: 'User',
           name: 'Name',
           deliveryRequest: 'Delivery Request',
           place: 'Collection Place',
@@ -128,6 +137,13 @@ export default {
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;
+  }
+  .profileImage {
+    color: white;
+    font-size: 10px;
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 50px;
   }
 
 </style>

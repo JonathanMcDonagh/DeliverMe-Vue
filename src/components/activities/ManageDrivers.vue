@@ -3,10 +3,6 @@
     <h4 class="vue-title">{{messagetitle}}</h4>
     <div id="app1">
       <v-client-table :columns="columns" :data="drivers" :options="options">
-        <!-- User -->
-       <!--
-        <a slot="edit" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editDriver(props.row._id)"></a>
-        -->
         <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteDriver(props.row._id)"></a>
       </v-client-table>
     </div>

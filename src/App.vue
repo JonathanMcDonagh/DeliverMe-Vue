@@ -17,7 +17,6 @@
           <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/jobs">All Deliveries List</b-nav-item>
           <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/managejobs">Manage Deliveries List</b-nav-item>
           <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/managedrivers">Manage Drivers List</b-nav-item>
-          <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/manageusers">Manage Users List</b-nav-item>
         </b-navbar-nav>
 
         <!-- user nav -->

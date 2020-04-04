@@ -105,6 +105,7 @@ export default {
       dropOffTime: this.job.dropOffTime,
       phoneNum: this.job.phoneNum,
       usertoken: firebase.auth().currentUser.uid,
+      profilephoto: firebase.auth().currentUser.photoURL,
       submitStatus: null
     }
   },
@@ -177,7 +178,8 @@ export default {
             dropOffLocation: this.dropOffLocation,
             dropOffTime: this.dropOffTime,
             phoneNum: this.phoneNum,
-            usertoken: firebase.auth().currentUser.uid
+            usertoken: firebase.auth().currentUser.uid,
+            profilephoto: firebase.auth().currentUser.photoURL
           }
           this.job = job
           console.log('Submitting in JobForm : ' + JSON.stringify(this.job, null, 5))

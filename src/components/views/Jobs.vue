@@ -3,6 +3,14 @@
     <h4 class="vue-title">{{messagetitle}}</h4>
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
+        <a slot="user" slot-scope="props">
+          <div v-if="props.row.profilephoto">
+            <img :src="props.row.profilephoto" class="profileImage">
+          </div>
+          <div v-else>
+            <img src="../../assets/blankprofile.png" class="profileImage"><br>
+          </div>
+        </a>
         <!-- Driver -->
         <a v-if="$store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" slot="child_row" slot-scope="props">
           <div class="vue-message">This users phone number is: [ {{props.row.phoneNum}} ]</div>
@@ -26,11 +34,10 @@ export default {
   data () {
     return {
       messagetitle: ' All Jobs ',
-      usertoken: 'R8q5iHQcLeQP2CEfBzgZGD9igRS2',
       jobs: [],
       props: ['_id'],
       errors: [],
-      columns: ['name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime'],
+      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime'],
       options: {
         perPage: 8,
         headings: {
@@ -131,6 +138,14 @@ export default {
     text-align: left;
     font-size: 17px;
     margin-left: 30px;
+  }
+
+  .profileImage {
+    color: white;
+    font-size: 10px;
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 50px;
   }
 
 </style>

@@ -11,13 +11,10 @@ const config = {
 }
 
 const firebaseAuth = {
-  context: null,
-  uiConfig: null,
-  ui: null,
-
   init (context) {
     this.context = context
 
+    // Sign in options
     firebase.initializeApp(config)
     this.uiConfig = {
       signInSuccessUrl: '/',
@@ -25,26 +22,15 @@ const firebaseAuth = {
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
         firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        firebase.auth.PhoneAuthProvider.PROVIDER_ID
       ]
     }
     this.ui = new firebaseui.auth.AuthUI(firebase.auth())
-
-    firebase.auth().onAuthStateChanged((user) => {
-      this.context.$store.dispatch('user/setCurrentUser')
-
-      let requireAuth = this.context.$route.matched.some(record => record.meta.requireAuth)
-      let guestOnly = this.context.$route.matched.some(record => record.meta.guestOnly)
-
-      if (requireAuth && !user) this.context.$router.push('/login')
-      else if (guestOnly && user) this.context.$router.push('/myjobs')
-    })
   },
-  authForm (container) {
+  // form for the UserLogin.vue file
+  firebaseAuthForm (container) {
     this.ui.start(container, this.uiConfig)
-  },
-  user () {
-    return this.context ? firebase.auth().currentUser : null
   }
 }
 
