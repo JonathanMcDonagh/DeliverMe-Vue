@@ -79,6 +79,7 @@ import Vue from 'vue'
 import VueForm from 'vueform'
 import Vuelidate from 'vuelidate'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+import firebase from 'firebase'
 
 Vue.use(VueForm, {
   inputClasses: {
@@ -105,6 +106,19 @@ export default {
       phoneNum: this.job.phoneNum,
       submitStatus: null
     }
+  },
+  created () {
+    var loggedUser = this
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        loggedUser.user = user
+        loggedUser.email = loggedUser.user.email
+        loggedUser.name = loggedUser.user.displayName
+        loggedUser.photo = loggedUser.user.photoURL
+        loggedUser.userId = loggedUser.user.uid
+      }
+    })
+    this.user = firebase.auth().currentUser || false
   },
   validations: {
     name: {
