@@ -45,9 +45,8 @@
 import Toasted from 'vue-toasted'
 import Vue from 'vue'
 import firebase from 'firebase'
-import AuthService from './services/AuthService'
 import Footer from './components/views/Footer.vue'
-import DriverService from "./services/DriverService";
+import DriverService from './services/DriverService'
 
 // eslint-disable-next-line no-undef
 Vue.use(Toasted)

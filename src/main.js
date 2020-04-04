@@ -32,7 +32,6 @@ Vue.use(VueGoogleMaps, {
   }
 })
 
-
 /* eslint-disable no-new */
 // Firebase login
 new Vue({
