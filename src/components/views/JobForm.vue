@@ -4,10 +4,12 @@
     <div v-show="step === 1">
       <div class="form-content align-center">
 
+        <!-- Displays users image above the form -->
         <div class="form-group">
           <img :src="profilephoto" style="width: 100px; height: 100px; border: 1px solid white; border-radius: 50%" />
         </div>
 
+        <!-- Displays users name which they cannot edit -->
         <div class="form-group"  :class="{ 'form-group--error': $v.name.$error }">
           <label class="form__label">Name</label>
           <input class="form__input" disabled v-model.trim="$v.name.$model"/>
@@ -114,6 +116,7 @@ export default {
       submitStatus: null
     }
   },
+  // Gets user information from Firebase
   created () {
     var loggedUser = this
     firebase.auth().onAuthStateChanged(function (user) {
@@ -127,6 +130,7 @@ export default {
     })
     this.user = firebase.auth().currentUser || false
   },
+  // Form validations
   validations: {
     name: {
       required,
@@ -159,19 +163,21 @@ export default {
     }
   },
   methods: {
+    // Previous Button
     prev () {
       this.step--
     },
+    // Next Button (Online Payment)
     next () {
       this.step++
     },
+    // Submit Job
     submit () {
       console.log('submit!')
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
       } else {
-        // do your submit logic here
         this.submitStatus = 'PENDING'
         setTimeout(() => {
           this.submitStatus = 'OK'

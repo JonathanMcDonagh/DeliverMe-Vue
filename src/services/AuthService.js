@@ -1,16 +1,16 @@
 import Api from '../services/api'
 
 export default {
-  register (driver) {
+  // To add a driver
+  registerDriver (driver) {
     return Api().post('/drivers/register', driver,
       { headers: {'Content-type': 'application/json'} })
   },
+  // Driver login
   driverLogin (credentials) {
     return Api().post('/drivers/login', credentials)
   },
-  getOneDriver (id) {
-    return Api().get(`/drivers/${id}`)
-  },
+  // Admin login
   adminLogin (credentials) {
     return Api().post('/admins/login', credentials)
   }

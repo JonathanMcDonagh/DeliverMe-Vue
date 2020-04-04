@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import firebaseAuth from '../firebaseAuth'
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
@@ -8,21 +7,18 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   // Using plugin to persist the login states after refresh
   plugins: [createPersistedState()],
+  // Set state
   state: {
     token: null,
     driver: null,
-    user: null,
     admin: null,
     isDriverLoggedIn: false,
-    isAdminLoggedIn: false,
-    isUserLoggedIn: false
+    isAdminLoggedIn: false
   },
-  getters: {
-    user: state => state.user,
-    isLogged: state => (state.user !== null)
-  },
+  // Mutations
   mutations: {
-    setToken (state, token) {
+    // Set token for driver
+    setDriverToken (state, token) {
       state.token = token
       if (token) {
         state.isDriverLoggedIn = true
@@ -30,6 +26,7 @@ const store = new Vuex.Store({
         state.isDriverLoggedIn = false
       }
     },
+    // Set token for admin
     setAdminToken (state, token) {
       state.token = token
       if (token) {
@@ -38,42 +35,32 @@ const store = new Vuex.Store({
         state.isAdminLoggedIn = false
       }
     },
-    setUserToken (state, token) {
-      state.token = token
-      if (token) {
-        state.isUserLoggedIn = true
-      } else {
-        state.isUserLoggedIn = false
-      }
-    },
+    // Set admin state
     setAdmin (state, admin) {
       state.admin = admin
     },
+    // Set driver state
     setDriver (state, driver) {
       state.driver = driver
-    },
-    setUser (state, user) {
-      state.user = user
     }
   },
+  // Actions
   actions: {
-    setToken ({commit}, token) {
-      commit('setToken', token)
+    // Set driver token
+    setDriverToken ({commit}, token) {
+      commit('setDriverToken', token)
     },
+    // Set driver
     setDriver ({commit}, driver) {
       commit('setDriver', driver)
     },
+    // Set admin token
     setAdminToken ({commit}, token) {
       commit('setAdminToken', token)
     },
+    // Set Admin
     setAdmin ({commit}, admin) {
       commit('setAdmin', admin)
-    },
-    setUserToken ({commit}, token) {
-      commit('setUserToken', token)
-    },
-    setCurrentUser ({commit}) {
-      commit('setUser', firebaseAuth.user())
     }
   }
 })

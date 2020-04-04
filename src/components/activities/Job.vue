@@ -1,6 +1,6 @@
 <template>
   <div id="app1" class="hero">
-    <h4 class="vue-title">{{messagetitle}}</h4>
+    <h3 class="vue-title">Request Delivery</h3>
     <div class="container mt-3 mt-sm-5">
       <div class="row justify-content-center">
         <div class="col-md-6">
@@ -34,16 +34,17 @@ export default {
         dropOffLocation: '',
         dropOffTime: '',
         phoneNum: '',
-        usertoken: firebase.auth().currentUser.uid,
-        profilephoto: firebase.auth().currentUser.photoURL
-      },
-      messagetitle: ' Request Delivery '
+        usertoken: firebase.auth().currentUser.uid, // gets the user ID to store in the job
+        profilephoto: firebase.auth().currentUser.photoURL // gets the user photo url to store in the job
+      }
     }
   },
+  // Request Job Form
   components: {
     'job-form': JobForm
   },
   created () {
+    // Gets user information from Firebase
     var loggedUser = this
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -55,12 +56,9 @@ export default {
       }
     })
     this.user = firebase.auth().currentUser || false
-
-    this.loadDriverDetails()
-    this.loadAdminDetails()
-    this.getDriver()
   },
   methods: {
+    // Submits Jobs with UID and photoURL
     submitJob: function (job) {
       job.usertoken = firebase.auth().currentUser.uid
       job.profilephoto = firebase.auth().currentUser.photoURL

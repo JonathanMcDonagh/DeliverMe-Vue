@@ -2,6 +2,7 @@
   <div class="hero">
     <h3 class="vue-title">Driver Login</h3>
     <div class="container login-form">
+
       <form @submit.prevent="submit">
         <div class="form-content align-center">
           <div class="column">
@@ -17,6 +18,7 @@
         <p class="typo__p" v-if="submitStatus === 'OK'">Thank you</p>
         <p class="typo__p" v-if="submitStatus === 'PENDING'">logging in...</p>
       </form>
+
     </div>
   </div>
 </template>
@@ -44,9 +46,9 @@ export default {
     }
   },
   methods: {
+    // For driver login
     submit () {
       console.log('submit')
-      // do your submit logic here
       this.submitStatus = 'PENDING'
       setTimeout(() => {
         var credentials = {
@@ -61,10 +63,10 @@ export default {
       console.log('LoginDriver')
       AuthService.driverLogin(credentials)
         .then(response => {
-          // JSON responses are automatically parsed.
           this.submitStatus = 'OK'
           console.log(response)
-          this.$store.dispatch('setToken', response.data.token)
+          // Sets token for driver through store.js
+          this.$store.dispatch('setDriverToken', response.data.token)
           this.$store.dispatch('setDriver', response.data.driver)
           window.location.reload()
           this.$router.push('/jobs')

@@ -41,14 +41,12 @@ let router = new Router({
     {
       path: '/myjobs',
       name: 'UserJobs',
-      component: UserJobs,
-      meta: { requireAuth: true }
+      component: UserJobs
     },
     {
       path: '/job',
       name: 'Job',
-      component: Job,
-      meta: { requireAuth: true }
+      component: Job
     },
     {
       path: '/edit',
@@ -59,24 +57,20 @@ let router = new Router({
     {
       path: '/RegisterAsDriver',
       name: 'DriverSignUp',
-      component: DriverSignUp,
-      meta: { guestOnly: true }
+      component: DriverSignUp
     },
     {
       path: '/driverlogin',
       name: 'DriverLogin',
-      component: DriverLogin,
-      meta: { guestOnly: true }
+      component: DriverLogin
     },
     { path: '/login',
       name: 'Login',
-      component: Login,
-      meta: { guestOnly: true }
+      component: Login
     },
     { path: '/admin',
       name: 'AdminLogin',
-      component: AdminLogin,
-      meta: { guestOnly: true }
+      component: AdminLogin
     },
     { path: '/map',
       name: 'Map',
@@ -86,16 +80,3 @@ let router = new Router({
 })
 
 export default router
-
-/*
-router.beforeEach((to, from, next) => {
-  let currentUser = auth.user()
-  let requireAuth = to.matched.some(record => record.meta.requireAuth)
-  let guestOnly = to.matched.some(record => record.meta.guestOnly)
-
-  if (requireAuth && !currentUser) next('login')
-  else if (guestOnly && currentUser) next('myjobs')
-  else next()
-})
-
- */

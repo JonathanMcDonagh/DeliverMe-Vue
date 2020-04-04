@@ -1,6 +1,6 @@
 <template>
   <div class="hero">
-    <h4 class="vue-title">{{messagetitle}}</h4>
+    <h3 class="vue-title">Manage Drivers</h3>
     <div id="app1">
       <v-client-table :columns="columns" :data="drivers" :options="options">
         <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteDriver(props.row._id)"></a>
@@ -20,7 +20,6 @@ export default {
   name: 'drivers',
   data () {
     return {
-      messagetitle: ' Manage Drivers ',
       drivers: [],
       props: ['_id'],
       errors: [],
@@ -36,7 +35,7 @@ export default {
       }
     }
   },
-  // Fetches Items when the component is created.
+  // Loads drivers
   created () {
     this.loadDrivers()
   },
@@ -53,11 +52,7 @@ export default {
           console.log(error)
         })
     },
-    editDriver: function (id) {
-      this.$router.params = id
-      this.$router.push('edit')
-      console.log(this.$router.params)
-    },
+    // Code to delete the driver based on the driver ID
     deleteDriver: function (id) {
       this.$swal({
         title: 'Are you sure?',
@@ -71,15 +66,12 @@ export default {
       }).then((result) => {
         console.log('SWAL Result : ' + result)
         if (result === true) {
-          // JobService.deleteJob(this.$store.getters['user/user'].uid, id)
           DriverService.deleteDriver(id)
             .then(response => {
-              // JSON responses are automatically parsed.
               this.message = response.data
               console.log(this.message)
               this.loadDrivers()
-              // Vue.nextTick(() => this.$refs.vuetable.refresh())
-              this.$swal('Deleted', 'You successfully deleted this driver ' + JSON.stringify(response.data, null, 5), 'success')
+              this.$swal('Deleted', 'You successfully deleted this driver')
             })
             .catch(error => {
               this.$swal('ERROR', 'Something went wrong trying to Delete ' + error, 'error')

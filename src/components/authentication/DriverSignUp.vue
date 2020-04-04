@@ -2,6 +2,7 @@
   <div class="hero">
     <h3 class="vue-title">Driver Sign Up</h3>
     <div class="container register-form">
+
       <form @submit.prevent="submit">
         <div class="form-content align-center">
           <div class="column">
@@ -56,6 +57,7 @@
           <p class="typo__p" v-if="submitStatus === 'PENDING'">Pending...</p>
         </div>
       </form>
+
     </div>
   </div>
 </template>
@@ -77,7 +79,6 @@ Vue.use(VueForm, {
 export default {
   data () {
     return {
-      messagetitle: 'Register',
       fname: '',
       lname: '',
       email: '',
@@ -110,9 +111,9 @@ export default {
   methods: {
     submit () {
       console.log('submit!')
-      // do your submit logic here
       this.submitStatus = 'PENDING'
       setTimeout(() => {
+        // Checks to see if password is the same as confirm password
         if (this.password === this.confirmpassword) {
           this.submitStatus = 'OK'
           var driver = {
@@ -122,24 +123,23 @@ export default {
             password: this.password
           }
           this.driver = driver
-          console.log('Submitting in Register : ' + JSON.stringify(this.driver, null, 5))
+          console.log('Submitting : ' + JSON.stringify(this.driver, null, 5))
           this.submitDriver(this.driver)
         } else {
-          // alert('Please ensure passwords match')
           this.submitStatus = 'ERROR'
           this.$swal({
-            title: 'Please Ensure the passwords both match',
+            title: 'Please make sure that both passwords both match',
             type: 'warning',
             showLoaderOnConfirm: true
           })
         }
       }, 500)
     },
+    // To add driver
     submitDriver: function (driver) {
       console.log('submitDriver')
-      AuthService.register(driver)
+      AuthService.registerDriver(driver)
         .then(response => {
-          // JSON responses are automatically parsed.
           console.log(response)
           console.log(driver)
           this.loginDriver(this.driver)
@@ -149,6 +149,7 @@ export default {
           console.log(err)
         })
     },
+    // To login driver
     loginDriver: function (driver) {
       const credentials = {
         email: driver.email,
@@ -159,7 +160,7 @@ export default {
           // JSON responses are automatically parsed.
           console.log(response)
           // localStorage.setItem('token', response.data.token)
-          this.$store.dispatch('setToken', response.data.token)
+          this.$store.dispatch('setDriverToken', response.data.token)
           this.$store.dispatch('setDriver', response.data.driver)
           // window.location.reload()
           // this.$router.push('/')
@@ -168,11 +169,13 @@ export default {
           console.log(err)
         })
     },
+    // To preview image user uploaded
     previewImage (event) {
       this.uploadValue = 0
       this.picture = null
       this.imageData = event.target.files[0]
     },
+    // To upload image to firebase
     onUpload () {
       this.picture = null
       const storageRef = firebase.storage().ref(`${this.imageData.name}`).put(this.imageData)

@@ -1,6 +1,6 @@
 <template>
   <div class="hero">
-    <h3 class="vue-title">{{messagetitle}}</h3>
+    <h3 class="vue-title">My Jobs</h3>
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
         <a slot="user" slot-scope="props">
@@ -28,14 +28,13 @@ Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
 export default {
   data () {
     return {
-      messagetitle: ' My Jobs ',
       columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'edit', 'delete'],
       jobs: [],
       props: ['_id'],
       errors: [],
       options: {
         headings: {
-          user: 'User',
+          user: '',
           name: 'Name',
           deliveryRequest: 'Delivery Request',
           place: 'Collection Place',
@@ -49,9 +48,10 @@ export default {
       }
     }
   },
-  // Fetches Jobs when the component is created.
+  // Loads all jobs
   created () {
     this.loadJobs()
+    // Gets user information from Firebase
     var loggedUser = this
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -64,14 +64,17 @@ export default {
     })
     this.user = firebase.auth().currentUser || false
 
+    // Loads driver and admin details
     this.loadDriverDetails()
     this.loadAdminDetails()
     this.getDriver()
   },
   methods: {
+    // Loads jobs by usertoken/userID
     loadJobs: function () {
       JobService.fetchUserJobs(firebase.auth().currentUser.uid)
         .then(response => {
+          // JSON responses are automatically parsed.
           this.jobs = response.data
           console.log(this.jobs)
         })
@@ -80,11 +83,13 @@ export default {
           console.log(error)
         })
     },
+    // To Edit jobs
     editJob: function (id) {
       this.$router.params = id
       this.$router.push('edit')
       console.log(this.$router.params)
     },
+    // To Delete jobs
     deleteJob: function (id) {
       this.$swal({
         title: 'Are you sure?',
@@ -99,13 +104,10 @@ export default {
         console.log('SWAL Result : ' + result)
         if (result === true) {
           JobService.deleteJob(id)
-          // JobService.deleteJob(id)
             .then(response => {
-              // JSON responses are automatically parsed.
               this.message = response.data
               console.log(this.message)
               this.loadJobs()
-              Vue.nextTick(() => this.$refs.vuetable.refresh())
               this.$swal('Deleted', 'You successfully deleted this job')
             })
             .catch(error => {

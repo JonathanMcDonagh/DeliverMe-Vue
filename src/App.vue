@@ -22,7 +22,9 @@
         <!-- user nav -->
         <b-navbar-nav class="ml-auto" right v-if="user|| $store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn">
           <b-nav-item v-show="photo"><img :src="photo" style="width: 25px; height: 25px; border-radius: 50%"></b-nav-item>
-          <b-nav-item>{{name || fname || adminEmail }}</b-nav-item>
+          <b-nav-item v-if="user">{{name}}</b-nav-item>
+          <b-nav-item v-if="$store.state.isDriverLoggedIn">{{fname && lname}}</b-nav-item>
+          <b-nav-item v-if="$store.state.isAdminLoggedIn">{{adminEmail }}</b-nav-item>
           <b-nav-item v-if="user || $store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" @click="logOut">Log Out</b-nav-item>
         </b-navbar-nav>
 
@@ -45,6 +47,7 @@ import Vue from 'vue'
 import firebase from 'firebase'
 import AuthService from './services/AuthService'
 import Footer from './components/views/Footer.vue'
+import DriverService from "./services/DriverService";
 
 // eslint-disable-next-line no-undef
 Vue.use(Toasted)
@@ -91,15 +94,13 @@ export default {
         // eslint-disable-next-line handle-callback-err,no-undef
       }).catch(err => console.log(error))
 
-      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setDriverToken', null)
       this.$store.dispatch('setDriver', null)
       this.$store.dispatch('setAdminToken', null)
       this.$store.dispatch('setAdmin', null)
-      window.location.reload()
-      this.$router.push('/')
     },
     getDriver: function () {
-      AuthService.getOneDriver(this.$router.params)
+      DriverService.fetchDriver(this.$router.params)
         .then(response => {
           this.temp = response.data
           this.driver = this.temp[0]

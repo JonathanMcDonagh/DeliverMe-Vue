@@ -1,6 +1,6 @@
 <template>
   <div id="app1" class="hero">
-    <h3 class="vue-title">{{messagetitle}}</h3>
+    <h3 class="vue-title">Update Item</h3>
     <div class="container mt-3 mt-sm-5">
       <div class="row justify-content-center">
         <div class="col-md-6">
@@ -23,10 +23,10 @@ export default {
     return {
       job: {},
       childDataLoaded: false,
-      temp: {},
-      messagetitle: ' Update Item '
+      temp: {}
     }
   },
+  // Request Job Form
   components: {
     'job-form': JobForm
   },
@@ -34,6 +34,7 @@ export default {
     this.getJob()
   },
   methods: {
+    // To select the job to edit
     getJob: function () {
       JobService.fetchJob(this.$router.params)
         .then(response => {
@@ -47,6 +48,7 @@ export default {
           console.log(error)
         })
     },
+    // To update the job
     updateJob: function (job) {
       console.log('Before PUT ' + JSON.stringify(job, null, 5))
       JobService.putJob(this.$router.params, job)
@@ -55,7 +57,6 @@ export default {
           console.log('AFTER PUT ' + JSON.stringify(job, null, 5))
         })
         .catch(error => {
-          // this.errors.push(error)
           console.log(error)
         })
     }

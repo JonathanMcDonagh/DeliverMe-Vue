@@ -3,6 +3,7 @@
     <h3 class="vue-title">Admin Login</h3>
     <div class="container login-form">
       <form @submit.prevent="submit">
+
         <div class="form-content align-center">
           <div class="column">
             <div class="form-group">
@@ -15,8 +16,9 @@
           <button class="btnSubmit" type="submit" :disabled="submitStatus === 'PENDING'">Login</button>
         </div>
         <p class="typo__p" v-if="submitStatus === 'OK'">Thank you</p>
-        <p class="typo__p" v-if="submitStatus === 'PENDING'">logging in...</p>
+        <p class="typo__p" v-if="submitStatus === 'PENDING'">Logging you in...</p>
       </form>
+
     </div>
   </div>
 </template>
@@ -36,7 +38,6 @@ Vue.use(VueForm, {
 export default {
   data () {
     return {
-      messagetitle: 'Login',
       email: '',
       password: '',
       error: '',
@@ -44,9 +45,9 @@ export default {
     }
   },
   methods: {
+    // For admin login
     submit () {
       console.log('submit')
-      // do your submit logic here
       this.submitStatus = 'PENDING'
       setTimeout(() => {
         var credentials = {
@@ -61,9 +62,9 @@ export default {
       console.log('LoginAdmin')
       AuthService.adminLogin(credentials)
         .then(response => {
-          // JSON responses are automatically parsed.
           this.submitStatus = 'OK'
           console.log(response)
+          // Sets token for admin through store.js
           this.$store.dispatch('setAdminToken', response.data.token)
           this.$store.dispatch('setAdmin', response.data.admin)
           window.location.reload()

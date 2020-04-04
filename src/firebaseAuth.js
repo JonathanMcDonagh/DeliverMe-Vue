@@ -11,7 +11,7 @@ const config = {
 }
 
 const firebaseAuth = {
-  init (context) {
+  initializeFirebaseLogin (context) {
     this.context = context
 
     // Sign in options

@@ -1,17 +1,18 @@
 <template>
   <div class="hero">
-    <h4 class="vue-title">{{messagetitle}}</h4>
+    <h3 class="vue-title">Manage Deliveries</h3>
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
+        <!-- User Image -->
         <a slot="user" slot-scope="props">
           <div v-if="props.row.profilephoto">
             <img :src="props.row.profilephoto" class="profileImage">
           </div>
           <div v-else>
+            <!-- If the users image doesn't exist -->
             <img src="../../assets/blankprofile.png" class="profileImage"><br>
           </div>
         </a>
-        <!-- User -->
         <a slot="edit" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editJob(props.row._id)"></a>
         <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
       </v-client-table>
@@ -30,7 +31,6 @@ export default {
   name: 'Jobs',
   data () {
     return {
-      messagetitle: ' Manage Deliveries ',
       jobs: [],
       props: ['_id'],
       errors: [],
@@ -38,7 +38,7 @@ export default {
       options: {
         perPage: 8,
         headings: {
-          user: 'User',
+          user: '',
           name: 'Name',
           deliveryRequest: 'Delivery Request',
           place: 'Collection Place',
@@ -50,7 +50,7 @@ export default {
       }
     }
   },
-  // Fetches Items when the component is created.
+  // Loads all jobs
   created () {
     this.loadJobs()
   },
@@ -67,10 +67,12 @@ export default {
           console.log(error)
         })
     },
+    // To Edit jobs
     editJob: function (id) {
       this.$router.params = id
       this.$router.push('edit')
     },
+    // To Delete jobs
     deleteJob: function (id) {
       this.$swal({
         title: 'Are you sure?',
@@ -80,17 +82,14 @@ export default {
         confirmButtonText: 'OK Delete It',
         cancelButtonText: 'No Take Me Back',
         showCloseButton: true
-        // showLoaderOnConfirm: true
       }).then((result) => {
         console.log('SWAL Result : ' + result)
         if (result === true) {
           JobService.deleteJob(id)
             .then(response => {
-              // JSON responses are automatically parsed.
               this.message = response.data
               console.log(this.message)
               this.loadJobs()
-              // Vue.nextTick(() => this.$refs.vuetable.refresh())
               this.$swal('Deleted', 'You successfully deleted this job ')
             })
             .catch(error => {
@@ -99,7 +98,6 @@ export default {
               console.log(error)
             })
         } else {
-          console.log('SWAL Else Result : ' + result)
           this.$swal('Cancelled', 'Item is still there!', 'info')
         }
       })

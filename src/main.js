@@ -19,10 +19,12 @@ Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(VueSweetalert2)
 
+// For store
 sync(store, router)
 
 Vue.config.productionTip = false
 
+// Google Maps
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyBVY2P4Ozdla2V4bhwo2CQbuTxTFkufsdE',
@@ -30,19 +32,19 @@ Vue.use(VueGoogleMaps, {
   }
 })
 
+
 /* eslint-disable no-new */
 // Firebase login
 new Vue({
   router,
   store,
   beforeCreate () {
-    firebaseAuth.init(this)
+    firebaseAuth.initializeFirebaseLogin(this)
   },
   components: { App },
   created () {
     firebase.initializeApp(config)
     firebase.auth().onAuthStateChanged((user) => {
-
     })
   },
   el: '#app',
@@ -72,9 +74,4 @@ firebase.auth().onAuthStateChanged(() => {
       render: h => h(App)
     }).$mount('#app')
   }
-})
-
-/* eslint-disable no-new */
-new Vue({
-
 })
