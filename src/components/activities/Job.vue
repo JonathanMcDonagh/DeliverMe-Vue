@@ -18,6 +18,7 @@ import VueSweetalert from 'vue-sweetalert'
 import JobService from '../../services/JobService'
 import {Vuelidate} from 'vuelidate'
 import JobForm from '../views/JobForm'
+import firebase from 'firebase'
 
 Vue.use(Vuelidate)
 Vue.use(VueSweetalert)
@@ -33,7 +34,8 @@ export default {
         deliveryFee: '',
         dropOffLocation: '',
         dropOffTime: '',
-        phoneNum: ''
+        phoneNum: '',
+        usertoken: firebase.auth().currentUser.uid
       },
       messagetitle: ' Request Delivery '
     }
@@ -41,24 +43,32 @@ export default {
   components: {
     'job-form': JobForm
   },
-  computed: {
-    user () {
-      return this.$store.getters.getUser
-    }
+  created () {
+    var loggedUser = this
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        loggedUser.user = user
+        loggedUser.email = loggedUser.user.email
+        loggedUser.name = loggedUser.user.displayName
+        loggedUser.photo = loggedUser.user.photoURL
+        loggedUser.userId = loggedUser.user.uid
+      }
+    })
+    this.user = firebase.auth().currentUser || false
+
+    this.loadDriverDetails()
+    this.loadAdminDetails()
+    this.getDriver()
   },
   methods: {
     submitJob: function (job) {
-      if (this.$store.getters['user/user']) {
-        job.usertoken = this.$store.getters['user/user'].uid
-      } else {
-        job.usertoken = 'anon'
-      }
+      job.usertoken = firebase.auth().currentUser.uid
+
       JobService.postJob(job)
         .then(response => {
           console.log('submitJob!')
           console.log('Submitting in submitJob : ' + JSON.stringify(job, null, 5))
           console.log(response)
-          this.$router.push('/managejobs')
         })
         .catch(error => {
           this.errors.push(error)

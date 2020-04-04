@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import firebaseAuth from '../firebaseAuth'
 import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
@@ -10,7 +11,15 @@ const store = new Vuex.Store({
   state: {
     token: null,
     driver: null,
-    isDriverLoggedIn: false
+    user: null,
+    admin: null,
+    isDriverLoggedIn: false,
+    isAdminLoggedIn: false,
+    isUserLoggedIn: false
+  },
+  getters: {
+    user: state => state.user,
+    isLogged: state => (state.user !== null)
   },
   mutations: {
     setToken (state, token) {
@@ -29,11 +38,22 @@ const store = new Vuex.Store({
         state.isAdminLoggedIn = false
       }
     },
+    setUserToken (state, token) {
+      state.token = token
+      if (token) {
+        state.isUserLoggedIn = true
+      } else {
+        state.isUserLoggedIn = false
+      }
+    },
     setAdmin (state, admin) {
       state.admin = admin
     },
     setDriver (state, driver) {
       state.driver = driver
+    },
+    setUser (state, user) {
+      state.user = user
     }
   },
   actions: {
@@ -48,6 +68,12 @@ const store = new Vuex.Store({
     },
     setAdmin ({commit}, admin) {
       commit('setAdmin', admin)
+    },
+    setUserToken ({commit}, token) {
+      commit('setUserToken', token)
+    },
+    setCurrentUser ({commit}) {
+      commit('setUser', firebaseAuth.user())
     }
   }
 })

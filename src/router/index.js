@@ -5,13 +5,13 @@ import Edit from '../components/activities/Edit'
 import Jobs from '../components/views/Jobs'
 import Job from '../components/activities/Job'
 import DriverSignUp from '../components/authentication/DriverSignUp'
-import Auth from '../components/authentication/UserLogin'
 import DriverLogin from '../components/authentication/DriverLogin'
 import ManageJobs from '../components/activities/ManageJobs'
 import Map from '../components/views/Map'
 import AdminLogin from '../components/authentication/AdminLogin'
 import UserJobs from '../components/activities/UserJobs'
 import ManageDrivers from '../components/activities/ManageDrivers'
+import Login from '../components/authentication/Login'
 
 Vue.use(Router)
 
@@ -41,12 +41,14 @@ let router = new Router({
     {
       path: '/myjobs',
       name: 'UserJobs',
-      component: UserJobs
+      component: UserJobs,
+      meta: { requireAuth: true }
     },
     {
       path: '/job',
       name: 'Job',
-      component: Job
+      component: Job,
+      meta: { requireAuth: true }
     },
     {
       path: '/edit',
@@ -57,20 +59,24 @@ let router = new Router({
     {
       path: '/RegisterAsDriver',
       name: 'DriverSignUp',
-      component: DriverSignUp
+      component: DriverSignUp,
+      meta: { guestOnly: true }
     },
     {
       path: '/driverlogin',
       name: 'DriverLogin',
-      component: DriverLogin
+      component: DriverLogin,
+      meta: { guestOnly: true }
     },
     { path: '/login',
-      name: 'Auth',
-      component: Auth
+      name: 'Login',
+      component: Login,
+      meta: { guestOnly: true }
     },
     { path: '/admin',
       name: 'AdminLogin',
-      component: AdminLogin
+      component: AdminLogin,
+      meta: { guestOnly: true }
     },
     { path: '/map',
       name: 'Map',
@@ -80,3 +86,16 @@ let router = new Router({
 })
 
 export default router
+
+/*
+router.beforeEach((to, from, next) => {
+  let currentUser = auth.user()
+  let requireAuth = to.matched.some(record => record.meta.requireAuth)
+  let guestOnly = to.matched.some(record => record.meta.guestOnly)
+
+  if (requireAuth && !currentUser) next('login')
+  else if (guestOnly && currentUser) next('myjobs')
+  else next()
+})
+
+ */

@@ -87,6 +87,8 @@ export default {
       firebase.auth().signOut().then(() => {
         this.user = null
         Vue.toasted.show('You are logged out').goAway(5000)
+        window.location.reload()
+        this.$router.push('/')
         // eslint-disable-next-line handle-callback-err,no-undef
       }).catch(err => console.log(error))
 

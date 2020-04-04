@@ -5,7 +5,7 @@
       <div class="form-content align-center">
         <div class="form-group"  :class="{ 'form-group--error': $v.name.$error }">
           <label class="form__label">Name</label>
-          <input class="form__input" v-model.trim="$v.name.$model"/>
+          <input class="form__input" disabled v-model.trim="$v.name.$model"/>
           <div class="error" v-if="!$v.name.required">This field is Required</div>
           <div class="error" v-if="!$v.name.minLength">Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
         </div>
@@ -104,6 +104,7 @@ export default {
       dropOffLocation: this.job.dropOffLocation,
       dropOffTime: this.job.dropOffTime,
       phoneNum: this.job.phoneNum,
+      usertoken: firebase.auth().currentUser.uid,
       submitStatus: null
     }
   },
@@ -175,7 +176,8 @@ export default {
             deliveryFee: this.deliveryFee,
             dropOffLocation: this.dropOffLocation,
             dropOffTime: this.dropOffTime,
-            phoneNum: this.phoneNum
+            phoneNum: this.phoneNum,
+            usertoken: firebase.auth().currentUser.uid
           }
           this.job = job
           console.log('Submitting in JobForm : ' + JSON.stringify(this.job, null, 5))

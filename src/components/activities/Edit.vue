@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     getJob: function () {
-      JobService.fetchJobs(this.$router.params)
+      JobService.fetchJob(this.$router.params)
         .then(response => {
           this.temp = response.data
           this.job = this.temp[0]

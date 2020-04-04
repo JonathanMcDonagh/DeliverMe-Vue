@@ -2,45 +2,37 @@
   <div class="hero">
     <h3 class="vue-title">Sign In</h3>
     <div class="container register-form">
-        <div class="form-content align-center">
-          <div class="column">
-            <div class="form-group">
+      <div class="form-content align-center">
+        <div class="column">
+          <div class="form-group">
 
-              <div id="firebaseui-container">
+            <div id="firebaseui-container">
               <div id="firebaseui-auth-container" data-upgraded=",MaterialButton">
 
               </div>
-              </div>
-
-              <button class="btn btn-primary btn1" ><router-link to="/driverlogin" class="driverLoginBtn">Log in as driver</router-link></button>
-
             </div>
+
+            <button class="btn btn-primary btn1" ><router-link to="/driverlogin" class="driverLoginBtn">Log in as driver</router-link></button>
+
           </div>
         </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-
-import firebase from 'firebase'
-import * as firebaseui from 'firebaseui'
+import firebaseAuth from '../../firebaseAuth'
 
 export default {
-  name: 'auth',
-
-  mounted () {
-    var ui = new firebaseui.auth.AuthUI(firebase.auth())
-    var uiConfig = {
-      signInFlow: 'popup',
-      signInSuccessUrl: '/',
-      signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
-      ]
+  name: 'Login',
+  data () {
+    return {
+      messagetitle: ' Log In '
     }
-    ui.start('#firebaseui-auth-container', uiConfig)
+  },
+  mounted () {
+    firebaseAuth.authForm('#firebaseui-auth-container')
   }
 }
 </script>
@@ -52,12 +44,10 @@ export default {
     font-size: 30pt;
     margin-bottom: 10px;
   }
-
   .firebaseui-idp-icon {
     width: 25px;
     height: 25px;
   }
-
   .firebaseui-idp-button {
     direction: ltr;
     font-weight: 500;
@@ -69,7 +59,6 @@ export default {
     text-align: left;
     width: 100%;
   }
-
   .firebaseui-container {
     background-color: #fff;
     box-sizing: border-box;
@@ -85,15 +74,12 @@ export default {
     text-align: left;
     width: 100%;
   }
-
   #app > div:nth-child(2) > button > a {
     color: #ffffff;
   }
-
   #app > div:nth-child(2) > button > a:hover {
     color: #3AAFA9;
   }
-
   .btn-primary {
     background-color: #3AAFA9;
     border-color: #3AAFA9;
@@ -113,20 +99,17 @@ export default {
     border: 2px solid #3AAFA9;
     background-color: white;
   }
-
   button {
     margin-top: 10px;
     width: 10%;
     cursor: pointer;
     margin-bottom: 50px;
   }
-
   .form-content {
     padding: 5%;
     border: 1px solid #ced4da;
     margin-bottom: 2%;
   }
-
   .form-control {
     border-radius: 1.5rem;
   }

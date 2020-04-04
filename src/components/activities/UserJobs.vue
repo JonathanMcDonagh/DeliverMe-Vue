@@ -1,34 +1,31 @@
 <template>
   <div class="hero">
-    <h4 class="vue-title">{{messagetitle}}</h4>
+    <h3 class="vue-title">{{messagetitle}}</h3>
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
+        <!-- User -->
         <a slot="edit" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editJob(props.row._id)"></a>
         <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
       </v-client-table>
     </div>
   </div>
 </template>
-
 <script>
 import Vue from 'vue'
 import VueTables from 'vue-tables-2'
 import JobService from '../../services/JobService'
 import firebase from 'firebase'
-
 Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
 
 export default {
-  name: 'Jobs',
   data () {
     return {
-      messagetitle: ' All Jobs ',
+      messagetitle: ' My Jobs ',
+      columns: ['name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'edit', 'delete'],
       jobs: [],
       props: ['_id'],
       errors: [],
-      columns: ['name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'edit', 'delete'],
       options: {
-        perPage: 8,
         headings: {
           name: 'Name',
           deliveryRequest: 'Delivery Request',
@@ -36,11 +33,20 @@ export default {
           deliveryFee: 'Delivery Fee',
           dropOffLocation: 'Drop Off Location',
           dropOffTime: 'Drop Off Time'
-        }
+        },
+        perPage: 10,
+        sortable: ['deliveryFee'],
+        sortIcon: {
+          base: 'fa fas',
+          is: 'fa-sort',
+          up: 'fa-sort-numeric-asc',
+          down: 'fa-sort-numeric-desc'
+        },
+        uniqueKey: '_id'
       }
     }
   },
-  // Fetches Items when the component is created.
+  // Fetches Jobs when the component is created.
   created () {
     this.loadJobs()
     var loggedUser = this
@@ -56,20 +62,13 @@ export default {
     this.user = firebase.auth().currentUser || false
 
     this.loadDriverDetails()
-  },
-  computed: {
-    user () {
-      return this.$store.getters['user/user']
-    }
+    this.loadAdminDetails()
+    this.getDriver()
   },
   methods: {
-    /*
-  ADD fetch jobs by user token
-   */
     loadJobs: function () {
-      JobService.fetchJobs()
+      JobService.fetchUserJobs(firebase.auth().currentUser.uid)
         .then(response => {
-          // JSON responses are automatically parsed.
           this.jobs = response.data
           console.log(this.jobs)
         })
@@ -96,15 +95,15 @@ export default {
       }).then((result) => {
         console.log('SWAL Result : ' + result)
         if (result === true) {
-          // JobService.deleteJob(this.$store.getters['user/user'].uid, id)
           JobService.deleteJob(id)
+          // JobService.deleteJob(id)
             .then(response => {
               // JSON responses are automatically parsed.
               this.message = response.data
               console.log(this.message)
               this.loadJobs()
-              // Vue.nextTick(() => this.$refs.vuetable.refresh())
-              this.$swal('Deleted', 'You successfully deleted this job ' + JSON.stringify(response.data, null, 5), 'success')
+              Vue.nextTick(() => this.$refs.vuetable.refresh())
+              this.$swal('Deleted', 'You successfully deleted this job')
             })
             .catch(error => {
               this.$swal('ERROR', 'Something went wrong trying to Delete ' + error, 'error')
@@ -119,7 +118,6 @@ export default {
   }
 }
 </script>
-
 <style scoped>
   #app1 {
     width: 80%;
@@ -130,11 +128,6 @@ export default {
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;
-  }
-  .vue-message {
-    text-align: left;
-    font-size: 17px;
-    margin-left: 30px;
   }
 
 </style>
