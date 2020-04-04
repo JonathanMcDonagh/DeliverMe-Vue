@@ -198,11 +198,7 @@ export default {
     font-size: 30pt;
     margin-bottom: 10px;
   }
-  .form-content {
-    padding: 5%;
-    border: 1px solid #ced4da;
-    margin-bottom: 2%;
-  }
+
   .form-control {
     border-radius: 1.5rem;
   }

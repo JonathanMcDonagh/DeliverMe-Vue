@@ -43,14 +43,8 @@ export default {
           dropOffLocation: 'Drop Off Location',
           dropOffTime: 'Drop Off Time'
         },
-        perPage: 10,
+        filterable: [''],
         sortable: ['deliveryFee'],
-        sortIcon: {
-          base: 'fa fas',
-          is: 'fa-sort',
-          up: 'fa-sort-numeric-asc',
-          down: 'fa-sort-numeric-desc'
-        },
         uniqueKey: '_id'
       }
     }

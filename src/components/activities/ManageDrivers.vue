@@ -32,22 +32,13 @@ export default {
           lname: 'Last Name',
           email: 'Email'
         },
-        uniqueKey: '_id'
+        filterable: ['fname', 'lname', 'email']
       }
-    }
-  },
-  computed: {
-    user () {
-      return this.$store.getters.getUser
     }
   },
   // Fetches Items when the component is created.
   created () {
     this.loadDrivers()
-    this.$store.dispatch('setUser')
-    let user = this.$store.getters.getUser
-    console.log(user) // this works!!!
-    this.$set(this.user, 'uid', user.uid)
   },
   methods: {
     loadDrivers: function () {

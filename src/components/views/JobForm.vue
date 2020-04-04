@@ -3,6 +3,11 @@
 
     <div v-show="step === 1">
       <div class="form-content align-center">
+
+        <div class="form-group">
+          <img :src="profilephoto" style="width: 100px; height: 100px; border: 1px solid white; border-radius: 50%" />
+        </div>
+
         <div class="form-group"  :class="{ 'form-group--error': $v.name.$error }">
           <label class="form__label">Name</label>
           <input class="form__input" disabled v-model.trim="$v.name.$model"/>

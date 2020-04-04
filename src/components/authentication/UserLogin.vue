@@ -101,11 +101,7 @@ export default {
     cursor: pointer;
     margin-bottom: 50px;
   }
-  .form-content {
-    padding: 5%;
-    border: 1px solid #ced4da;
-    margin-bottom: 2%;
-  }
+
   .form-control {
     border-radius: 1.5rem;
   }
