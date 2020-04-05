@@ -12,8 +12,10 @@
           </div>
         </a>
         <!-- Driver -->
+        <a slot="jobStatus" slot-scope="props" class="acceptText" @click="acceptJob(props.row._id)">{{props.row.jobStatus}}</a>
+
         <a v-if="$store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" slot="child_row" slot-scope="props">
-          <div class="vue-message">This users phone number is: [ {{props.row.phoneNum}} ]</div>
+          <div class="vue-message">This users phone number is: {{props.row.phoneNum}}</div>
         </a>
         <p v-else>Only drivers registered with DeliverMe have this right</p>
       </v-client-table>
@@ -35,9 +37,10 @@ export default {
     return {
       messagetitle: ' All Jobs ',
       jobs: [],
+      status: '',
       props: ['_id'],
       errors: [],
-      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime'],
+      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus'],
       options: {
         perPage: 8,
         headings: {
@@ -47,7 +50,8 @@ export default {
           place: 'Collection Place',
           deliveryFee: 'Delivery Fee',
           dropOffLocation: 'Drop Off Location',
-          dropOffTime: 'Drop Off Time'
+          dropOffTime: 'Drop Off Time',
+          jobStatus: 'Accepted By'
         },
         filterable: ['name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime']
       }
@@ -83,38 +87,10 @@ export default {
           console.log(error)
         })
     },
-    acceptJob: function () {
-      this.$swal({
-        title: 'Are you sure you want to accept this job?',
-        text: 'You can\'t undo this action later',
-        type: 'info',
-        showCancelButton: true,
-        confirmButtonText: 'OK Accept Job',
-        cancelButtonText: 'No Take Me Back',
-        showCloseButton: true
-        // showLoaderOnConfirm: true
-      }).then((result) => {
-        console.log('SWAL Result : ' + result)
-        if (result === true) {
-          JobService()
-            .then(response => {
-              // JSON responses are automatically parsed.
-              this.message = response.data
-              console.log(this.message)
-              this.loadJobs()
-              // Vue.nextTick(() => this.$refs.vuetable.refresh())
-              this.$swal('Accepted', 'You successfully accepted this job ')
-            })
-            .catch(error => {
-              this.$swal('ERROR', 'Something went wrong trying to accept ' + error, 'error')
-              this.errors.push(error)
-              console.log(error)
-            })
-        } else {
-          console.log('SWAL Else Result : ' + result)
-          this.$swal('Cancelled', 'Item is still there!', 'info')
-        }
-      })
+    // To Accept jobs
+    acceptJob: function (id) {
+      this.$router.params = id
+      this.$router.push('accept')
     },
     loadDriverDetails () {
       this.fname = this.$store.state.driver.fname
@@ -149,5 +125,4 @@ export default {
     border-radius: 50%;
     width: 50px;
   }
-
 </style>

@@ -34,7 +34,7 @@ export default {
       jobs: [],
       props: ['_id'],
       errors: [],
-      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'edit', 'delete'],
+      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus', 'edit', 'delete'],
       options: {
         perPage: 8,
         headings: {
@@ -44,7 +44,8 @@ export default {
           place: 'Collection Place',
           deliveryFee: 'Delivery Fee',
           dropOffLocation: 'Drop Off Location',
-          dropOffTime: 'Drop Off Time'
+          dropOffTime: 'Drop Off Time',
+          jobStatus: 'Job Status'
         },
         filterable: ['name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime']
       }
@@ -120,7 +121,7 @@ export default {
   .profileImage {
     color: white;
     font-size: 10px;
-    border: 1px solid white;
+    border: 1px solid #ffffff;
     border-radius: 50%;
     width: 50px;
   }

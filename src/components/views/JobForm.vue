@@ -6,7 +6,8 @@
 
         <!-- Displays users image above the form -->
         <div class="form-group">
-          <img :src="profilephoto" style="width: 100px; height: 100px; border: 1px solid white; border-radius: 50%" />
+          <img v-if="profilephoto" :src="profilephoto" class="formImage" />
+          <img v-else class="formImage" src="../../assets/blankprofile.png" />
         </div>
 
         <!-- Displays users name which they cannot edit -->
@@ -58,6 +59,13 @@
           <input class="form__input" type="number" v-model.trim="$v.phoneNum.$model"/>
           <div class="error" v-if="!$v.phoneNum.required">This field is Required</div>
           <div class="error" v-if="!$v.phoneNum.minLength">Field must have at least {{$v.phoneNum.$params.minLength.min}} numbers.</div>
+        </div>
+
+        <!-- Displays users name which they cannot edit -->
+        <div class="form-group"  :class="{ 'form-group--error': $v.jobStatus.$error }">
+          <label class="form__label">Job Status</label>
+          <input class="form__input" disabled v-model.trim="$v.jobStatus.$model"/>
+          <div class="error" v-if="!$v.jobStatus.required">This field is Required</div>
         </div>
 
         <p>
@@ -113,6 +121,7 @@ export default {
       phoneNum: this.job.phoneNum,
       usertoken: firebase.auth().currentUser.uid,
       profilephoto: firebase.auth().currentUser.photoURL,
+      jobStatus: this.job.jobStatus,
       submitStatus: null
     }
   },
@@ -160,6 +169,9 @@ export default {
     phoneNum: {
       required,
       minLength: minLength(8)
+    },
+    jobStatus: {
+      required
     }
   },
   methods: {
@@ -190,7 +202,8 @@ export default {
             dropOffTime: this.dropOffTime,
             phoneNum: this.phoneNum,
             usertoken: firebase.auth().currentUser.uid,
-            profilephoto: firebase.auth().currentUser.photoURL
+            profilephoto: firebase.auth().currentUser.photoURL,
+            jobStatus: this.jobStatus
           }
           this.job = job
           console.log('Submitting in JobForm : ' + JSON.stringify(this.job, null, 5))
@@ -281,4 +294,10 @@ export default {
   input.form__input {
        border-radius: 30px;
      }
+  .formImage {
+    width: 100px;
+    height: 100px;
+    border: 1px solid white;
+    border-radius: 50%
+  }
 </style>

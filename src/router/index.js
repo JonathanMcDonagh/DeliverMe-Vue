@@ -12,6 +12,7 @@ import AdminLogin from '../components/authentication/AdminLogin'
 import UserJobs from '../components/activities/UserJobs'
 import ManageDrivers from '../components/activities/ManageDrivers'
 import Login from '../components/authentication/UserLogin'
+import Accept from '../components/activities/Accept'
 
 Vue.use(Router)
 
@@ -52,6 +53,12 @@ let router = new Router({
       path: '/edit',
       name: 'Edit',
       component: Edit,
+      props: true
+    },
+    {
+      path: '/accept',
+      name: 'Accept',
+      component: Accept,
       props: true
     },
     {

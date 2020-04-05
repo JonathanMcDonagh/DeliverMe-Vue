@@ -28,7 +28,7 @@ Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
 export default {
   data () {
     return {
-      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'edit', 'delete'],
+      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus', 'edit', 'delete'],
       jobs: [],
       props: ['_id'],
       errors: [],
@@ -40,7 +40,8 @@ export default {
           place: 'Collection Place',
           deliveryFee: 'Delivery Fee',
           dropOffLocation: 'Drop Off Location',
-          dropOffTime: 'Drop Off Time'
+          dropOffTime: 'Drop Off Time',
+          jobStatus: 'Job Status'
         },
         filterable: [''],
         sortable: ['deliveryFee'],
@@ -63,11 +64,6 @@ export default {
       }
     })
     this.user = firebase.auth().currentUser || false
-
-    // Loads driver and admin details
-    this.loadDriverDetails()
-    this.loadAdminDetails()
-    this.getDriver()
   },
   methods: {
     // Loads jobs by usertoken/userID

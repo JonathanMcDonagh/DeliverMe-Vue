@@ -151,10 +151,10 @@ export default {
   }
 
   .VueTables__child-row-toggler--closed::before {
-    content: "View Phone Number +";
+    content: "View Users Phone Number +";
   }
   .VueTables__child-row-toggler--open::before {
-    content: "Hide Phone Number -";
+    content: "Hide Users Phone Number -";
   }
   @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);
   .mdl-button {
