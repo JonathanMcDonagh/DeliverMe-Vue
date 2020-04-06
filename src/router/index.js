@@ -14,6 +14,7 @@ import ManageDrivers from '../components/activities/ManageDrivers'
 import Login from '../components/authentication/UserLogin'
 import Accept from '../components/activities/Accept'
 import JobDetails from '../components/activities/JobDetails'
+import PageNotFound from '../components/views/PageNotFound'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ let router = new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '*',
+      name: 'PageNotFound',
+      component: PageNotFound
     },
     {
       path: '/jobs',
