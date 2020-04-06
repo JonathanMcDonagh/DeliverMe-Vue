@@ -23,7 +23,7 @@
         <b-navbar-nav class="ml-auto" right v-if="user|| $store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn">
           <b-nav-item v-show="photo"><img :src="photo" style="width: 25px; height: 25px; border-radius: 50%"></b-nav-item>
           <b-nav-item v-if="user">{{name}}</b-nav-item>
-          <b-nav-item v-if="$store.state.isDriverLoggedIn">{{fname && lname}}</b-nav-item>
+          <b-nav-item v-if="$store.state.isDriverLoggedIn">{{fname}}</b-nav-item>
           <b-nav-item v-if="$store.state.isAdminLoggedIn">{{adminEmail }}</b-nav-item>
           <b-nav-item v-if="user || $store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" @click="logOut">Log Out</b-nav-item>
         </b-navbar-nav>
@@ -47,7 +47,6 @@ import Vue from 'vue'
 import firebase from 'firebase'
 import Footer from './components/views/Footer.vue'
 import DriverService from './services/DriverService'
-
 // eslint-disable-next-line no-undef
 Vue.use(Toasted)
 export default {
@@ -78,7 +77,6 @@ export default {
       }
     })
     this.user = firebase.auth().currentUser || false
-
     this.loadDriverDetails()
     this.loadAdminDetails()
     this.getDriver()
@@ -92,7 +90,6 @@ export default {
         this.$router.push('/')
         // eslint-disable-next-line handle-callback-err,no-undef
       }).catch(err => console.log(error))
-
       this.$store.dispatch('setDriverToken', null)
       this.$store.dispatch('setDriver', null)
       this.$store.dispatch('setAdminToken', null)
@@ -149,7 +146,6 @@ export default {
     color: white;
     text-align: center;
   }
-
   .VueTables__child-row-toggler--closed::before {
     content: "View Users Phone Number +";
   }

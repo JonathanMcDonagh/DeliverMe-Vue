@@ -13,6 +13,7 @@ import UserJobs from '../components/activities/UserJobs'
 import ManageDrivers from '../components/activities/ManageDrivers'
 import Login from '../components/authentication/UserLogin'
 import Accept from '../components/activities/Accept'
+import JobDetails from '../components/activities/JobDetails'
 
 Vue.use(Router)
 
@@ -59,6 +60,12 @@ let router = new Router({
       path: '/accept',
       name: 'Accept',
       component: Accept,
+      props: true
+    },
+    {
+      path: '/jobdetails',
+      name: 'JobDetails',
+      component: JobDetails,
       props: true
     },
     {

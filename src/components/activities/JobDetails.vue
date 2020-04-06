@@ -1,12 +1,12 @@
 <template>
   <div id="app1" class="hero">
-    <h3 class="vue-title">Update Item</h3>
+    <h3 class="vue-title">Job Details From Driver</h3>
     <div class="container mt-3 mt-sm-5">
       <div class="row justify-content-center">
         <div class="col-md-6">
           <template v-if="childDataLoaded">
-            <job-form :job="job" jobBtnTitle="Update Job"
-                           @job-is-created-updated="updateJob"></job-form>
+            <accept-form :job="job" jobBtnTitle="Accept Job"
+                           @job-is-created-updated="updateStatus"></accept-form>
           </template>
         </div>
       </div>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import JobForm from '../views/JobForm'
+import AcceptedJobDetailsForm from '../views/JobDetailsForm'
 import JobService from '../../services/JobService'
 
 export default {
@@ -28,7 +28,7 @@ export default {
   },
   // Request Job Form
   components: {
-    'job-form': JobForm
+    'accept-form': AcceptedJobDetailsForm
   },
   created () {
     this.getJob()
@@ -49,7 +49,7 @@ export default {
         })
     },
     // To update the job
-    updateJob: function (job) {
+    updateStatus: function (job) {
       console.log('Before PUT ' + JSON.stringify(job, null, 5))
       JobService.putJob(this.$router.params, job)
         .then(response => {

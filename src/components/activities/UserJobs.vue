@@ -12,6 +12,8 @@
           </div>
         </a>
         <!-- User -->
+        <a slot="jobStatus" slot-scope="props" class="acceptText" @click="viewJob(props.row._id)">{{props.row.jobStatus}}</a>
+        <a slot="completed" slot-scope="props" class="fa fa-check-square-o  fa-2x" @click="completedJob(props.row._id)"></a>
         <a slot="edit" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editJob(props.row._id)"></a>
         <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
       </v-client-table>
@@ -23,12 +25,13 @@ import Vue from 'vue'
 import VueTables from 'vue-tables-2'
 import JobService from '../../services/JobService'
 import firebase from 'firebase'
+
 Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
 
 export default {
   data () {
     return {
-      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus', 'edit', 'delete'],
+      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus', 'completed', 'edit', 'delete'],
       jobs: [],
       props: ['_id'],
       errors: [],
@@ -41,11 +44,10 @@ export default {
           deliveryFee: 'Delivery Fee',
           dropOffLocation: 'Drop Off Location',
           dropOffTime: 'Drop Off Time',
-          jobStatus: 'Job Status'
+          jobStatus: 'Job Status',
+          completed: 'Mark Completed'
         },
-        filterable: [''],
-        sortable: ['deliveryFee'],
-        uniqueKey: '_id'
+        filterable: ['']
       }
     }
   },
@@ -79,20 +81,13 @@ export default {
           console.log(error)
         })
     },
-    // To Edit jobs
-    editJob: function (id) {
-      this.$router.params = id
-      this.$router.push('edit')
-      console.log(this.$router.params)
-    },
-    // To Delete jobs
-    deleteJob: function (id) {
+    completedJob: function (id) {
       this.$swal({
-        title: 'Are you sure?',
+        title: 'Has this job be successfully completed?',
         text: 'You can\'t undo this action',
-        type: 'warning',
+        type: 'success',
         showCancelButton: true,
-        confirmButtonText: 'OK Delete it',
+        confirmButtonText: 'Mark Completed',
         cancelButtonText: 'Cancel',
         showCloseButton: true,
         showLoaderOnConfirm: true
@@ -104,7 +99,48 @@ export default {
               this.message = response.data
               console.log(this.message)
               this.loadJobs()
-              this.$swal('Deleted', 'You successfully deleted this job')
+              this.$swal('Completed', 'This job has been completed')
+            })
+            .catch(error => {
+              this.$swal('ERROR', 'Something went wrong trying to complete ' + error, 'error')
+              this.errors.push(error)
+              console.log(error)
+            })
+        } else {
+          this.$swal('Cancelled', 'Your job is still there!', 'info')
+        }
+      })
+    },
+    // To view accepted job details
+    viewJob: function (id) {
+      this.$router.params = id
+      this.$router.push('jobdetails')
+    },
+    // To Edit jobs
+    editJob: function (id) {
+      this.$router.params = id
+      this.$router.push('edit')
+      console.log(this.$router.params)
+    },
+    // To Delete jobs
+    deleteJob: function (id) {
+      this.$swal({
+        title: 'Are you sure?',
+        text: 'You can\'t undo this action later',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'OK Delete It',
+        cancelButtonText: 'No Take Me Back',
+        showCloseButton: true
+      }).then((result) => {
+        console.log('SWAL Result : ' + result)
+        if (result === true) {
+          JobService.deleteJob(id)
+            .then(response => {
+              this.message = response.data
+              console.log(this.message)
+              this.loadJobs()
+              this.$swal('Deleted', 'You successfully deleted this job ')
             })
             .catch(error => {
               this.$swal('ERROR', 'Something went wrong trying to Delete ' + error, 'error')
@@ -112,7 +148,7 @@ export default {
               console.log(error)
             })
         } else {
-          this.$swal('Cancelled', 'Your job is still there!', 'info')
+          this.$swal('Cancelled', 'Item is still there!', 'info')
         }
       })
     }
@@ -136,6 +172,14 @@ export default {
     border: 1px solid white;
     border-radius: 50%;
     width: 50px;
+  }
+
+  .acceptText {
+    color: #3AAFA9 !important;
+  }
+
+  .acceptText:hover {
+    text-decoration: underline !important;
   }
 
 </style>

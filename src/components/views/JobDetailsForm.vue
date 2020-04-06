@@ -1,32 +1,25 @@
 <template>
   <form @submit.prevent="submit">
 
-      <div class="form-content align-center">
+    <div class="form-content align-center">
 
-        <!-- Displays job status to the users which they cannot edit -->
-        <div class="form-group"  :class="{ 'form-group--error': $v.jobStatus.$error }">
-          <label class="form__label">Job Status (i.e. Accepted By Your Name)</label>
-          <input class="form__input" v-model.trim="$v.jobStatus.$model"/>
-          <div class="error" v-if="!$v.jobStatus.required">This field is Required</div>
-        </div>
+      <!-- Displays job status to the users which they cannot edit -->
+      <div class="form-group"  :class="{ 'form-group--error': $v.jobStatus.$error }">
+        <label class="form__label">Job Status</label>
+        <input class="form__input" disabled v-model.trim="$v.jobStatus.$model"/>
+        <div class="error" v-if="!$v.jobStatus.required">This field is Required</div>
+      </div>
 
-        <!-- Displays job status to the users which they cannot edit -->
-        <div class="form-group"  :class="{ 'form-group--error': $v.jobMessage.$error }">
-          <label class="form__label">Job Message (Leave a note for the user) </label>
-          <input class="form__input" v-model.trim="$v.jobMessage.$model"/>
-          <div class="error" v-if="!$v.jobMessage.required">This field is Required</div>
-        </div>
+      <!-- Displays job status to the users which they cannot edit -->
+      <div class="form-group"  :class="{ 'form-group--error': $v.jobMessage.$error }">
+        <label class="form__label">Job Message</label>
+        <input class="form__input" disabled v-model.trim="$v.jobMessage.$model"/>
+        <div class="error" v-if="!$v.jobMessage.required">This field is Required</div>
+      </div>
 
-        <!-- Displays job status to the users which they cannot edit -->
-        <div class="form-group"  :class="{ 'form-group--error': $v.phoneNum.$error }">
-          <label class="form__label">Users Phone Number</label>
-          <input class="form__input" disabled v-model.trim="$v.phoneNum.$model"/>
-          <div class="error" v-if="!$v.phoneNum.required">This field is Required</div>
-        </div>
-
-        <p>
-          <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Accept Job</button>
-        </p>
+      <p>
+        <button class="btn btn-primary btn1" @click="myJobs">Go Back</button>
+      </p>
 
       <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your help</p>
       <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Fill in the Form Correctly.</p>
@@ -65,9 +58,6 @@ export default {
   },
   // Form validations
   validations: {
-    phoneNum: {
-      required
-    },
     jobStatus: {
       required
     },
@@ -87,7 +77,6 @@ export default {
         setTimeout(() => {
           this.submitStatus = 'OK'
           var job = {
-            phoneNum: this.phoneNum,
             jobStatus: this.jobStatus,
             jobMessage: this.jobMessage
           }
@@ -96,6 +85,10 @@ export default {
           this.$emit('job-is-created-updated', this.job)
         }, 500)
       }
+    },
+    // To redirect user to their jobs
+    myJobs: function () {
+      this.$router.push('myjobs')
     },
     loadDriverDetails () {
       this.fname = this.$store.state.driver.fname
@@ -183,8 +176,8 @@ export default {
     margin-bottom: 50px;
   }
   input.form__input {
-       border-radius: 30px;
-     }
+    border-radius: 30px;
+  }
   .formImage {
     width: 100px;
     height: 100px;

@@ -36,7 +36,8 @@ export default {
         phoneNum: '',
         usertoken: firebase.auth().currentUser.uid, // gets the user ID to store in the job
         profilephoto: firebase.auth().currentUser.photoURL, // gets the user photo url to store in the job
-        jobStatus: 'Not Accepted Yet'
+        jobStatus: 'Not Accepted Yet',
+        jobMessage: 'No Message Yet'
       }
     }
   },

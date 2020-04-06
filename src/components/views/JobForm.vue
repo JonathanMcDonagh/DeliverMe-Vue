@@ -1,7 +1,6 @@
 <template>
   <form @submit.prevent="submit">
 
-    <div v-show="step === 1">
       <div class="form-content align-center">
 
         <!-- Displays users image above the form -->
@@ -61,26 +60,27 @@
           <div class="error" v-if="!$v.phoneNum.minLength">Field must have at least {{$v.phoneNum.$params.minLength.min}} numbers.</div>
         </div>
 
-        <!-- Displays users name which they cannot edit -->
+        <!-- Displays job status which the user cannot edit -->
+        <!--
         <div class="form-group"  :class="{ 'form-group--error': $v.jobStatus.$error }">
           <label class="form__label">Job Status</label>
           <input class="form__input" disabled v-model.trim="$v.jobStatus.$model"/>
           <div class="error" v-if="!$v.jobStatus.required">This field is Required</div>
         </div>
+        -->
+
+         <!-- Displays job message which they cannot edit -->
+        <!--
+        <div class="form-group"  :class="{ 'form-group--error': $v.jobMessage.$error }">
+          <label class="form__label">Job Message</label>
+          <input class="form__input" disabled v-model.trim="$v.jobMessage.$model"/>
+          <div class="error" v-if="!$v.jobMessage.required">This field is Required</div>
+        </div>
+        -->
 
         <p>
-          <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Pay With Cash</button>
+          <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Place Job (Cash)</button>
         </p>
-
-        <button class="btn btn-primary btn1" id="nextBtn" @click.prevent="next()">Go To Online Payment ⇢</button>
-      </div>
-
-      <div v-show="step === 2">
-        <button class="btn btn-primary btn1" @click.prevent="prev()">⇠ Go Back</button><br>
-        <p>
-          <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Request Delivery</button>
-        </p>
-      </div>
 
       <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your request someone will be in contact with you shortly</p>
       <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Fill in the Form Correctly.</p>
@@ -110,7 +110,6 @@ export default {
   props: ['jobBtnTitle', 'job'],
   data () {
     return {
-      step: 1,
       messagetitle: ' Job ',
       name: this.job.name,
       deliveryRequest: this.job.deliveryRequest,
@@ -122,6 +121,7 @@ export default {
       usertoken: firebase.auth().currentUser.uid,
       profilephoto: firebase.auth().currentUser.photoURL,
       jobStatus: this.job.jobStatus,
+      jobMessage: this.job.jobMessage,
       submitStatus: null
     }
   },
@@ -172,17 +172,12 @@ export default {
     },
     jobStatus: {
       required
+    },
+    jobMessage: {
+      required
     }
   },
   methods: {
-    // Previous Button
-    prev () {
-      this.step--
-    },
-    // Next Button (Online Payment)
-    next () {
-      this.step++
-    },
     // Submit Job
     submit () {
       console.log('submit!')
@@ -203,7 +198,8 @@ export default {
             phoneNum: this.phoneNum,
             usertoken: firebase.auth().currentUser.uid,
             profilephoto: firebase.auth().currentUser.photoURL,
-            jobStatus: this.jobStatus
+            jobStatus: this.jobStatus,
+            jobMessage: this.jobMessage
           }
           this.job = job
           console.log('Submitting in JobForm : ' + JSON.stringify(this.job, null, 5))
@@ -219,7 +215,7 @@ export default {
   .vue-title {
     margin-top: 100px;
     text-align: center;
-    font-size: 45pt;
+    font-size: 30pt;
     margin-bottom: 10px;
   }
   #app1 {

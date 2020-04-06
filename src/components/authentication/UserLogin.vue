@@ -12,7 +12,7 @@
               </div>
             </div>
 
-            <button class="btn btn-primary btn1" ><router-link to="/driverlogin" class="driverLoginBtn">Log in as driver</router-link></button>
+            <button class="btn btn-primary btn1" @click="driverLogin" >Log in as driver</button>
 
           </div>
         </div>
@@ -28,6 +28,12 @@ export default {
   name: 'Login',
   mounted () {
     firebaseAuth.firebaseAuthForm('#firebaseui-auth-container')
+  },
+  methods: {
+    // Redirect for driver login
+    driverLogin: function () {
+      this.$router.push('driverlogin')
+    }
   }
 }
 </script>

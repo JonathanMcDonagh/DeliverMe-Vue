@@ -13,7 +13,6 @@
             <img src="../../assets/blankprofile.png" class="profileImage"><br>
           </div>
         </a>
-        <a slot="edit" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editJob(props.row._id)"></a>
         <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
       </v-client-table>
     </div>
@@ -31,10 +30,10 @@ export default {
   name: 'Jobs',
   data () {
     return {
+      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus', 'delete'],
       jobs: [],
       props: ['_id'],
       errors: [],
-      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus', 'edit', 'delete'],
       options: {
         perPage: 8,
         headings: {
@@ -67,11 +66,6 @@ export default {
           this.errors.push(error)
           console.log(error)
         })
-    },
-    // To Edit jobs
-    editJob: function (id) {
-      this.$router.params = id
-      this.$router.push('edit')
     },
     // To Delete jobs
     deleteJob: function (id) {

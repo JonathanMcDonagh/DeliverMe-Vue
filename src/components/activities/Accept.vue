@@ -73,7 +73,7 @@ export default {
   .vue-title {
     margin-top: 100px;
     text-align: center;
-    font-size: 45pt;
+    font-size: 30pt;
     margin-bottom: 10px;
     color: #17252A;
   }

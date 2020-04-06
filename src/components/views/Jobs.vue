@@ -13,11 +13,6 @@
         </a>
         <!-- Driver -->
         <a slot="jobStatus" slot-scope="props" class="acceptText" @click="acceptJob(props.row._id)">{{props.row.jobStatus}}</a>
-
-        <a v-if="$store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" slot="child_row" slot-scope="props">
-          <div class="vue-message">This users phone number is: {{props.row.phoneNum}}</div>
-        </a>
-        <p v-else>Only drivers registered with DeliverMe have this right</p>
       </v-client-table>
     </div>
   </div>
@@ -124,5 +119,13 @@ export default {
     border: 1px solid white;
     border-radius: 50%;
     width: 50px;
+  }
+
+  .acceptText {
+    color: #3AAFA9 !important;
+  }
+
+  .acceptText:hover {
+    text-decoration: underline !important;
   }
 </style>
