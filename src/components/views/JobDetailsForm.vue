@@ -5,7 +5,7 @@
 
       <!-- Displays job status to the users which they cannot edit -->
       <div class="form-group"  :class="{ 'form-group--error': $v.jobStatus.$error }">
-        <label class="form__label">Job Status</label>
+        <label class="form__label">Accepted By</label>
         <input class="form__input" disabled v-model.trim="$v.jobStatus.$model"/>
         <div class="error" v-if="!$v.jobStatus.required">This field is Required</div>
       </div>

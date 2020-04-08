@@ -30,7 +30,8 @@ export default {
         lname: '',
         email: '',
         password: '',
-        confirmpassword: ''
+        confirmpassword: '',
+        uploadURL: ''
       }
     }
   },

@@ -180,6 +180,7 @@ export default {
 
   .acceptText:hover {
     text-decoration: underline !important;
+    cursor: pointer;
   }
 
 </style>

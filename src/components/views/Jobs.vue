@@ -12,7 +12,8 @@
           </div>
         </a>
         <!-- Driver -->
-        <a slot="jobStatus" slot-scope="props" class="acceptText" @click="acceptJob(props.row._id)">{{props.row.jobStatus}}</a>
+        <a slot="jobStatus" v-if="$store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" slot-scope="props" class="acceptText" @click="acceptJob(props.row._id)">{{props.row.jobStatus}}</a>
+        <a slot="jobStatus" v-else slot-scope="props">You need to be a driver to accept jobs</a>
       </v-client-table>
     </div>
   </div>
@@ -127,5 +128,6 @@ export default {
 
   .acceptText:hover {
     text-decoration: underline !important;
+    cursor: pointer;
   }
 </style>

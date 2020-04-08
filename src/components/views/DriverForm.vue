@@ -1,62 +1,62 @@
 <template>
   <div class="hero">
 
-      <form @submit.prevent="submit">
-        <div class="form-content align-center">
-          <div class="column">
-            <div class="form-group">
-              <input type="text" class="form-control" name="fname" placeholder="First Name*" required="" v-model.trim="fname" />
-              <div class="error" v-if="!$v.fname.required">First Name is Required</div>
-            </div>
-
-            <div class="form-group">
-              <input type="text" class="form-control" name="lname" placeholder="Last Name*" required="" v-model="lname" />
-              <div class="error" v-if="!$v.lname.required">Last Name is Required</div>
-            </div>
-
-            <div class="form-group">
-              <input type="email" class="form-control" name="email" placeholder="Email Address*" required="" v-model="email" />
-              <div class="error" v-if="!$v.email.required">Email is Required</div>
-            </div>
-
-            <div class="form-group">
-              <input type="password" class="form-control" name="password" placeholder="Password*" required="" v-model="password" />
-              <div class="error" v-if="!$v.password.required">Password is Required</div>
-            </div>
-
-            <div class="form-group">
-              <input type="password" class="form-control" name="passwordconfirm" placeholder="Confirm Password*" required=""
-                     v-model="confirmpassword" />
-              <div class="error" v-if="!$v.confirmpassword.required">Confirm Password is Required</div>
-            </div>
-
-            <label class="signUpLabels">Please note we require proof of a Full Drivers Licence (see note below if you wish to do deliveries by bike) and proof Billing Address</label><br>
-
-            <label class="signUpLabels">Please upload a clear image of your forms</label><br>
-
-            <div >
-              <p>Upload proof of driving licence (Image name format example - YOURFULLNAME_DL and YOURFULLNAME_POA)</p>
-              <input type="file" @change="previewImage" accept="image/*" >
-            </div>
-            <div>
-              <p>Progress: {{uploadValue.toFixed()+"%"}}
-                <progress id="progress" :value="uploadValue" max="100" ></progress></p>
-              <div class="error" v-if="!$v.required">Please upload your form to display register button</div>
-            </div>
-            <div v-if="imageData!=null">
-              <img class="preview" :src="picture">
-              <br>
-              <button class="btnSubmit" type="submit" @click="onUpload" :disabled="submitStatus === 'PENDING'">Register</button>
-            </div>
-
+    <form @submit.prevent="submit">
+      <div class="form-content align-center">
+        <div class="column">
+          <div class="form-group">
+            <input type="text" class="form-control" name="fname" placeholder="First Name*" required="" v-model.trim="fname" />
+            <div class="error" v-if="!$v.fname.required">First Name is Required</div>
           </div>
-          <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Check if the passwords match</p>
-          <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for Registering!</p>
-          <p class="typo__p" v-if="submitStatus === 'PENDING'">Pending...</p>
-        </div>
-      </form>
 
-    </div>
+          <div class="form-group">
+            <input type="text" class="form-control" name="lname" placeholder="Last Name*" required="" v-model="lname" />
+            <div class="error" v-if="!$v.lname.required">Last Name is Required</div>
+          </div>
+
+          <div class="form-group">
+            <input type="email" class="form-control" name="email" placeholder="Email Address*" required="" v-model="email" />
+            <div class="error" v-if="!$v.email.required">Email is Required</div>
+          </div>
+
+          <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password*" required="" v-model="password" />
+            <div class="error" v-if="!$v.password.required">Password is Required</div>
+          </div>
+
+          <div class="form-group">
+            <input type="password" class="form-control" name="passwordconfirm" placeholder="Confirm Password*" required=""
+                   v-model="confirmpassword" />
+            <div class="error" v-if="!$v.confirmpassword.required">Confirm Password is Required</div>
+          </div>
+
+          <label class="signUpLabels">Please note we require proof of a Full Drivers Licence (see note below if you wish to do deliveries by bike) and proof Billing Address</label><br>
+
+          <label class="signUpLabels">Please upload a clear image of your forms</label><br>
+
+          <div >
+            <p>Upload proof of driving licence (Image name format example - YOURFULLNAME_DL and YOURFULLNAME_POA)</p>
+            <input type="file" name="uploadURL" v-on="uploadURL" @change="previewImage" accept="image/*" >
+          </div>
+          <div>
+            <p>Progress: {{uploadValue.toFixed()+"%"}}
+              <progress id="progress" :value="uploadValue" max="100" ></progress></p>
+            <div class="error" v-if="!$v.required">Please upload your form to display register button</div>
+          </div>
+          <div v-if="imageData!=null">
+            <img class="preview" :src="uploadURL">
+            <br>
+            <button class="btnSubmit" type="submit" @click="onUpload" :disabled="submitStatus === 'PENDING'">Register</button>
+          </div>
+
+        </div>
+        <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Check if the passwords match</p>
+        <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for Registering!</p>
+        <p class="typo__p" v-if="submitStatus === 'PENDING'">Pending...</p>
+      </div>
+    </form>
+
+  </div>
 </template>
 
 <script>
@@ -74,7 +74,6 @@ Vue.use(VueForm, {
 })
 
 Vue.use(Vuelidate)
-
 export default {
   name: 'DriverDate',
   props: ['driverBtnTitle', 'driver'],
@@ -85,10 +84,10 @@ export default {
       email: this.driver.email,
       password: this.driver.password,
       confirmpassword: this.driver.password,
+      uploadURL: this.driver.uploadURL,
       drivers: {},
       submitStatus: null,
       imageData: null,
-      picture: null,
       uploadValue: 0
     }
   },
@@ -125,7 +124,8 @@ export default {
               fname: this.fname,
               lname: this.lname,
               email: this.email,
-              password: this.password
+              password: this.password,
+              uploadURL: this.uploadURL
             }
             this.driver = driver
             console.log('Submitting in DriverForm : ' + JSON.stringify(this.driver, null, 5))
@@ -144,20 +144,18 @@ export default {
     // To preview image user uploaded
     previewImage (event) {
       this.uploadValue = 0
-      this.picture = null
       this.imageData = event.target.files[0]
     },
     // To upload image to firebase
     onUpload () {
-      this.picture = null
       const storageRef = firebase.storage().ref(`${this.imageData.name}`).put(this.imageData)
       storageRef.on(`state_changed`, snapshot => {
         this.uploadValue = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
       }, error => { console.log(error.message) },
       () => {
         this.uploadValue = 100
-        storageRef.snapshot.ref.getDownloadURL().then((url) => {
-          this.picture = url
+        this.uploadURL = storageRef.snapshot.ref.getDownloadURL().then((url) => {
+          this.uploadURL = url
         })
       }
       )
@@ -173,7 +171,6 @@ export default {
     font-size: 30pt;
     margin-bottom: 10px;
   }
-
   .form-control {
     border-radius: 1.5rem;
   }

@@ -8,7 +8,6 @@
       </b-navbar-brand>
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav v-if="user || $store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn">
-          <b-nav-item v-if="user || $store.state.isDriverLoggedIn" to="/">Home</b-nav-item>
           <b-nav-item v-if="$store.state.isDriverLoggedIn" to="/jobs">All Deliveries</b-nav-item>
           <b-nav-item v-if="user" to="/myjobs">My Deliveries</b-nav-item>
           <b-nav-item v-if="user" to="/job">Request Delivery</b-nav-item>
@@ -85,15 +84,14 @@ export default {
     logOut () {
       firebase.auth().signOut().then(() => {
         this.user = null
+        this.$store.dispatch('setDriverToken', null)
+        this.$store.dispatch('setDriver', null)
+        this.$store.dispatch('setAdminToken', null)
+        this.$store.dispatch('setAdmin', null)
         Vue.toasted.show('You are logged out').goAway(5000)
-        window.location.reload()
-        this.$router.push('/')
+        this.$router.push('/login')
         // eslint-disable-next-line handle-callback-err,no-undef
       }).catch(err => console.log(error))
-      this.$store.dispatch('setDriverToken', null)
-      this.$store.dispatch('setDriver', null)
-      this.$store.dispatch('setAdminToken', null)
-      this.$store.dispatch('setAdmin', null)
     },
     getDriver: function () {
       DriverService.fetchDriver(this.$router.params)

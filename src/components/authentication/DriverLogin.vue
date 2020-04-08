@@ -68,8 +68,7 @@ export default {
           // Sets token for driver through store.js
           this.$store.dispatch('setDriverToken', response.data.token)
           this.$store.dispatch('setDriver', response.data.driver)
-          window.location.reload()
-          this.$router.push('/jobs')
+          this.$router.push('/')
         })
         .catch(err => {
           console.log(err)

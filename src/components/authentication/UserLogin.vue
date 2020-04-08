@@ -1,11 +1,21 @@
-<template>
+<template id="userLoginPage">
   <div class="hero">
     <h3 class="vue-title">Sign In</h3>
+
+    <div id="pageContainer">
+
+    <div id="loginImage">
+    </div>
+
+    <div id="loginBtn">
     <div class="container register-form">
       <div class="form-content align-center">
         <div class="column">
           <div class="form-group">
 
+            <h3 class="loginBtnHeader">Welcome Back</h3>
+
+            <img src="../../assets/blankprofile.png" style="margin-top: 50px; width: 75px; height: 75px; border-radius: 50%" />
             <div id="firebaseui-container">
               <div id="firebaseui-auth-container" data-upgraded=",MaterialButton">
 
@@ -18,6 +28,10 @@
         </div>
       </div>
     </div>
+    </div>
+
+    </div>
+
   </div>
 </template>
 
@@ -39,11 +53,13 @@ export default {
 </script>
 
 <style>
+
   .vue-title {
     margin-top: 100px;
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;
+    color: #3AAFA9;
   }
   .firebaseui-idp-icon {
     width: 25px;
@@ -98,7 +114,7 @@ export default {
   .btn-primary:hover {
     color: #3AAFA9;
     border: 2px solid #3AAFA9;
-    background-color: white;
+    background-color: #ffffff;
   }
   button {
     margin-top: 10px;
@@ -109,6 +125,58 @@ export default {
 
   .form-control {
     border-radius: 1.5rem;
+  }
+
+  div#pageContainer {
+    width: 75%;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 500px;
+  }
+
+  div#loginImage {
+    background-image: url("../../assets/loginPageImage.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 60%;
+    float: left;
+    z-index: 1;
+    height: 500px;
+    /* margin-left: 20px; */
+  }
+
+  div#loginBtn {
+    width: 40%;
+    height: 500px;
+    float: right;
+    border: 1px solid #3aafa9;
+    background-color: #def2f1;
+  }
+
+  img.signInImage {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  h1.signInHeader {
+    margin-top: 25px;
+    color: #ffffff;
+  }
+
+  h3.signInText {
+    margin-top: 25px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    color: #ffffff;
+  }
+
+  h3.loginBtnHeader {
+    margin-top: 20px;
+    margin-bottom: -25px;
+    color: #17252a;
   }
 
   @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);

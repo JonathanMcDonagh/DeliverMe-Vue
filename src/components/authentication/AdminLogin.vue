@@ -67,7 +67,6 @@ export default {
           // Sets token for admin through store.js
           this.$store.dispatch('setAdminToken', response.data.token)
           this.$store.dispatch('setAdmin', response.data.admin)
-          window.location.reload()
           this.$router.push('/')
         })
         .catch(err => {
