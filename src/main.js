@@ -14,6 +14,7 @@ import store from './store/store'
 import {sync} from 'vuex-router-sync'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import firebaseAuth from './firebaseAuth'
+import './registerServiceWorker'
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)

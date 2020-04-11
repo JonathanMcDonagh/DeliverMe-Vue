@@ -48,9 +48,7 @@
     "vuex": "^3.1.2",
     "vuex-persistedstate": "^2.7.0",
     "vuex-router-sync": "^5.0.0",
-    "wait-on": "^3.3.0"
-  },
-  "devDependencies": {
+    "wait-on": "^3.3.0",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
@@ -119,8 +117,10 @@
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0",
     "chance": "^1.1.4",
-    "dotenv-webpack": "^1.7.0",
-    "vue-sweetalert2": "^2.1.5"
+    "dotenv-webpack": "^1.7.0"
+  },
+  "devDependencies": {
+
   },
   "engines": {
     "node": ">= 6.0.0",
