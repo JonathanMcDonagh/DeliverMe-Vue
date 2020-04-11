@@ -2,34 +2,18 @@
   <div class="hero">
     <h3 class="vue-title">Sign In</h3>
 
-    <div id="pageContainer">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 align-center">
 
-    <div id="loginImage">
-    </div>
-
-    <div id="loginBtn">
-    <div class="container register-form">
-      <div class="form-content align-center">
-        <div class="column">
-          <div class="form-group">
-
-            <h3 class="loginBtnHeader">Welcome Back</h3>
-
-            <img src="../../assets/blankprofile.png" style="margin-top: 50px; width: 75px; height: 75px; border-radius: 50%" />
-            <div id="firebaseui-container">
-              <div id="firebaseui-auth-container" data-upgraded=",MaterialButton">
-
-              </div>
-            </div>
-
-            <button class="btn btn-primary btn1" @click="driverLogin" >Log in as driver</button>
-
-          </div>
-        </div>
+    <img src="../../assets/blankprofile.png" style="margin-top: 50px; width: 75px; height: 75px; border-radius: 50%" />
+    <div id="firebaseui-container">
+      <div id="firebaseui-auth-container" data-upgraded=",MaterialButton">
       </div>
     </div>
-    </div>
 
+    <button class="btn btn-primary btn1" @click="driverLogin" >Log in as driver</button>
+
+      </div>
     </div>
 
   </div>
@@ -55,7 +39,7 @@ export default {
 <style>
 
   .vue-title {
-    margin-top: 100px;
+    margin-top: 125px;
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;

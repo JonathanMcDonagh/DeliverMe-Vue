@@ -85,7 +85,7 @@ export default {
 
 <style scoped>
   .vue-title {
-    margin-top: 100px;
+    margin-top: 125px;
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;

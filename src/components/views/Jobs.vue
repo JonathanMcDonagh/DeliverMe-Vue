@@ -49,7 +49,7 @@ export default {
           dropOffTime: 'Drop Off Time',
           jobStatus: 'Accepted By'
         },
-        filterable: ['name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime']
+        filterable: ['deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime']
       }
     }
   },

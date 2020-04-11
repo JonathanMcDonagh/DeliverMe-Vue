@@ -2,11 +2,10 @@
   <div class="hero">
 
   <div class="container-fluid home-main">
-    <button type="button" class="btn btn-default"><router-link style="color: #3AAFA9" to="/jobs">View Deliveries</router-link></button>
   </div>
   <div class="container-fluid home-content1">
     <div class="row">
-      <div class="col-md-6 content1-left">
+      <div class="col-lg-6 col-md-12 col-sm-12 content1-left">
         <h3>What is DeliverMe<span class="blinker">?</span></h3>
         <p class="homePageText">DeliverMe is an online delivery service that allows user to pick the
         price of their own delivery, a price they are comfortable paying. The bigger
@@ -15,7 +14,7 @@
         further through a phone number</p>
         <!-- <div class="content1-left"></div> -->
       </div>
-      <div class="col-md-6 content1-right">
+      <div class="col-lg-6 col-md-12 col-sm-12 content1-right">
         <h3>Why use DeliverMe<span class="blinker">?</span></h3>
         <p class="homePageText">DeliverMe is good for the everyday busy person who may not have the time
         to pick up everyday items such as a small shopping list, laundry or items
@@ -72,7 +71,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     color:#fff;
-    padding: 13%;
+    padding: 15%;
     text-align: center;
   }
   .blinker{
@@ -122,4 +121,36 @@
     font-size: 20px;
   }
 
+  @media only screen and (max-width: 1024px) {
+    .home-main{
+      background-image: url("../../assets/DeliverMeBG.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      color:#fff;
+      padding: 20%;
+      text-align: center;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .home-main{
+      background-image: url("../../assets/DeliverMeBG.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      color:#fff;
+      padding: 22%;
+      text-align: center;
+    }
+  }
+
+  @media only screen and (max-width: 375px) {
+    .home-main{
+      background-image: url("../../assets/DeliverMeBG.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      color:#fff;
+      padding: 38%;
+      text-align: center;
+    }
+  }
 </style>
