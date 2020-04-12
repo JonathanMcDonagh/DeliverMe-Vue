@@ -30,42 +30,16 @@
 </template>
 
 <style>
-  #homePageBG {
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 20%;
-  }
   .hero {
     height: 100vh;
     align-items: center;
     justify-content: center;
     text-align: center;
   }
-  .hero .lead {
+  .hero {
     font-weight: 200;
     font-size: 2.5rem;
   }
-  #app1 {
-    width: 60%;
-    margin: 0 auto;
-  }
-  .vue-title {
-    font-size: 50pt;
-    margin-bottom: 10px;
-    color: #17252A;
-  }
-
-  .btn-primary {
-    background-color: #3AAFA9;
-    border-color: #3AAFA9;
-    color: #ffffff;
-  }
-  .btn-primary:hover {
-    color: #3AAFA9;
-    border: 2px solid #3AAFA9;
-    background-color: #ffffff;
-  }
-
   .home-main{
     background-image: url("../../assets/DeliverMeBG.jpg");
     background-size: cover;
@@ -103,11 +77,6 @@
   .content1-right{
     padding:9%;
     background:#e4e4e4;
-  }
-  .home-content2{
-    background: #DEF2F1;
-    padding: 1.4%;
-    text-align: center;
   }
   .home-content2 p{
     font-size: 18px;
