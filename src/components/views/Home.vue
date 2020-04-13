@@ -33,13 +33,13 @@
 
 <script>
 import Banner from '../views/Banner'
-import pagefooter from '../views/Footer'
+import Footer from '../views/Footer'
 
 export default {
   // Request Job Form
   components: {
     'Banner': Banner,
-    'Footer': pagefooter
+    'Footer': Footer
   }
 }
 </script>
@@ -117,13 +117,13 @@ export default {
   }
   .content1-right{
     padding:9%;
-    background:#def2f1;
+    background:#17252A;
   }
   #app > div.hero > div.container-fluid.home-content1 > div > div.col-lg-6.col-md-12.col-sm-12.content1-left > p, #app > div.hero > div.container-fluid.home-content1 > div > div.col-lg-6.col-md-12.col-sm-12.content1-left > h3 {
     color:#def2f1;
   }
   #app > div.hero > div.container-fluid.home-content1 > div > div.col-lg-6.col-md-12.col-sm-12.content1-right > h3, #app > div.hero > div.container-fluid.home-content1 > div > div.col-lg-6.col-md-12.col-sm-12.content1-right > p {
-    color: #2B7A78;
+    color: #def2f1;
   }
   .home-content2{
     background: #DEF2F1;

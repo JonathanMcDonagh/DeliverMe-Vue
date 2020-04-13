@@ -15,6 +15,7 @@ import Login from '../components/authentication/UserLogin'
 import Accept from '../components/activities/Accept'
 import JobDetails from '../components/activities/JobDetails'
 import PageNotFound from '../components/views/PageNotFound'
+import UserProfile from '../components/views/UserProfile'
 
 Vue.use(Router)
 
@@ -95,6 +96,10 @@ let router = new Router({
     { path: '/map',
       name: 'Map',
       component: Map
+    },
+    { path: '/account',
+      name: 'UserProfile',
+      component: UserProfile
     }
   ]
 })

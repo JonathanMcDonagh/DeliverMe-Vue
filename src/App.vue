@@ -22,8 +22,8 @@
 
         <!-- user nav -->
         <b-navbar-nav class="ml-auto" right v-if="user|| $store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn">
-          <b-nav-item v-show="photo"><img :src="photo" style="width: 25px; height: 25px; border-radius: 50%"></b-nav-item>
-          <b-nav-item v-if="user">{{name}}</b-nav-item>
+          <b-nav-item v-show="photo" to="/account"><img :src="photo" style="width: 25px; height: 25px; border-radius: 50%"></b-nav-item>
+          <b-nav-item v-if="user" to="/account">{{name}}</b-nav-item>
           <b-nav-item v-if="$store.state.isDriverLoggedIn">{{fname}}</b-nav-item>
           <b-nav-item v-if="$store.state.isAdminLoggedIn">{{adminEmail }}</b-nav-item>
           <b-nav-item v-if="user || $store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" @click="logOut">Log Out</b-nav-item>

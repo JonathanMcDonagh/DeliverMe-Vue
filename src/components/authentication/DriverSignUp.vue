@@ -1,5 +1,6 @@
 <template>
   <div id="app1" class="hero">
+
     <h3 class="vue-title">Driver Sign Up</h3>
     <div class="container mt-3 mt-sm-5">
       <div class="row justify-content-center">
