@@ -1,9 +1,9 @@
 <template>
   <div id="app1" class="hero">
     <h3 class="vue-title">Request Delivery</h3>
-    <div class="container mt-3 mt-sm-5">
+    <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-6 align-center">
           <job-form :job="job" jobBtnTitle="Submit Job"
                     @job-is-created-updated="submitJob"></job-form>
         </div><!-- /col -->
@@ -90,7 +90,7 @@ export default {
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;
-    color: #17252A;
+    color: #3AAFA9;
   }
 
 </style>

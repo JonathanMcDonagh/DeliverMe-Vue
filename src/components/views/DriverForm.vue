@@ -2,20 +2,23 @@
   <div class="hero">
 
     <form @submit.prevent="submit">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 align-center">
+
       <div class="form-content align-center">
         <div class="column">
           <div class="form-group">
-            <input type="text" class="form-control" name="fname" placeholder="First Name*" required="" v-model.trim="fname" />
+            <input type="text" class="form-control" name="fname" style="text-transform: capitalize;" placeholder="First Name*" required="" v-model.trim="fname" />
             <div class="error" v-if="!$v.fname.required">First Name is Required</div>
           </div>
 
           <div class="form-group">
-            <input type="text" class="form-control" name="lname" placeholder="Last Name*" required="" v-model="lname" />
+            <input type="text" class="form-control" name="lname" style="text-transform: capitalize;" placeholder="Last Name*" required="" v-model="lname" />
             <div class="error" v-if="!$v.lname.required">Last Name is Required</div>
           </div>
 
           <div class="form-group">
-            <input type="email" class="form-control" name="email" placeholder="Email Address*" required="" v-model="email" />
+            <input type="email" class="form-control" name="email" style="text-transform: capitalize;" placeholder="Email Address*" required="" v-model="email" />
             <div class="error" v-if="!$v.email.required">Email is Required</div>
           </div>
 
@@ -30,29 +33,29 @@
             <div class="error" v-if="!$v.confirmpassword.required">Confirm Password is Required</div>
           </div>
 
-          <label class="signUpLabels">Please note we require proof of a Full Drivers Licence (see note below if you wish to do deliveries by bike) and proof Billing Address</label><br>
+          <label class="signUpLabels">Please note we require proof of a Full Drivers Licence or Proof of Address if cyclist</label><br>
 
-          <label class="signUpLabels">Please upload a clear image of your forms</label><br>
+          <label class="signUpLabels">Please upload a clear image</label><br>
 
-          <div >
-            <p>Upload proof of driving licence (Image name format example - YOURFULLNAME_DL and YOURFULLNAME_POA)</p>
-            <input type="file" name="uploadURL" v-on="uploadURL" @change="previewImage" accept="image/*" >
+          <div class="form-group">
+            <b-form-file
+              placeholder="Upload document"
+              drop-placeholder="Drag and drop you form"
+              @change="onFileSelected"
+            ></b-form-file>
           </div>
+
           <div>
-            <p>Progress: {{uploadValue.toFixed()+"%"}}
-              <progress id="progress" :value="uploadValue" max="100" ></progress></p>
-            <div class="error" v-if="!$v.required">Please upload your form to display register button</div>
-          </div>
-          <div v-if="imageData!=null">
-            <img class="preview" :src="uploadURL">
-            <br>
-            <button class="btnSubmit" type="submit" @click="onUpload" :disabled="submitStatus === 'PENDING'">Register</button>
+            <button class="btnSubmit" v-if="selectedFile != null" type="submit" :disabled="submitStatus === 'PENDING'">Register</button>
           </div>
 
         </div>
         <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Check if the passwords match</p>
         <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for Registering!</p>
         <p class="typo__p" v-if="submitStatus === 'PENDING'">Pending...</p>
+      </div>
+
+        </div>
       </div>
     </form>
 
@@ -72,7 +75,6 @@ Vue.use(VueForm, {
     invalid: 'form-control-danger'
   }
 })
-
 Vue.use(Vuelidate)
 export default {
   name: 'DriverDate',
@@ -85,6 +87,7 @@ export default {
       password: this.driver.password,
       confirmpassword: this.driver.password,
       uploadURL: this.driver.uploadURL,
+      selectedFile: null,
       drivers: {},
       submitStatus: null,
       imageData: null,
@@ -120,16 +123,27 @@ export default {
           // Checks to see if password is the same as confirm password
           if (this.password === this.confirmpassword) {
             this.submitStatus = 'OK'
-            var driver = {
-              fname: this.fname,
-              lname: this.lname,
-              email: this.email,
-              password: this.password,
-              uploadURL: this.uploadURL
-            }
-            this.driver = driver
-            console.log('Submitting in DriverForm : ' + JSON.stringify(this.driver, null, 5))
-            this.$emit('driver-is-created-updated', this.driver)
+            this.submitStatus = 'OK'
+            const name = (+new Date()) + '-' + this.selectedFile.name
+            const metadata = { contentType: this.selectedFile.type }
+            const task = firebase.storage().ref().child(name).put(this.selectedFile, metadata)
+            task
+              .then(snapshot => snapshot.ref.getDownloadURL())
+              .then(url => {
+                this.uploadURL = url
+
+                var driver = {
+                  fname: this.fname,
+                  lname: this.lname,
+                  email: this.email,
+                  password: this.password,
+                  uploadURL: this.uploadURL
+                }
+                this.driver = driver
+                console.log('Submitting in DriverForm : ' + JSON.stringify(this.driver, null, 5))
+                this.$emit('driver-is-created-updated', this.driver)
+                this.$router.push('/driverlogin')
+              }, 500)
           } else {
             this.submitStatus = 'ERROR'
             this.$swal({
@@ -141,24 +155,8 @@ export default {
         }, 500)
       }
     },
-    // To preview image user uploaded
-    previewImage (event) {
-      this.uploadValue = 0
-      this.imageData = event.target.files[0]
-    },
-    // To upload image to firebase
-    onUpload () {
-      const storageRef = firebase.storage().ref(`${this.imageData.name}`).put(this.imageData)
-      storageRef.on(`state_changed`, snapshot => {
-        this.uploadValue = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      }, error => { console.log(error.message) },
-      () => {
-        this.uploadValue = 100
-        this.uploadURL = storageRef.snapshot.ref.getDownloadURL().then((url) => {
-          this.uploadURL = url
-        })
-      }
-      )
+    onFileSelected (event) {
+      this.selectedFile = event.target.files[0]
     }
   }
 }
@@ -189,6 +187,9 @@ export default {
   }
   .signUpLabels {
     text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
   .error {
     border-color: #3AAFA9;
@@ -196,5 +197,13 @@ export default {
     color: whitesmoke;
     border-radius: 1.5rem;
     margin-top:0;
+  }
+  .form-content {
+    padding: 5%;
+    margin-bottom: 2%;
+    border: 2px solid #DEF2F1;
+  }
+  .form-control {
+    border-radius: 1.5rem;
   }
 </style>

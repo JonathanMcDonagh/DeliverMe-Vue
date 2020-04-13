@@ -1,5 +1,7 @@
 <template>
   <form @submit.prevent="submit">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 align-center">
 
       <div class="form-content align-center">
 
@@ -32,7 +34,7 @@
         </div>
 
         <div class="form-group" :class="{ 'form-group--error': $v.deliveryFee.$error }">
-          <label class="form__label">How much are you willing to pay for delivery? (€)</label>
+          <label class="form__label">Delivery Cost (€)</label>
           <input class="form__input" type="number" v-model.trim="$v.deliveryFee.$model"/>
           <div class="error" v-if="!$v.deliveryFee.required">This field is Required</div>
           <div class="error" v-if="!$v.deliveryFee.minLength">Field must have at least {{$v.deliveryFee.$params.minLength.min}} letters.</div>
@@ -47,7 +49,7 @@
         </div>
 
         <div class="form-group" :class="{ 'form-group--error': $v.dropOffTime.$error }">
-          <label class="form__label">Drop Off Time</label>
+          <label class="form__label">Drop Off Time (i.e. 1PM to 2PM)</label>
           <input class="form__input" v-model.trim="$v.dropOffTime.$model"/>
           <div class="error" v-if="!$v.dropOffTime.required">This field is Required</div>
           <div class="error" v-if="!$v.dropOffTime.minLength">Field must have at least {{$v.dropOffTime.$params.minLength.min}} letters.</div>
@@ -60,24 +62,6 @@
           <div class="error" v-if="!$v.phoneNum.minLength">Field must have at least {{$v.phoneNum.$params.minLength.min}} numbers.</div>
         </div>
 
-        <!-- Displays job status which the user cannot edit -->
-        <!--
-        <div class="form-group"  :class="{ 'form-group--error': $v.jobStatus.$error }">
-          <label class="form__label">Job Status</label>
-          <input class="form__input" disabled v-model.trim="$v.jobStatus.$model"/>
-          <div class="error" v-if="!$v.jobStatus.required">This field is Required</div>
-        </div>
-        -->
-
-         <!-- Displays job message which they cannot edit -->
-        <!--
-        <div class="form-group"  :class="{ 'form-group--error': $v.jobMessage.$error }">
-          <label class="form__label">Job Message</label>
-          <input class="form__input" disabled v-model.trim="$v.jobMessage.$model"/>
-          <div class="error" v-if="!$v.jobMessage.required">This field is Required</div>
-        </div>
-        -->
-
         <p>
           <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Place Job (Cash)</button>
         </p>
@@ -85,6 +69,8 @@
       <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your request someone will be in contact with you shortly</p>
       <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Fill in the Form Correctly.</p>
       <p class="typo__p" v-if="submitStatus === 'PENDING'">adding...</p>
+    </div>
+      </div>
     </div>
   </form>
 </template>
@@ -164,7 +150,7 @@ export default {
     },
     dropOffTime: {
       required,
-      minLength: minLength(4)
+      minLength: minLength(2)
     },
     phoneNum: {
       required,
@@ -295,5 +281,11 @@ export default {
     height: 100px;
     border: 1px solid white;
     border-radius: 50%
+  }
+
+  input.form__input {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
 </style>

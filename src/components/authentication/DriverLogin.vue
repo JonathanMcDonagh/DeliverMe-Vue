@@ -3,6 +3,8 @@
     <h3 class="vue-title">Driver Login</h3>
     <div class="container login-form">
 
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 align-center">
       <form @submit.prevent="submit">
         <div class="form-content align-center">
           <div class="column">
@@ -16,8 +18,10 @@
           <button class="btnSubmit" type="submit" :disabled="submitStatus === 'PENDING'">Login</button>
         </div>
         <p class="typo__p" v-if="submitStatus === 'OK'">Thank you</p>
-        <p class="typo__p" v-if="submitStatus === 'PENDING'">logging in...</p>
+        <p class="typo__p" v-if="submitStatus === 'PENDING'">Logging</p>
       </form>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -71,11 +75,13 @@ export default {
           this.$router.push('/')
         })
         .catch(err => {
+          window.location.reload()
           console.log(err)
           this.$swal({
             title: `${err.response.data.message}`,
             type: 'error',
             showLoaderOnConfirm: true
+
           })
         })
     }
@@ -102,5 +108,13 @@ export default {
     cursor: pointer;
     background: #3AAFA9;
     color: #fff;
+  }
+  .form-content {
+    padding: 5%;
+    margin-bottom: 2%;
+    border: 2px solid #DEF2F1;
+  }
+  .form-control {
+    border-radius: 1.5rem;
   }
 </style>

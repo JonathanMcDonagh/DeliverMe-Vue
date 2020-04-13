@@ -102,4 +102,12 @@ export default {
     background: #3AAFA9;
     color: #fff;
   }
+  .form-content {
+    padding: 5%;
+    margin-bottom: 2%;
+    border: 2px solid #DEF2F1;
+  }
+  .form-control {
+    border-radius: 1.5rem;
+  }
 </style>

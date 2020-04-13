@@ -8,7 +8,7 @@
             <img :src="props.row.profilephoto" class="profileImage">
           </div>
           <div v-else>
-            <img src="../../assets/blankprofile.png" class="profileImage"><br>
+            <img src="https://firebasestorage.googleapis.com/v0/b/deliverme-wit.appspot.com/o/blankprofile.png?alt=media&token=f90a59d1-49c0-4481-a769-4bb11b4b6e64" class="profileImage"><br>
           </div>
         </a>
         <!-- Driver -->
