@@ -218,7 +218,7 @@ export default {
   }
   label {
     display: inline-block;
-    width: 540px;
+    width: 100%;
     text-align: left;
     font-size: x-large;
   }
@@ -238,7 +238,7 @@ export default {
     border-radius: 4px;
     background: white;
     padding: 5px 10px;
-    width: 540px;
+    width: 100%;
   }
   .dirty {
     border-color: #5A5;

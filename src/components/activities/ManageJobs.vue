@@ -15,6 +15,9 @@
         </a>
         <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
       </v-client-table>
+      <div class="slideToRight">
+        <p>Slide to the right to see <br>the rest of the table</p>
+      </div>
     </div>
   </div>
 </template>
@@ -118,5 +121,15 @@ export default {
     border: 1px solid #ffffff;
     border-radius: 50%;
     width: 50px;
+  }
+
+  .slideToRight {
+    display: none;
+  }
+
+  @media only screen and (max-width: 1024px) {
+    .slideToRight {
+      display: block !important;
+    }
   }
 </style>

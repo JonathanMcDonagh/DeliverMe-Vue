@@ -16,6 +16,7 @@ import Accept from '../components/activities/Accept'
 import JobDetails from '../components/activities/JobDetails'
 import PageNotFound from '../components/views/PageNotFound'
 import UserProfile from '../components/views/UserProfile'
+import DriverProfile from '../components/views/DriverProfile'
 
 Vue.use(Router)
 
@@ -100,6 +101,10 @@ let router = new Router({
     { path: '/account',
       name: 'UserProfile',
       component: UserProfile
+    },
+    { path: '/driver-account',
+      name: 'DriverProfile',
+      component: DriverProfile
     }
   ]
 })

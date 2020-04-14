@@ -55,29 +55,11 @@ export default {
     align-items: center;
     justify-content: center;
     text-align: center;
+    margin-top: 0!important;
   }
   .hero .lead {
     font-weight: 200;
     font-size: 2.5rem;
-  }
-  #app1 {
-    width: 60%;
-    margin: 0 auto;
-  }
-  .vue-title {
-    font-size: 50pt;
-    margin-bottom: 10px;
-    color: #17252A;
-  }
-  .btn-primary {
-    background-color: #3AAFA9;
-    border-color: #3AAFA9;
-    color: #ffffff;
-  }
-  .btn-primary:hover {
-    color: #3AAFA9;
-    border: 2px solid #3AAFA9;
-    background-color: #ffffff;
   }
   .home-main{
     background-image: url("https://firebasestorage.googleapis.com/v0/b/deliverme-wit.appspot.com/o/topbanner.jpg?alt=media&token=e6c281b0-f1e9-49b1-8733-1c66b0c7d59e");
@@ -85,7 +67,7 @@ export default {
     background-repeat: no-repeat;
     color:#fff;
     padding: 14.5% ;
-    margin:0;
+    margin: 0;
     text-align: center;
   }
   .blinker{

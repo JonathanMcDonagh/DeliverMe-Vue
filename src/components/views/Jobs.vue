@@ -15,6 +15,9 @@
         <a slot="jobStatus" v-if="$store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" slot-scope="props" class="acceptText" @click="acceptJob(props.row._id)">{{props.row.jobStatus}}</a>
         <a slot="jobStatus" v-else slot-scope="props">You need to be a driver to accept jobs</a>
       </v-client-table>
+      <div class="slideToRight">
+        <p>Slide to the right to see <br>the rest of the table</p>
+      </div>
     </div>
   </div>
 </template>
@@ -129,5 +132,15 @@ export default {
   .acceptText:hover {
     text-decoration: underline !important;
     cursor: pointer;
+  }
+
+  .slideToRight {
+    display: none;
+  }
+
+  @media only screen and (max-width: 1024px) {
+    .slideToRight {
+      display: block !important;
+    }
   }
 </style>

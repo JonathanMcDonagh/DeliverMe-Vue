@@ -1,5 +1,5 @@
 <template>
-  <div class="hero">
+  <div id="app1" class="hero">
 
     <form @submit.prevent="submit">
       <div class="row">
@@ -8,17 +8,17 @@
       <div class="form-content align-center">
         <div class="column">
           <div class="form-group">
-            <input type="text" class="form-control" name="fname" style="text-transform: capitalize;" placeholder="First Name*" required="" v-model.trim="fname" />
+            <input type="text" class="form-control" name="fname" placeholder="First Name*" required="" v-model.trim="fname" />
             <div class="error" v-if="!$v.fname.required">First Name is Required</div>
           </div>
 
           <div class="form-group">
-            <input type="text" class="form-control" name="lname" style="text-transform: capitalize;" placeholder="Last Name*" required="" v-model="lname" />
+            <input type="text" class="form-control" name="lname" placeholder="Last Name*" required="" v-model="lname" />
             <div class="error" v-if="!$v.lname.required">Last Name is Required</div>
           </div>
 
           <div class="form-group">
-            <input type="email" class="form-control" name="email" style="text-transform: capitalize;" placeholder="Email Address*" required="" v-model="email" />
+            <input type="email" class="form-control" name="email" placeholder="Email Address*" required="" v-model="email" />
             <div class="error" v-if="!$v.email.required">Email is Required</div>
           </div>
 
@@ -163,11 +163,9 @@ export default {
 </script>
 
 <style scoped>
-  .vue-title {
-    margin-top: 100px;
-    text-align: center;
-    font-size: 30pt;
-    margin-bottom: 10px;
+  #app1 {
+    width: 100%;
+    margin: 0 auto;
   }
   .form-control {
     border-radius: 1.5rem;

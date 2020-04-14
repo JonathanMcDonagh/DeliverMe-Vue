@@ -17,6 +17,9 @@
         <a slot="edit" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editJob(props.row._id)"></a>
         <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
       </v-client-table>
+      <div class="slideToRight">
+      <p>Slide to the right to see <br>the rest of the table</p>
+      </div>
     </div>
   </div>
 </template>
@@ -181,6 +184,16 @@ export default {
   .acceptText:hover {
     text-decoration: underline !important;
     cursor: pointer;
+  }
+
+  .slideToRight {
+    display: none;
+  }
+
+  @media only screen and (max-width: 1024px) {
+    .slideToRight {
+      display: block !important;
+    }
   }
 
 </style>

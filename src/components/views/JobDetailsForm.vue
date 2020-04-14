@@ -1,5 +1,7 @@
 <template>
   <form @submit.prevent="submit">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 align-center">
 
     <div class="form-content align-center">
 
@@ -24,6 +26,9 @@
       <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your help</p>
       <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Fill in the Form Correctly.</p>
       <p class="typo__p" v-if="submitStatus === 'PENDING'">adding...</p>
+    </div>
+
+      </div>
     </div>
   </form>
 </template>
@@ -100,12 +105,6 @@ export default {
 </script>
 
 <style scoped>
-  .vue-title {
-    margin-top: 100px;
-    text-align: center;
-    font-size: 30pt;
-    margin-bottom: 10px;
-  }
   #app1 {
     width: 95%;
     margin: 0 auto;
@@ -120,7 +119,7 @@ export default {
   }
   label {
     display: inline-block;
-    width: 540px;
+    width: 100%;
     text-align: left;
     font-size: x-large;
   }
@@ -140,7 +139,7 @@ export default {
     border-radius: 4px;
     background: white;
     padding: 5px 10px;
-    width: 540px;
+    width: 100%;
   }
   .dirty {
     border-color: #5A5;
@@ -177,6 +176,11 @@ export default {
   }
   input.form__input {
     border-radius: 30px;
+  }
+  input.form__input {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
   .formImage {
     width: 100px;

@@ -86,6 +86,12 @@ export default {
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;
+    color: #3AAFA9;
+  }
+
+  #app1 {
+    width: 100%;
+    margin: 0 auto;
   }
 
   .form-control {
