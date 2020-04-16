@@ -1,6 +1,23 @@
 <template>
-  <div id="app1" class="hero">
-    <h3 class="vue-title">Update Item</h3>
+
+  <div class="hero">
+
+    <div class="banner-header">
+      <div class="row">
+        <div class="banner-header-bg">
+          <div class="container">
+            <div class="container text-left">
+              <h3 class="vue-title" style="color: #feffff">{{messagetitle}}</h3>
+              <div class="breadcrumbs_path">
+                <a><router-link style="color: #feffff" to="/">Home</router-link></a> > <a><router-link style="color: #feffff" to="/myjobs">My Deliveries</router-link></a> > {{messagetitle}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div id="app1">
     <div class="container mt-3 mt-sm-5">
       <div class="row justify-content-center">
         <div class="col-md-6">
@@ -12,15 +29,21 @@
       </div>
     </div>
   </div>
+    <Banner></Banner>
+    <Footer></Footer>
+  </div>
 </template>
 
 <script>
 import JobForm from '../views/JobForm'
 import JobService from '../../services/JobService'
+import Footer from '../views/Footer'
+import Banner from '../views/Banner'
 
 export default {
   data () {
     return {
+      messagetitle: 'Edit Delivery Details',
       job: {},
       childDataLoaded: false,
       temp: {}
@@ -28,7 +51,9 @@ export default {
   },
   // Request Job Form
   components: {
-    'job-form': JobForm
+    'job-form': JobForm,
+    'Banner': Banner,
+    'Footer': Footer
   },
   created () {
     this.getJob()

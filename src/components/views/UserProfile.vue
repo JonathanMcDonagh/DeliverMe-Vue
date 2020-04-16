@@ -1,6 +1,22 @@
 <template>
   <div class="hero">
-    <h3 class="vue-title">My Account Details</h3>
+
+    <div class="banner-header">
+      <div class="row">
+        <div class="banner-header-bg">
+          <div class="container">
+            <div class="container text-left">
+              <h3 class="vue-title" style="color: #feffff">{{messagetitle}}</h3>
+              <div class="breadcrumbs_path">
+                <a><router-link style="color: #feffff" to="/">Home</router-link></a> > {{messagetitle}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="app1">
     <hr>
     <img :src="photo" style='height: 120px'> <br>
     <p>Name: {{name}}</p>
@@ -8,19 +24,31 @@
     <p>UserId: {{userId}}</p>
     <hr>
   </div>
+    <Banner></Banner>
+    <Footer></Footer>
+  </div>
 </template>
 
 <script>
+import Footer from '../views/Footer'
+import Banner from '../views/Banner'
+
 import firebase from 'firebase'
 export default {
   data () {
     return {
+      messagetitle: ' My Account ',
       photo: '',
       userId: '',
       name: '',
       email: '',
       user: {}
     }
+  },
+  // Request Job Form
+  components: {
+    'Banner': Banner,
+    'Footer': Footer
   },
   created () {
     var loggedUser = this

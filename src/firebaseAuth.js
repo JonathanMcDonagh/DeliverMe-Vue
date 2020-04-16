@@ -13,11 +13,12 @@ const config = {
 const firebaseAuth = {
   initializeFirebaseLogin (context) {
     this.context = context
+    this.user = null
 
     // Sign in options
     firebase.initializeApp(config)
     this.uiConfig = {
-      signInSuccessUrl: '/myjobs',
+      signInSuccessUrl: '/',
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,

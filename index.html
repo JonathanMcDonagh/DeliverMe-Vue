@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="../node_modules/firebaseui/dist/firebaseui.js"></script>
+  <!-- <script src="../node_modules/firebaseui/dist/firebaseui.js"></script>
   <link type="text/css" rel="stylesheet" href="../node_modules/firebaseui/dist/firebaseui.css" />
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE&libraries=places"></script>
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet"/>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmDGJjxDvXlxY9K4xzxXLcDWmXEpvJdNE&libraries=places"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" />
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/png" sizes="32x32" href="<%= htmlWebpackPlugin.files.publicPath %>static/img/icons/DMfavicon32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="<%= htmlWebpackPlugin.files.publicPath %>static/img/icons/DMfavicon16x16.png">
@@ -38,21 +38,33 @@
   if (file.match(/\.(js|css)$/)) { %>
   <link rel="<%= chunk.initial?'preload':'prefetch' %>" href="<%= htmlWebpackPlugin.files.publicPath + file %>" as="<%= file.match(/\.css$/)?'style':'script' %>"><% }}} %>
   <title>DeliverMe</title>
+
+  <!--
+  Redirect http to https
+  <script type="text/javascript">
+      if (window.location.protocol != "https:") {
+          window.location.protocol = "https";
+      }
+  </script>-->
+
+  <script type=text/javascript>
+      if ('serviceWorker' in navigator){
+          navigator.serviceWorker.register('/service-worker.js').then(function(registration){
+                  console.log('service worker registration succeeded:',registration);
+              },
+              function(error){
+                  console.log('service worker registration failed:',error);
+              });
+      }
+      else{
+          console.log('service workers are not supported.');
+      }
+  </script>
 </head>
+
 <body>
 <div id="app"></div>
 <!-- built files will be auto injected -->
 </body>
-
-<script>
-    if ('serviceWorker' in navigator) {
-        console.log("Will the service worker register?");
-        navigator.serviceWorker.register('service-worker.js')
-            .then(function(reg){
-                console.log("Yes, it did.");
-            }).catch(function(err) {
-            console.log("No it didn't. This happened:", err)
-        });
-    }
-</script>
 </html>
+

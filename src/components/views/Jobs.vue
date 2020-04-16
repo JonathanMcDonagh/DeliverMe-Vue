@@ -1,6 +1,21 @@
 <template>
   <div class="hero">
-    <h4 class="vue-title">{{messagetitle}}</h4>
+
+    <div class="banner-header">
+      <div class="row">
+        <div class="banner-header-bg">
+          <div class="container">
+            <div class="container text-left">
+              <h3 class="vue-title" style="color: #feffff">{{messagetitle}}</h3>
+              <div class="breadcrumbs_path">
+                <a><router-link style="color: #feffff" to="/">Home</router-link></a> > {{messagetitle}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
         <a slot="user" slot-scope="props">
@@ -8,7 +23,7 @@
             <img :src="props.row.profilephoto" class="profileImage">
           </div>
           <div v-else>
-            <img src="https://firebasestorage.googleapis.com/v0/b/deliverme-wit.appspot.com/o/blankprofile.png?alt=media&token=f90a59d1-49c0-4481-a769-4bb11b4b6e64" class="profileImage"><br>
+            <img src="../../assets/blankprofile.png" class="profileImage"><br>
           </div>
         </a>
         <!-- Driver -->
@@ -19,6 +34,8 @@
         <p>Slide to the right to see <br>the rest of the table</p>
       </div>
     </div>
+    <BannerDriver></BannerDriver>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -27,6 +44,8 @@ import Vue from 'vue'
 import VueTables from 'vue-tables-2'
 import JobService from '../../services/JobService'
 import firebase from 'firebase'
+import BannerDriver from '../views/BannerDriver'
+import Footer from '../views/Footer'
 
 Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
 
@@ -55,6 +74,10 @@ export default {
         filterable: ['deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime']
       }
     }
+  },
+  components: {
+    'Footer': Footer,
+    'BannerDriver': BannerDriver
   },
   // Fetches Items when the component is created.
   created () {
@@ -103,7 +126,7 @@ export default {
 <style scoped>
   #app1 {
     width: 80%;
-    margin: 0 auto;
+    margin: 5% auto;
   }
   .vue-title {
     margin-top: 100px;

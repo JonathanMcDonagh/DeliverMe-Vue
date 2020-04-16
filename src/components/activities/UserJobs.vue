@@ -1,39 +1,62 @@
 <template>
   <div class="hero">
-    <h3 class="vue-title">My Jobs</h3>
+
+    <div class="banner-header">
+      <div class="row">
+        <div class="banner-header-bg">
+          <div class="container">
+            <div class="container text-left">
+              <h3 class="vue-title" style="color: #feffff">{{messagetitle}}</h3>
+              <div class="breadcrumbs_path">
+                <a><router-link style="color: #feffff" to="/">Home</router-link></a> > {{messagetitle}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
         <a slot="user" slot-scope="props">
           <div v-if="props.row.profilephoto">
+            <router-link to="/account">
             <img :src="props.row.profilephoto" class="profileImage">
+            </router-link>
           </div>
           <div v-else>
             <img src="../../assets/blankprofile.png" class="profileImage"><br>
           </div>
         </a>
         <!-- User -->
-        <a slot="jobStatus" slot-scope="props" class="acceptText" @click="viewJob(props.row._id)">{{props.row.jobStatus}}</a>
+        <a slot="jobStatus" slot-scope="props" class="acceptText" @click="viewUserJob(props.row._id)">{{props.row.jobStatus}}</a>
         <a slot="completed" slot-scope="props" class="fa fa-check-square-o  fa-2x" @click="completedJob(props.row._id)"></a>
-        <a slot="edit" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editJob(props.row._id)"></a>
-        <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
+        <a slot="edit" slot-scope="props" class="fa fa-pencil-square-o fa-2x" @click="editUserJob(props.row._id)"></a>
+        <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteUserJob(props.row._id)"></a>
       </v-client-table>
       <div class="slideToRight">
       <p>Slide to the right to see <br>the rest of the table</p>
       </div>
     </div>
+    <Banner></Banner>
+    <Footer></Footer>
   </div>
 </template>
+
 <script>
+import firebase from 'firebase'
 import Vue from 'vue'
 import VueTables from 'vue-tables-2'
 import JobService from '../../services/JobService'
-import firebase from 'firebase'
+import Footer from '../views/Footer'
+import Banner from '../views/Banner'
 
 Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
 
 export default {
   data () {
     return {
+      messagetitle: ' My Deliveries ',
       columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus', 'completed', 'edit', 'delete'],
       jobs: [],
       props: ['_id'],
@@ -54,9 +77,13 @@ export default {
       }
     }
   },
+  components: {
+    'Banner': Banner,
+    'Footer': Footer
+  },
   // Loads all jobs
   created () {
-    this.loadJobs()
+    this.loadUserJobs()
     // Gets user information from Firebase
     var loggedUser = this
     firebase.auth().onAuthStateChanged(function (user) {
@@ -72,7 +99,7 @@ export default {
   },
   methods: {
     // Loads jobs by usertoken/userID
-    loadJobs: function () {
+    loadUserJobs: function () {
       JobService.fetchUserJobs(firebase.auth().currentUser.uid)
         .then(response => {
           // JSON responses are automatically parsed.
@@ -115,18 +142,18 @@ export default {
       })
     },
     // To view accepted job details
-    viewJob: function (id) {
+    viewUserJob: function (id) {
       this.$router.params = id
       this.$router.push('jobdetails')
     },
     // To Edit jobs
-    editJob: function (id) {
+    editUserJob: function (id) {
       this.$router.params = id
       this.$router.push('edit')
       console.log(this.$router.params)
     },
     // To Delete jobs
-    deleteJob: function (id) {
+    deleteUserJob: function (id) {
       this.$swal({
         title: 'Are you sure?',
         text: 'You can\'t undo this action later',
@@ -158,11 +185,15 @@ export default {
   }
 }
 </script>
+
 <style scoped>
+  .swal2-shown { display:flex; height:100vh; }
+
   #app1 {
     width: 80%;
-    margin: 0 auto;
+    margin: 5% auto;
   }
+
   .vue-title {
     margin-top: 125px;
     text-align: center;
@@ -194,6 +225,52 @@ export default {
     .slideToRight {
       display: block !important;
     }
+  }
+
+  .nav {
+    background: grey;
+    color: white;
+    height: 80px;
+    padding: 20px;
+    text-align: right;
+  }
+  .content {
+    background-color: lightblue;
+    padding: 30px;
+  }
+  button {
+    margin-bottom: 50px;
+  }
+
+  .bottom p {
+    margin-bottom: 0;
+    line-height: 50px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .banner-header-bg {
+    background-color: #3AAFA9;
+    padding: 42px 0 55px;
+    width:100%;
+  }
+  .banner-header h1 {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 40px;
+    position: relative;
+    text-transform: capitalize;
+  }
+  .breadcrumbs_path {
+    color: #fff;
+    margin-top: 8px;
+    position: relative;
+    z-index: 9;
+  }
+  .breadcrumbs_path > a {
+    color: #fff;
+    transition: all 0.3s ease 0s;
   }
 
 </style>

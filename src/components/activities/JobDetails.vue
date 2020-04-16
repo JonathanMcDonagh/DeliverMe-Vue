@@ -1,5 +1,22 @@
 <template>
-  <div id="app1" class="hero">
+  <div class="hero">
+
+    <div class="banner-header">
+      <div class="row">
+        <div class="banner-header-bg">
+          <div class="container">
+            <div class="container text-left">
+              <h3 class="vue-title" style="color: #feffff">{{messagetitle}}</h3>
+              <div class="breadcrumbs_path">
+                <a><router-link style="color: #feffff" to="/">Home</router-link></a> > <a><router-link style="color: #feffff" to="/myjobs">My Deliveries</router-link></a> > {{messagetitle}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div id="app1">
     <h3 class="vue-title">Job Details From Driver</h3>
     <div class="container mt-3 mt-sm-5">
       <div class="row justify-content-center">
@@ -12,15 +29,21 @@
       </div>
     </div>
   </div>
+    <Banner></Banner>
+    <Footer></Footer>
+  </div>
 </template>
 
 <script>
 import AcceptedJobDetailsForm from '../views/JobDetailsForm'
 import JobService from '../../services/JobService'
+import Footer from '../views/Footer'
+import Banner from '../views/Banner'
 
 export default {
   data () {
     return {
+      messagetitle: ' Job Details ',
       job: {},
       childDataLoaded: false,
       temp: {}
@@ -28,7 +51,9 @@ export default {
   },
   // Request Job Form
   components: {
-    'accept-form': AcceptedJobDetailsForm
+    'accept-form': AcceptedJobDetailsForm,
+    'Banner': Banner,
+    'Footer': Footer
   },
   created () {
     this.getJob()
@@ -67,7 +92,10 @@ export default {
 <style scoped>
   #app1 {
     width: 95%;
-    margin: 0 auto;
+  }
+
+  .hero {
+    margin: 5% auto;
   }
 
   .vue-title {
@@ -76,6 +104,30 @@ export default {
     font-size: 30pt;
     margin-bottom: 10px;
     color: #3AAFA9;
+  }
+
+  .banner-header-bg {
+    background-color: #3AAFA9;
+    padding: 42px 0 55px;
+    width:100%;
+  }
+  .banner-header h1 {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 40px;
+    position: relative;
+    text-transform: capitalize;
+  }
+  .breadcrumbs_path {
+    color: #fff;
+    margin-top: 8px;
+    position: relative;
+    z-index: 9;
+  }
+  .breadcrumbs_path > a {
+    color: #fff;
+    transition: all 0.3s ease 0s;
   }
 
 </style>

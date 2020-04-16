@@ -188,6 +188,7 @@ export default {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+    color: #feffff;
   }
   .error {
     border-color: #3AAFA9;
@@ -199,7 +200,6 @@ export default {
   .form-content {
     padding: 5%;
     margin-bottom: 2%;
-    border: 2px solid #DEF2F1;
   }
   .form-control {
     border-radius: 1.5rem;

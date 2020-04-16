@@ -156,7 +156,7 @@ export default {
   }
   .btn-primary {
     background-color: #3AAFA9;
-    border-color: #3AAFA9;
+    border: 2px solid #3AAFA9;
     border-radius: 1.5rem;
   }
   .btn-primary:hover {

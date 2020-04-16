@@ -1,6 +1,22 @@
 <template>
-  <div id="app1" class="hero">
-    <h3 class="vue-title">Request Delivery</h3>
+  <div class="hero">
+
+    <div class="banner-header">
+      <div class="row">
+        <div class="banner-header-bg">
+          <div class="container">
+            <div class="container text-left">
+              <h3 class="vue-title" style="color: #feffff">{{messagetitle}}</h3>
+              <div class="breadcrumbs_path">
+                <a><router-link style="color: #feffff" to="/">Home</router-link></a> > {{messagetitle}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="app1">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-6 align-center">
@@ -9,6 +25,9 @@
         </div><!-- /col -->
       </div><!-- /row -->
     </div><!-- /container -->
+    </div>
+    <Banner></Banner>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -19,6 +38,8 @@ import JobService from '../../services/JobService'
 import {Vuelidate} from 'vuelidate'
 import JobForm from '../views/JobForm'
 import firebase from 'firebase'
+import Footer from '../views/Footer'
+import Banner from '../views/Banner'
 
 Vue.use(Vuelidate)
 Vue.use(VueSweetalert)
@@ -26,6 +47,7 @@ Vue.use(VueSweetalert)
 export default {
   data () {
     return {
+      messagetitle: ' Request Delivery ',
       job: {
         name: '',
         deliveryRequest: '',
@@ -43,7 +65,9 @@ export default {
   },
   // Request Job Form
   components: {
-    'job-form': JobForm
+    'job-form': JobForm,
+    'Banner': Banner,
+    'Footer': Footer
   },
   created () {
     // Gets user information from Firebase
@@ -82,8 +106,7 @@ export default {
 
 <style scoped>
   #app1 {
-    width: 95%;
-    margin: 0 auto;
+    width: 100%;
   }
   .vue-title {
     margin-top: 125px;
@@ -91,6 +114,35 @@ export default {
     font-size: 30pt;
     margin-bottom: 10px;
     color: #3AAFA9;
+  }
+
+  #app1 {
+    margin-bottom: 5%;
+    margin-top: 5%;
+  }
+
+  .banner-header-bg {
+    background-color: #3AAFA9;
+    padding: 42px 0 55px;
+    width:100%;
+  }
+  .banner-header h1 {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 40px;
+    position: relative;
+    text-transform: capitalize;
+  }
+  .breadcrumbs_path {
+    color: #fff;
+    margin-top: 8px;
+    position: relative;
+    z-index: 9;
+  }
+  .breadcrumbs_path > a {
+    color: #fff;
+    transition: all 0.3s ease 0s;
   }
 
 </style>

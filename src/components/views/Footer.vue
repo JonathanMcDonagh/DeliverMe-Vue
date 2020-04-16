@@ -1,16 +1,77 @@
 <template>
     <!--Bottom Footer-->
-    <div class="bottom section-padding">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <div class="copyright">
-              <p>© <span>2020</span> <a href="/" class="transition">DeliverMe</a> All rights reserved.</p>
-            </div>
-          </div>
-        </div>
+  <!--Footer Links-->
+  <footer>
+  <div class="container mt-5 mb-4 text-center text-md-left">
+    <div class="row mt-3">
+
+      <!--First column-->
+      <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+        <h6 class="text-uppercase font-weight-bold">
+          <strong>DeliverMe</strong>
+        </h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>Offering fast and reliable delivery services and work to those who need some extra.</p>
       </div>
+      <!--/.First column-->
+
+      <!--Second column-->
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold">
+          <strong>Deliveries</strong>
+        </h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <router-link to="/job" class="footerLink">Request Delivery</router-link>
+        </p>
+        <p>
+          <router-link to="/myjobs" class="footerLink">My Deliveries</router-link>
+        </p>
+      </div>
+      <!--/.Second column-->
+
+      <!--Third column-->
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+        <h6 class="text-uppercase font-weight-bold">
+          <strong>Registration</strong>
+        </h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <router-link to="/login" class="footerLink">Login</router-link>
+        </p>
+        <p>
+          <router-link to="/RegisterAsDriver" class="footerLink">Become A Driver</router-link>
+        </p>
+      </div>
+      <!--/.Third column-->
+
+      <!--Fourth column-->
+      <div class="col-md-4 col-lg-3 col-xl-3">
+        <h6 class="text-uppercase font-weight-bold">
+          <strong id="contactUs">Contact Details</strong>
+        </h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <i class="fa fa-home"></i> WIT, Waterford Ireland
+        </p>
+        <p>
+          <i class="fa fa-envelope"></i> 20074520@mail.wit.ie
+        </p>
+      </div>
+      <!--/.Fourth column-->
+
     </div>
+  </div>
+  <!--/.Footer Links-->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="https:/deliverme-wit.web.app" target="_blank" class="footerLink"> deliverme-wit.web.app</a>
+  </div>
+  <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
     <!--Bottom Footer-->
 </template>
 
@@ -23,12 +84,6 @@ export default {
 <style scoped>
   a:hover{
     text-decoration:none;
-  }
-  .section-padding {
-    padding: 20px 0;
-  }
-  .bottom {
-    background-color: #fef2f1;
   }
   .bottom .copyright {
     color: #17252a;
@@ -52,4 +107,14 @@ export default {
     color: #17252a;
   }
 
+  .footerLink {
+    color: #3AAFA9;
+    cursor: pointer;
+  }
+
+  .footerLink:hover {
+    color: #17252A;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 </style>

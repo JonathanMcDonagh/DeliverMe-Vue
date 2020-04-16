@@ -14,7 +14,13 @@ import store from './store/store'
 import {sync} from 'vuex-router-sync'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import firebaseAuth from './firebaseAuth'
-import './registerServiceWorker'
+import '../service-worker'
+
+// main.js
+import VueGmaps from 'vue-gmaps'
+Vue.use(VueGmaps, {
+  key: 'AIzaSyDmDGJjxDvXlxY9K4xzxXLcDWmXEpvJdNE'
+})
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
@@ -28,7 +34,9 @@ Vue.config.productionTip = false
 // Google Maps
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyB2VGqh-1LQA8zcflOELCZjQKYSfky0WOs'
+    key: 'AIzaSyDmDGJjxDvXlxY9K4xzxXLcDWmXEpvJdNE',
+    libraries: 'places', // necessary for places input
+    google: 'google'
   }
 })
 
@@ -44,6 +52,11 @@ new Vue({
   created () {
     firebase.initializeApp(config)
     firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$router.push('/')
+      } else {
+        this.$router.push('/login')
+      }
     })
   },
   el: '#app',

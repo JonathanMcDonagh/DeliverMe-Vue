@@ -7,7 +7,6 @@ import Job from '../components/activities/Job'
 import DriverSignUp from '../components/authentication/DriverSignUp'
 import DriverLogin from '../components/authentication/DriverLogin'
 import ManageJobs from '../components/activities/ManageJobs'
-import Map from '../components/views/Map'
 import AdminLogin from '../components/authentication/AdminLogin'
 import UserJobs from '../components/activities/UserJobs'
 import ManageDrivers from '../components/activities/ManageDrivers'
@@ -17,11 +16,11 @@ import JobDetails from '../components/activities/JobDetails'
 import PageNotFound from '../components/views/PageNotFound'
 import UserProfile from '../components/views/UserProfile'
 import DriverProfile from '../components/views/DriverProfile'
+import Map from '../components/views/Map'
 
 Vue.use(Router)
 
 let router = new Router({
-  mode: 'history',
   routes: [
     {
       path: '/',
@@ -95,14 +94,13 @@ let router = new Router({
       component: AdminLogin
     },
     { path: '/map',
-      name: 'Map',
       component: Map
     },
     { path: '/account',
       name: 'UserProfile',
       component: UserProfile
     },
-    { path: '/driver-account',
+    { path: '/driveraccount',
       name: 'DriverProfile',
       component: DriverProfile
     }

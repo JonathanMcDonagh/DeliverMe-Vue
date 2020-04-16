@@ -15,51 +15,51 @@
         <div class="form-group"  :class="{ 'form-group--error': $v.name.$error }">
           <label class="form__label">Name</label>
           <input class="form__input" disabled v-model.trim="$v.name.$model"/>
-          <div class="error" v-if="!$v.name.required">This field is Required</div>
-          <div class="error" v-if="!$v.name.minLength">Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
+          <div class="error" v-if="!$v.name.required">This Field Is Required</div>
+          <div class="error" v-if="!$v.name.minLength">Field Must Have At Least {{$v.name.$params.minLength.min}} Letters.</div>
         </div>
 
         <div class="form-group" :class="{ 'form-group--error': $v.deliveryRequest.$error }">
-          <label class="form__label">What do you need delivered?</label>
+          <label class="form__label">What Do You Need Delivered?</label>
           <input class="form__input" v-model.trim="$v.deliveryRequest.$model"/>
-          <div class="error" v-if="!$v.deliveryRequest.required">This field is Required</div>
-          <div class="error" v-if="!$v.deliveryRequest.minLength">Field must have at least {{$v.deliveryRequest.$params.minLength.min}} letters.</div>
+          <div class="error" v-if="!$v.deliveryRequest.required">This Field Is Required</div>
+          <div class="error" v-if="!$v.deliveryRequest.minLength">Field Must Have At Least {{$v.deliveryRequest.$params.minLength.min}} Letters.</div>
         </div>
 
         <div class="form-group" :class="{ 'form-group--error': $v.place.$error }">
-          <label class="form__label">Place</label>
-          <input class="form__input" v-model.trim="$v.place.$model"/>
-          <div class="error" v-if="!$v.place.required">This field is Required</div>
-          <div class="error" v-if="!$v.place.minLength">Description must have at least {{$v.place.$params.minLength.min}} letters.</div>
+          <label class="form__label">Place You Want It From</label>
+          <input class="form__input" v-model.trim="$v.place.$model">
+          <div class="error" v-if="!$v.place.required">This Field Is Required</div>
+          <div class="error" v-if="!$v.place.minLength">Field Must Have At Least {{$v.place.$params.minLength.min}} Letters.</div>
         </div>
 
         <div class="form-group" :class="{ 'form-group--error': $v.deliveryFee.$error }">
           <label class="form__label">Delivery Cost (€)</label>
           <input class="form__input" type="number" v-model.trim="$v.deliveryFee.$model"/>
-          <div class="error" v-if="!$v.deliveryFee.required">This field is Required</div>
-          <div class="error" v-if="!$v.deliveryFee.minLength">Field must have at least {{$v.deliveryFee.$params.minLength.min}} letters.</div>
-          <div class="error" v-if="!$v.deliveryFee.maxLength">Field must only have {{$v.deliveryFee.$params.maxLength.max}} letters.</div>
+          <div class="error" v-if="!$v.deliveryFee.required">This Field Is Required</div>
+          <div class="error" v-if="!$v.deliveryFee.minLength">Field Must Have At Least {{$v.deliveryFee.$params.minLength.min}} Letters.</div>
+          <div class="error" v-if="!$v.deliveryFee.maxLength">Field Cant Have More Than {{$v.deliveryFee.$params.minLength.min}} Letters.</div>
         </div>
 
         <div class="form-group" :class="{ 'form-group--error': $v.dropOffLocation.$error }">
           <label class="form__label">Drop Off Location</label>
-          <input class="form__input" v-model.trim="$v.dropOffLocation.$model"/>
-          <div class="error" v-if="!$v.dropOffLocation.required">This field is Required</div>
-          <div class="error" v-if="!$v.dropOffLocation.minLength">Field must have at least {{$v.dropOffLocation.$params.minLength.min}} letters.</div>
+          <input class="form__input" v-model.trim="$v.dropOffLocation.$model">
+          <div class="error" v-if="!$v.dropOffLocation.required">This Field Is Required</div>
+          <div class="error" v-if="!$v.dropOffLocation.minLength">Field Must Have At Least {{$v.dropOffLocation.$params.minLength.min}} Letters.</div>
         </div>
 
         <div class="form-group" :class="{ 'form-group--error': $v.dropOffTime.$error }">
           <label class="form__label">Drop Off Time (i.e. 1PM to 2PM)</label>
-          <input class="form__input" v-model.trim="$v.dropOffTime.$model"/>
-          <div class="error" v-if="!$v.dropOffTime.required">This field is Required</div>
-          <div class="error" v-if="!$v.dropOffTime.minLength">Field must have at least {{$v.dropOffTime.$params.minLength.min}} letters.</div>
+          <input class="form__input" v-model.trim="$v.dropOffTime.$model">
+          <div class="error" v-if="!$v.dropOffTime.required">This Field Is Required</div>
+          <div class="error" v-if="!$v.dropOffTime.minLength">Field Must Have At Least {{$v.dropOffTime.$params.minLength.min}} Letters.</div>
         </div>
 
         <div class="form-group" :class="{ 'form-group--error': $v.phoneNum.$error }">
           <label class="form__label">Phone Number</label>
           <input class="form__input" type="number" v-model.trim="$v.phoneNum.$model"/>
-          <div class="error" v-if="!$v.phoneNum.required">This field is Required</div>
-          <div class="error" v-if="!$v.phoneNum.minLength">Field must have at least {{$v.phoneNum.$params.minLength.min}} numbers.</div>
+          <div class="error" v-if="!$v.phoneNum.required">This Field Is Required</div>
+          <div class="error" v-if="!$v.phoneNum.minLength">Field Must Have At Least {{$v.phoneNum.$params.minLength.min}} Numbers.</div>
         </div>
 
         <p>
@@ -255,8 +255,8 @@ export default {
   }
   .btn-primary {
     background-color: #3AAFA9;
-    border-color: #3AAFA9;
     border-radius: 1.5rem;
+    border: 2px solid #3AAFA9;
   }
   .btn-primary:hover {
     color: #3AAFA9;
