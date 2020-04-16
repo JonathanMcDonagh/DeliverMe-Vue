@@ -128,7 +128,7 @@ export default {
             .then(response => {
               this.message = response.data
               console.log(this.message)
-              this.loadJobs()
+              this.loadUserJobs()
               this.$swal('Completed', 'This job has been completed')
             })
             .catch(error => {
@@ -169,7 +169,7 @@ export default {
             .then(response => {
               this.message = response.data
               console.log(this.message)
-              this.loadJobs()
+              this.loadUserJobs()
               this.$swal('Deleted', 'You successfully deleted this job ')
             })
             .catch(error => {
