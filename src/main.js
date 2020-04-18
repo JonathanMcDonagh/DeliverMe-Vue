@@ -16,12 +16,6 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import firebaseAuth from './firebaseAuth'
 import '../service-worker'
 
-// main.js
-import VueGmaps from 'vue-gmaps'
-Vue.use(VueGmaps, {
-  key: 'AIzaSyDmDGJjxDvXlxY9K4xzxXLcDWmXEpvJdNE'
-})
-
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)
 Vue.use(VueSweetalert2)

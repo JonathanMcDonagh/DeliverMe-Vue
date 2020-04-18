@@ -12,8 +12,8 @@
         <b-navbar-nav>
           <b-nav-item v-if="$store.state.isDriverLoggedIn" to="/jobs">All Deliveries</b-nav-item>
           <b-nav-item v-if="user" to="/myjobs">My Deliveries</b-nav-item>
-          <b-nav-item v-if="user != null" to="/job">Request Delivery</b-nav-item>
-          <b-nav-item v-if="user != null" to="/map">Map</b-nav-item>
+          <b-nav-item v-if="user" to="/job">Request Delivery</b-nav-item>
+          <b-nav-item v-if="user || $store.state.isDriverLoggedIn" to="/map">Map</b-nav-item>
 
           <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/jobs">All Deliveries List</b-nav-item>
           <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/managejobs">Manage Deliveries List</b-nav-item>
@@ -24,6 +24,7 @@
         <b-navbar-nav class="ml-auto" right v-if="user|| $store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn">
           <b-nav-item v-show="photo" to="/account"><img :src="photo" style="width: 25px; height: 25px; border-radius: 50%"></b-nav-item>
           <b-nav-item v-if="user" to="/account">{{name}}</b-nav-item>
+          <b-nav-item v-if="$store.state.isDriverLoggedIn" href="/driveraccount">My Account</b-nav-item>
           <b-nav-item v-if="$store.state.isDriverLoggedIn != null" to="/driveraccount">{{fname}}</b-nav-item>
           <b-nav-item v-if="$store.state.isAdminLoggedIn">{{adminEmail }}</b-nav-item>
           <b-nav-item v-if="user || $store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" @click="logOut">Log Out</b-nav-item>

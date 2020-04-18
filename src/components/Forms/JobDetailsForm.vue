@@ -1,40 +1,33 @@
 <template>
   <form @submit.prevent="submit">
-    <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 align-center">
-      <div class="form-content align-center">
 
-        <!-- Displays job status to the users which they cannot edit -->
-        <div class="form-group"  :class="{ 'form-group--error': $v.jobStatus.$error }">
-          <label class="form__label">Job Status (i.e. Accepted By Your Name)</label>
-          <input class="form__input" v-model.trim="$v.jobStatus.$model"/>
-          <div class="error" v-if="!$v.jobStatus.required">This field is Required</div>
-        </div>
+    <div class="form-content align-center">
 
-        <!-- Displays job status to the users which they cannot edit -->
-        <div class="form-group"  :class="{ 'form-group--error': $v.jobMessage.$error }">
-          <label class="form__label">Job Message (Leave a note for the user) </label>
-          <input class="form__input" v-model.trim="$v.jobMessage.$model"/>
-          <div class="error" v-if="!$v.jobMessage.required">This field is Required</div>
-        </div>
+      <!-- Displays job status to the users which they cannot edit -->
+      <div class="form-group"  :class="{ 'form-group--error': $v.jobStatus.$error }">
+        <label class="form__label">Accepted By</label>
+        <input class="form__input" style="background-color: #def2f1" disabled v-model.trim="$v.jobStatus.$model"/>
+        <div class="error" v-if="!$v.jobStatus.required">This field is Required</div>
+      </div>
 
-        <!-- Displays job status to the users which they cannot edit -->
-        <div class="form-group"  :class="{ 'form-group--error': $v.phoneNum.$error }">
-          <label class="form__label">Users Phone Number</label>
-          <input class="form__input" disabled v-model.trim="$v.phoneNum.$model"/>
-          <div class="error" v-if="!$v.phoneNum.required">This field is Required</div>
-        </div>
+      <!-- Displays job status to the users which they cannot edit -->
+      <div class="form-group"  :class="{ 'form-group--error': $v.jobMessage.$error }">
+        <label class="form__label">Job Message</label>
+        <input class="form__input" style="background-color: #def2f1" disabled v-model.trim="$v.jobMessage.$model"/>
+        <div class="error" v-if="!$v.jobMessage.required">This field is Required</div>
+      </div>
 
-        <p>
-          <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Accept Job</button>
-        </p>
+      <p>
+        <button class="btn btn-primary btn1" @click="myJobs">Go Back</button>
+      </p>
 
       <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your help</p>
       <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Fill in the Form Correctly.</p>
       <p class="typo__p" v-if="submitStatus === 'PENDING'">adding...</p>
     </div>
+
       </div>
-    </div>
   </form>
 </template>
 
@@ -68,9 +61,6 @@ export default {
   },
   // Form validations
   validations: {
-    phoneNum: {
-      required
-    },
     jobStatus: {
       required
     },
@@ -90,7 +80,6 @@ export default {
         setTimeout(() => {
           this.submitStatus = 'OK'
           var job = {
-            phoneNum: this.phoneNum,
             jobStatus: this.jobStatus,
             jobMessage: this.jobMessage
           }
@@ -99,6 +88,10 @@ export default {
           this.$emit('job-is-created-updated', this.job)
         }, 500)
       }
+    },
+    // To redirect user to their jobs
+    myJobs: function () {
+      this.$router.push('myjobs')
     },
     loadDriverDetails () {
       this.fname = this.$store.state.driver.fname
@@ -110,16 +103,7 @@ export default {
 </script>
 
 <style scoped>
-  .vue-title {
-    margin-top: 100px;
-    text-align: center;
-    font-size: 30pt;
-    margin-bottom: 10px;
-  }
-  #app1 {
-    width: 95%;
-    margin: 0 auto;
-  }
+
   .required-field > label::after {
     content: '*';
     color: red;
@@ -135,7 +119,7 @@ export default {
     font-size: x-large;
   }
   .typo__p {
-    width: 100%;
+    width: 540px;
     font-size: x-large;
   }
   .btn1 {
@@ -152,13 +136,7 @@ export default {
     padding: 5px 10px;
     width: 100%;
   }
-  .dirty {
-    border-color: #5A5;
-    background: #EFE;
-  }
-  .dirty:focus {
-    outline-color: #8E8;
-  }
+
   .error {
     border-color: #3AAFA9;
     background: #3AAFA9;
@@ -186,8 +164,8 @@ export default {
     margin-bottom: 50px;
   }
   input.form__input {
-       border-radius: 30px;
-     }
+    border-radius: 30px;
+  }
   input.form__input {
     width: 100%;
     margin-left: auto;
@@ -199,5 +177,4 @@ export default {
     border: 1px solid white;
     border-radius: 50%
   }
-
 </style>

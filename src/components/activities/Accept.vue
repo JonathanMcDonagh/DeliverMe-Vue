@@ -2,7 +2,6 @@
   <div class="hero">
 
     <div class="banner-header">
-      <div class="row">
         <div class="banner-header-bg">
           <div class="container">
             <div class="container text-left">
@@ -11,7 +10,6 @@
                 <a><router-link style="color: #feffff" to="/">Home</router-link></a> > <a><router-link style="color: #feffff" to="/jobs">All Jobs</router-link></a> > {{messagetitle}}
               </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -34,7 +32,7 @@
 </template>
 
 <script>
-import AcceptJobForm from '../views/AcceptJobForm'
+import AcceptJobForm from '../Forms/AcceptJobForm'
 import JobService from '../../services/JobService'
 import Footer from '../views/Footer'
 import Banner from '../views/Banner'
@@ -90,8 +88,9 @@ export default {
 
 <style scoped>
   #app1 {
-    width: 95%;
-    margin: 5% auto;
+    width: 100%;
+    margin-bottom: 5%;
+    margin-top: 5%;
   }
 
   .vue-title {

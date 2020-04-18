@@ -23,13 +23,14 @@ export default {
       drivers: [],
       props: ['_id'],
       errors: [],
-      columns: ['fname', 'lname', 'email', 'delete'],
+      columns: ['fname', 'lname', 'email', 'uploadURL', 'delete'],
       options: {
         perPage: 8,
         headings: {
           fname: 'First Name',
           lname: 'Last Name',
-          email: 'Email'
+          email: 'Email',
+          uploadURL: 'Document'
         },
         filterable: ['fname', 'lname', 'email']
       }
@@ -90,7 +91,7 @@ export default {
 <style scoped>
   #app1 {
     width: 80%;
-    margin: 0 auto;
+    margin: 5% auto;
   }
   .vue-title {
     margin-top: 125px;

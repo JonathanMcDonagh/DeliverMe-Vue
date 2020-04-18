@@ -2,7 +2,6 @@
   <div id="app1" class="hero">
 
     <form @submit.prevent="submit">
-      <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 align-center">
 
       <div class="form-content align-center">
@@ -56,7 +55,6 @@
       </div>
 
         </div>
-      </div>
     </form>
 
   </div>

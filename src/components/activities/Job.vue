@@ -2,7 +2,6 @@
   <div class="hero">
 
     <div class="banner-header">
-      <div class="row">
         <div class="banner-header-bg">
           <div class="container">
             <div class="container text-left">
@@ -10,7 +9,6 @@
               <div class="breadcrumbs_path">
                 <a><router-link style="color: #feffff" to="/">Home</router-link></a> > {{messagetitle}}
               </div>
-            </div>
           </div>
         </div>
       </div>
@@ -36,7 +34,7 @@ import Vue from 'vue'
 import VueSweetalert from 'vue-sweetalert'
 import JobService from '../../services/JobService'
 import {Vuelidate} from 'vuelidate'
-import JobForm from '../views/JobForm'
+import JobForm from '../Forms/JobForm'
 import firebase from 'firebase'
 import Footer from '../views/Footer'
 import Banner from '../views/Banner'
@@ -107,6 +105,8 @@ export default {
 <style scoped>
   #app1 {
     width: 100%;
+    margin-bottom: 5%;
+    margin-top: 5%;
   }
   .vue-title {
     margin-top: 125px;
@@ -114,11 +114,6 @@ export default {
     font-size: 30pt;
     margin-bottom: 10px;
     color: #3AAFA9;
-  }
-
-  #app1 {
-    margin-bottom: 5%;
-    margin-top: 5%;
   }
 
   .banner-header-bg {

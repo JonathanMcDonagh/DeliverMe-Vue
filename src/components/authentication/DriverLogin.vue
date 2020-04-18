@@ -1,29 +1,43 @@
-<template>
+<template id="userLoginPage">
   <div class="hero">
-    <h3 class="vue-title">Driver Login</h3>
-    <div class="container login-form">
 
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 align-center">
-      <form @submit.prevent="submit">
-        <div class="form-content align-center">
-          <div class="column">
-            <div class="form-group">
-              <input type="email" class="form-control" placeholder="Email Address*" required="" v-model="email" />
-            </div>
-            <div class="form-group">
-              <input type="password" class="form-control" placeholder="Password*" required="" v-model="password" />
+    <section class="pt-5 pb-5 bg-dark position-relative sectionBG">
+
+      <div class="bg-overlay"></div>
+      <div class="container pt-5 pb-5 position-relative">
+        <div class="row d-flex justify-content-between pt-lg-5 align-items-center">
+          <div class="col-xl-5 col-lg-6 col-md-7 text-center text-lg-left mb-5 mb-lg-0">
+            <h1 class="display-3 font-weight-bold text-white aos-init aos-animate loginHeading" data-aos="fade-up" style="">Driver Login</h1>
+            <div class="my-4 aos-init" data-aos="fade-up">
+              <p class="lead text-white">Login as a driver to start delivering to our users and get paid the delivery fee!</p>
             </div>
           </div>
-          <button class="btnSubmit" type="submit" :disabled="submitStatus === 'PENDING'">Login</button>
-        </div>
-        <p class="typo__p" v-if="submitStatus === 'OK'">Thank you</p>
-        <p class="typo__p" v-if="submitStatus === 'PENDING'">Logging</p>
-      </form>
+          <div class="col">
+            <div class="row justify-content-center">
+              <div class="col-xl-8 col-md-10">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group mb-1">
+
+                      <img src="../../assets/blankprofile.png" style="margin-top: 50px; width: 75px; height: 75px; border-radius: 50%" />
+                      <driver-login-form style="margin-top: 20px" :driver="driver" driverBtnTitle="Login"
+                                         @driver-is-created-updated="submitDriver"></driver-login-form>
+
+                    </div>
+                  </div>
+                  <div class="col">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-    </div>
+    </section>
+    <Footer></Footer>
+
   </div>
 </template>
 
@@ -31,6 +45,9 @@
 import AuthService from '../../services/AuthService'
 import Vue from 'vue'
 import VueForm from 'vueform'
+import DriverLoginForm from '../Forms/DriverLoginForm'
+import Footer from '../views/Footer'
+import BannerDriver from '../views/BannerDriver'
 
 Vue.use(VueForm, {
   inputClasses: {
@@ -49,19 +66,26 @@ export default {
       submitStatus: null
     }
   },
+  // Request Job Form
+  components: {
+    'driver-login-form': DriverLoginForm,
+    'BannerDriver': BannerDriver,
+    'Footer': Footer
+  },
   methods: {
     // For driver login
-    submit () {
-      console.log('submit')
-      this.submitStatus = 'PENDING'
-      setTimeout(() => {
-        var credentials = {
-          email: this.email,
-          password: this.password
-        }
-        this.credentials = credentials
-        this.loginDriver(this.credentials)
-      }, 500)
+    // Submits Jobs with UID and photoURL
+    submitDriver: function (driver) {
+      AuthService.driverLogin(driver)
+        .then(response => {
+          console.log('submitDriver!')
+          console.log('Submitting in submitDriver : ' + JSON.stringify(driver, null, 5))
+          console.log(response)
+        })
+        .catch(error => {
+          this.errors.push(error)
+          console.log(error)
+        })
     },
     loginDriver: function (credentials) {
       console.log('LoginDriver')
@@ -90,31 +114,10 @@ export default {
 </script>
 
 <style scoped>
-  .vue-title {
-    margin-top: 125px;
-    text-align: center;
-    font-size: 30pt;
-    margin-bottom: 10px;
-  }
 
-  .form-control {
-    border-radius: 1.5rem;
-  }
-  .btnSubmit {
-    border: none;
-    border-radius: 1.5rem;
-    padding: 1%;
-    width: 20%;
-    cursor: pointer;
-    background: #3AAFA9;
-    color: #fff;
-  }
-  .form-content {
-    padding: 5%;
-    margin-bottom: 2%;
-    border: 2px solid #DEF2F1;
-  }
-  .form-control {
-    border-radius: 1.5rem;
+  @media only screen and (max-width: 375px) {
+    .loginHeading {
+      margin-top: 125px;
+    }
   }
 </style>

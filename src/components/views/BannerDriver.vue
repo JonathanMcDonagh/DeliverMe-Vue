@@ -14,7 +14,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   /*
 #banner {
   background-color: #3AAFA9;
@@ -91,6 +91,5 @@ export default {
     color: #fff;
     transition: all 0.3s ease 0s;
   }
-
 
 </style>

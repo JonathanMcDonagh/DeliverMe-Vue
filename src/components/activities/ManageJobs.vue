@@ -13,6 +13,8 @@
             <img src="../../assets/blankprofile.png" class="profileImage"><br>
           </div>
         </a>
+        <a slot="jobStatus" v-if="$store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" slot-scope="props" class="acceptText" @click="acceptJob(props.row._id)">{{props.row.jobStatus}}</a>
+        <a slot="jobStatus" v-else slot-scope="props">You need to be a driver to accept jobs</a>
         <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
       </v-client-table>
       <div class="slideToRight">
@@ -33,7 +35,7 @@ export default {
   name: 'Jobs',
   data () {
     return {
-      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus', 'delete'],
+      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus', 'phoneNum', 'delete'],
       jobs: [],
       props: ['_id'],
       errors: [],
@@ -69,6 +71,11 @@ export default {
           this.errors.push(error)
           console.log(error)
         })
+    },
+    // To Accept jobs
+    acceptJob: function (id) {
+      this.$router.params = id
+      this.$router.push('accept')
     },
     // To Delete jobs
     deleteJob: function (id) {
@@ -107,13 +114,33 @@ export default {
 <style scoped>
   #app1 {
     width: 80%;
-    margin: 0 auto;
+    margin: 5% auto;
   }
   .vue-title {
     margin-top: 125px;
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;
+  }
+  .profileImage {
+    color: white;
+    font-size: 10px;
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 50px;
+  }
+
+  .acceptText {
+    color: #3AAFA9 !important;
+  }
+
+  .acceptText:hover {
+    text-decoration: underline !important;
+    cursor: pointer;
+  }
+
+  .slideToRight {
+    display: none;
   }
   .profileImage {
     color: white;

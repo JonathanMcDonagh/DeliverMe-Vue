@@ -226,11 +226,6 @@ export default {
 </script>
 
 <style>
-  #homePageBG {
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 20%;
-  }
   .homeText {
     font-size: 15px;
   }
@@ -253,10 +248,7 @@ export default {
     padding: 14.5% ;
     margin: 0;
     text-align: center;
-  }
-  .blinker{
-    animation: blinker 1.5s linear infinite;
-  }
+}
   @keyframes blinker {
     50% {
       opacity: 0;
@@ -277,24 +269,11 @@ export default {
     color:#3AAFA9;
     width: 19%;
   }
-  .content1-left{
-    padding:9%;
-    background:#2B7A78;
-  }
-  .content1-right{
-    padding:9%;
-    background:#17252A;
-  }
   #app > div.hero > div.container-fluid.home-content1 > div > div.col-lg-6.col-md-12.col-sm-12.content1-left > p, #app > div.hero > div.container-fluid.home-content1 > div > div.col-lg-6.col-md-12.col-sm-12.content1-left > h3 {
     color:#def2f1;
   }
   #app > div.hero > div.container-fluid.home-content1 > div > div.col-lg-6.col-md-12.col-sm-12.content1-right > h3, #app > div.hero > div.container-fluid.home-content1 > div > div.col-lg-6.col-md-12.col-sm-12.content1-right > p {
     color: #def2f1;
-  }
-  .home-content2{
-    background: #DEF2F1;
-    padding: 1.4%;
-    text-align: center;
   }
   .home-content2 p{
     font-size: 18px;
@@ -302,9 +281,6 @@ export default {
   }
   .home-content2 p span{
     font-weight: 500;
-  }
-  .homePageText {
-    font-size: 20px;
   }
   @media only screen and (max-width: 1024px) {
     .home-main{

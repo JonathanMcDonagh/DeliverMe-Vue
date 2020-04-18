@@ -1,7 +1,20 @@
 <template>
   <div class="hero">
+    <div class="banner-header">
+        <div class="banner-header-bg">
+          <div class="container">
+            <div class="container text-left">
+              <h3 class="vue-title" style="color: #feffff">{{messagetitle}}</h3>
+              <div class="breadcrumbs_path">
+                <a><router-link style="color: #feffff" to="/">Home</router-link></a> > {{messagetitle}}
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
 
-  <div class="error-content">
+    <div id="app1">
+    <div class="error-content">
     <div class="container">
       <div class="row">
         <div class="col-md-12 ">
@@ -17,29 +30,41 @@
       </div>
     </div>
   </div>
+    </div>
+    <Banner></Banner>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
+import Footer from '../views/Footer'
+import Banner from '../views/Banner'
+
 export default {
   name: '404 Page',
   data () {
-    return {}
+    return {
+      messagetitle: ' 404 Page '
+    }
   },
   methods: {
     // To Accept jobs
     homePage: function () {
       this.$router.push('/')
     }
+  },
+  components: {
+    'Banner': Banner,
+    'Footer': Footer
   }
 }
 </script>
 
 <style>
-  #homePageBG {
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 20%;
+  #app1 {
+    width: 100%;
+    margin-bottom: 5%;
+    margin-top: 5%;
   }
   .hero {
     height: 100vh;
@@ -52,14 +77,40 @@ export default {
     font-weight: 200;
     font-size: 2.5rem;
   }
-  #app1 {
-    width: 60%;
-    margin: 0 auto;
+
+  .banner-header-bg {
+    background-color: #3AAFA9;
+    padding: 42px 0 55px;
+    width:100%;
+  }
+  .banner-header h1 {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 40px;
+    position: relative;
+    text-transform: capitalize;
+  }
+  .breadcrumbs_path {
+    color: #fff;
+    margin-top: 8px;
+    position: relative;
+    z-index: 9;
+  }
+  .breadcrumbs_path > a {
+    color: #fff;
+    transition: all 0.3s ease 0s;
   }
   .vue-title {
     font-size: 50pt;
     margin-bottom: 10px;
     color: #17252A;
+  }
+  .vue-title {
+    margin-top: 100px;
+    text-align: center;
+    font-size: 30pt;
+    margin-bottom: 10px;
   }
 
   .btn-primary {

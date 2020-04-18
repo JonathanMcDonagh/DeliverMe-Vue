@@ -45,7 +45,7 @@
 <script>
 import AuthService from '../../services/AuthService'
 import Vue from 'vue'
-import DriverForm from '../views/DriverForm'
+import DriverForm from '../Forms/DriverForm'
 import Footer from '../views/Footer'
 import VueSweetalert from 'vue-sweetalert'
 import {Vuelidate} from 'vuelidate'
@@ -118,11 +118,6 @@ export default {
     font-size: 30pt;
     margin-bottom: 10px;
     color: #3AAFA9;
-  }
-
-  #app1 {
-    width: 100%;
-    margin: 0 auto;
   }
 
   .form-control {

@@ -2,7 +2,6 @@
   <div class="hero">
 
     <div class="banner-header">
-      <div class="row">
         <div class="banner-header-bg">
           <div class="container">
             <div class="container text-left">
@@ -10,7 +9,6 @@
               <div class="breadcrumbs_path">
                 <a><router-link style="color: #feffff" to="/">Home</router-link></a> > {{messagetitle}}
               </div>
-            </div>
           </div>
         </div>
       </div>
@@ -159,6 +157,30 @@ export default {
 
   .slideToRight {
     display: none;
+  }
+
+  .banner-header-bg {
+    background-color: #3AAFA9;
+    padding: 42px 0 55px;
+    width:100%;
+  }
+  .banner-header h1 {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 40px;
+    position: relative;
+    text-transform: capitalize;
+  }
+  .breadcrumbs_path {
+    color: #fff;
+    margin-top: 8px;
+    position: relative;
+    z-index: 9;
+  }
+  .breadcrumbs_path > a {
+    color: #fff;
+    transition: all 0.3s ease 0s;
   }
 
   @media only screen and (max-width: 1024px) {

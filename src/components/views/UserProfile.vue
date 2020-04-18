@@ -2,7 +2,6 @@
   <div class="hero">
 
     <div class="banner-header">
-      <div class="row">
         <div class="banner-header-bg">
           <div class="container">
             <div class="container text-left">
@@ -11,7 +10,6 @@
                 <a><router-link style="color: #feffff" to="/">Home</router-link></a> > {{messagetitle}}
               </div>
             </div>
-          </div>
         </div>
       </div>
     </div>

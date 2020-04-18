@@ -2,7 +2,6 @@
   <div class="hero">
 
     <div class="banner-header">
-      <div class="row">
         <div class="banner-header-bg">
           <div class="container">
             <div class="container text-left">
@@ -12,25 +11,24 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
 
     <div id="app1">
-    <div class="map">
-      <gmap-map
-        :center="center"
-        :zoom="17"
-        style="width:80%;  height: 400px; margin-left: auto; margin-right: auto"
-      >
-        <gmap-marker
-          :key="index"
-          v-for="(m, index) in markers"
-          :position="m.position"
-          @click="center=m.position"
-        ></gmap-marker>
-      </gmap-map>
-    </div>
+      <div id="map">
+        <gmap-map
+          :center="center"
+          :zoom="14"
+          style="width:100%;  height: 400px;"
+        >
+          <gmap-marker
+            :key="index"
+            v-for="(m, index) in markers"
+            :position="m.position"
+            @click="center=m.position"
+          ></gmap-marker>
+        </gmap-map>
+      </div>
     </div>
     <Banner></Banner>
     <Footer></Footer>
@@ -42,23 +40,37 @@ import Footer from '../views/Footer'
 import Banner from '../views/Banner'
 
 export default {
-  name: 'GoogleMap',
   data () {
     return {
-      messagetitle: ' Popular Stores In Waterford   ',
-      center: { lat: 52.245791, lng: -7.138660 },
-      markers: [
-        { lat: 52.245350, lng: -7.141736 },
-        { lat: 52.245856, lng: -7.137247 },
-        { lat: 52.245981, lng: -7.138484 }
-      ],
+      messagetitle: 'Places In Your Area',
+      // default to Montreal to keep it simple
+      // change this to whatever makes sense
+      center: { lat: 45.508, lng: -73.587 },
+      markers: {
+        lat: 45.508,
+        lng: -73.587
+      },
       places: [],
-      currentPlace: { lat: 52.245791, lng: -7.138660 }
+      currentPlace: null
     }
+  },
+  mounted () {
+    this.geolocate()
   },
   components: {
     'Banner': Banner,
     'Footer': Footer
+  },
+  methods: {
+    // Gets the users location
+    geolocate: function () {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+      })
+    }
   }
 }
 </script>
@@ -75,8 +87,8 @@ export default {
   }
 
   #app1 {
-    width: 100%;
-    margin-top: 5%;
+    width: 80%;
+    margin: 5% auto;
   }
   .vue-title {
     margin-top: 125px;
@@ -84,10 +96,6 @@ export default {
     font-size: 30pt;
     margin-bottom: 10px;
     color: #3AAFA9;
-  }
-
-  #app1 {
-    margin-bottom: 5%;
   }
 
   .banner-header-bg {

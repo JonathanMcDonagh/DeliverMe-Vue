@@ -2,7 +2,6 @@
   <div class="hero">
 
     <div class="banner-header">
-      <div class="row">
         <div class="banner-header-bg">
           <div class="container">
             <div class="container text-left">
@@ -11,7 +10,6 @@
                 <a><router-link style="color: #feffff" to="/">Home</router-link></a> > {{messagetitle}}
               </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -70,7 +68,7 @@ export default {
           deliveryFee: 'Delivery Fee',
           dropOffLocation: 'Drop Off Location',
           dropOffTime: 'Drop Off Time',
-          jobStatus: 'Job Status',
+          jobStatus: 'Accepted By',
           completed: 'Mark Completed'
         },
         filterable: ['']
