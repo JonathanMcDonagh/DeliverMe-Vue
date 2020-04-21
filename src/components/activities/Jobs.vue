@@ -1,6 +1,7 @@
 <template>
   <div class="hero">
 
+    <!-- Top Banner -->
     <div class="banner-header">
         <div class="banner-header-bg">
           <div class="container">
@@ -14,6 +15,7 @@
       </div>
     </div>
 
+    <!-- Jobs Table For Driver -->
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
         <a slot="user" slot-scope="props">
@@ -32,6 +34,8 @@
         <p>Slide to the right to see <br>the rest of the table</p>
       </div>
     </div>
+
+    <!-- Bottom Banner and Footer Components -->
     <BannerDriver></BannerDriver>
     <Footer></Footer>
   </div>
@@ -73,11 +77,12 @@ export default {
       }
     }
   },
+  // Gets Components
   components: {
     'Footer': Footer,
     'BannerDriver': BannerDriver
   },
-  // Fetches Items when the component is created.
+  // Fetches jobs when the component is created
   created () {
     this.loadJobs()
     var loggedUser = this
@@ -91,10 +96,9 @@ export default {
       }
     })
     this.user = firebase.auth().currentUser || false
-
-    this.loadDriverDetails()
   },
   methods: {
+    // To Load jobs
     loadJobs: function () {
       JobService.fetchJobs()
         .then(response => {
@@ -111,11 +115,6 @@ export default {
     acceptJob: function (id) {
       this.$router.params = id
       this.$router.push('accept')
-    },
-    loadDriverDetails () {
-      this.fname = this.$store.state.driver.fname
-      this.lname = this.$store.state.driver.lname
-      this.driverEmail = this.$store.state.driver.email
     }
   }
 }
@@ -131,11 +130,6 @@ export default {
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;
-  }
-  .vue-message {
-    text-align: left;
-    font-size: 17px;
-    margin-left: 30px;
   }
 
   .profileImage {

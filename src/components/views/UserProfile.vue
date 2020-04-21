@@ -1,6 +1,7 @@
 <template>
   <div class="hero">
 
+    <!-- Top Banner -->
     <div class="banner-header">
         <div class="banner-header-bg">
           <div class="container">
@@ -14,14 +15,17 @@
       </div>
     </div>
 
+    <!-- User Information -->
     <div id="app1">
-    <hr>
-    <img :src="photo" style='height: 120px'> <br>
-    <p>Name: {{name}}</p>
-    <p>Email: {{email}}</p>
-    <p>UserId: {{userId}}</p>
-    <hr>
-  </div>
+      <hr>
+        <img :src="photo" style='height: 120px'> <br>
+          <p>Name: {{name}}</p>
+          <p>Email: {{email}}</p>
+          <p>UserId: {{userId}}</p>
+      <hr>
+    </div>
+
+    <!-- Bottom Banner and Footer Components -->
     <Banner></Banner>
     <Footer></Footer>
   </div>
@@ -29,7 +33,7 @@
 
 <script>
 import Footer from '../views/Footer'
-import Banner from '../views/Banner'
+import Banner from './BannerUser'
 
 import firebase from 'firebase'
 export default {
@@ -43,11 +47,12 @@ export default {
       user: {}
     }
   },
-  // Request Job Form
+  // Gets Components
   components: {
     'Banner': Banner,
     'Footer': Footer
   },
+  // Gets user information
   created () {
     var loggedUser = this
     firebase.auth().onAuthStateChanged(function (user) {
@@ -70,5 +75,29 @@ export default {
     font-size: 30pt;
     margin-bottom: 10px;
     color: #3AAFA9;
+  }
+
+  .banner-header-bg {
+    background-color: #3AAFA9;
+    padding: 42px 0 55px;
+    width:100%;
+  }
+  .banner-header h1 {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 40px;
+    position: relative;
+    text-transform: capitalize;
+  }
+  .breadcrumbs_path {
+    color: #fff;
+    margin-top: 8px;
+    position: relative;
+    z-index: 9;
+  }
+  .breadcrumbs_path > a {
+    color: #fff;
+    transition: all 0.3s ease 0s;
   }
 </style>

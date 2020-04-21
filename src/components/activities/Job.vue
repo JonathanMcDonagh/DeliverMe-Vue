@@ -1,6 +1,7 @@
 <template>
   <div class="hero">
 
+    <!-- Top Banner -->
     <div class="banner-header">
         <div class="banner-header-bg">
           <div class="container">
@@ -14,16 +15,19 @@
       </div>
     </div>
 
+    <!-- Add Job Form -->
     <div id="app1">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-6 align-center">
           <job-form :job="job" jobBtnTitle="Submit Job"
                     @job-is-created-updated="submitJob"></job-form>
-        </div><!-- /col -->
-      </div><!-- /row -->
-    </div><!-- /container -->
+        </div>
+      </div>
     </div>
+    </div>
+
+    <!-- Bottom Banner and Footer Components -->
     <Banner></Banner>
     <Footer></Footer>
   </div>
@@ -37,7 +41,7 @@ import {Vuelidate} from 'vuelidate'
 import JobForm from '../Forms/JobForm'
 import firebase from 'firebase'
 import Footer from '../views/Footer'
-import Banner from '../views/Banner'
+import Banner from '../views/BannerUser'
 
 Vue.use(Vuelidate)
 Vue.use(VueSweetalert)
@@ -61,7 +65,7 @@ export default {
       }
     }
   },
-  // Request Job Form
+  // Gets Components
   components: {
     'job-form': JobForm,
     'Banner': Banner,

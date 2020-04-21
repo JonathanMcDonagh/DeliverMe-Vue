@@ -1,8 +1,8 @@
 <template id="userLoginPage">
   <div class="hero">
 
+    <!-- Background Image -->
     <section class="pt-5 pb-5 bg-dark position-relative sectionBG">
-
       <div class="bg-overlay"></div>
       <div class="container pt-5 pb-5 position-relative">
         <div class="row d-flex justify-content-between pt-lg-5 align-items-center">
@@ -12,6 +12,7 @@
               <p class="lead text-white">Login as a driver to start delivering to our users and get paid the delivery fee!</p>
             </div>
           </div>
+
           <div class="col">
             <div class="row justify-content-center">
               <div class="col-xl-8 col-md-10">
@@ -20,22 +21,23 @@
                     <div class="form-group mb-1">
 
                       <img src="../../assets/blankprofile.png" style="margin-top: 50px; width: 75px; height: 75px; border-radius: 50%" />
+                      <!-- Driver Login Form -->
                       <driver-login-form style="margin-top: 20px" :driver="driver" driverBtnTitle="Login"
                                          @driver-is-created-updated="submitDriver"></driver-login-form>
 
                     </div>
                   </div>
-                  <div class="col">
 
-                  </div>
+                  <div class="col"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
     </section>
+
+    <!-- Loads Footer -->
     <Footer></Footer>
 
   </div>
@@ -66,15 +68,14 @@ export default {
       submitStatus: null
     }
   },
-  // Request Job Form
+  // Gets Components
   components: {
     'driver-login-form': DriverLoginForm,
     'BannerDriver': BannerDriver,
     'Footer': Footer
   },
   methods: {
-    // For driver login
-    // Submits Jobs with UID and photoURL
+    // When driver clicks login
     submitDriver: function (driver) {
       AuthService.driverLogin(driver)
         .then(response => {
@@ -85,28 +86,6 @@ export default {
         .catch(error => {
           this.errors.push(error)
           console.log(error)
-        })
-    },
-    loginDriver: function (credentials) {
-      console.log('LoginDriver')
-      AuthService.driverLogin(credentials)
-        .then(response => {
-          this.submitStatus = 'OK'
-          console.log(response)
-          // Sets token for driver through store.js
-          this.$store.dispatch('setDriverToken', response.data.token)
-          this.$store.dispatch('setDriver', response.data.driver)
-          this.$router.push('/')
-        })
-        .catch(err => {
-          window.location.reload()
-          console.log(err)
-          this.$swal({
-            title: `${err.response.data.message}`,
-            type: 'error',
-            showLoaderOnConfirm: true
-
-          })
         })
     }
   }

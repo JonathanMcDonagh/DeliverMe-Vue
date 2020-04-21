@@ -1,4 +1,5 @@
 <template>
+  <!-- Banner For User -->
   <div class="hero-image">
     <div class="hero-text">
       <h1>In need of some extra cash? Become a driver for DeliverMe today</h1>
@@ -15,20 +16,6 @@ export default {
 </script>
 
 <style scoped>
-  /*
-#banner {
-  background-color: #3AAFA9;
-  background-image: url("../../assets/HomeBG.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 350px;
-  margin:0;
-  overflow-x: -moz-scrollbars-none;
-}
-
-   */
-
 .hero-image {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../assets/HomeBG.jpg");
   height: 50%;

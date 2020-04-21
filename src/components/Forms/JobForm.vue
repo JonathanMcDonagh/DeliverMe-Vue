@@ -13,7 +13,7 @@
         <!-- Displays users name which they cannot edit -->
         <div class="form-group"  :class="{ 'form-group--error': $v.name.$error }">
           <label class="form__label">Name</label>
-          <input class="form__input" disabled v-model.trim="$v.name.$model"/>
+          <input class="form__input" style="background-color: #def2f1" disabled v-model.trim="$v.name.$model"/>
           <div class="error" v-if="!$v.name.required">This Field Is Required</div>
           <div class="error" v-if="!$v.name.minLength">Field Must Have At Least {{$v.name.$params.minLength.min}} Letters.</div>
         </div>
@@ -102,8 +102,8 @@ export default {
       dropOffLocation: this.job.dropOffLocation,
       dropOffTime: this.job.dropOffTime,
       phoneNum: this.job.phoneNum,
-      usertoken: firebase.auth().currentUser.uid,
-      profilephoto: firebase.auth().currentUser.photoURL,
+      usertoken: firebase.auth().currentUser.uid, // gets the user ID to store in the job
+      profilephoto: firebase.auth().currentUser.photoURL, // gets the user photo url to store in the job
       jobStatus: this.job.jobStatus,
       jobMessage: this.job.jobMessage,
       submitStatus: null

@@ -1,8 +1,8 @@
 <template id="userLoginPage">
   <div class="hero">
 
+    <!-- Background Image -->
     <section class="pt-5 pb-5 bg-dark position-relative sectionBG">
-
       <div class="bg-overlay"></div>
       <div class="container pt-5 pb-5 position-relative">
         <div class="row d-flex justify-content-between pt-lg-5 align-items-center">
@@ -24,19 +24,19 @@
                                    @driver-is-created-updated="submitDriver"></driver-form>
 
                     </div>
-
                   </div>
-                  <div class="col">
 
-                  </div>
+                  <div class="col"></div>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
     </section>
+
+    <!-- Loads Footer -->
     <Footer></Footer>
 
   </div>
@@ -66,13 +66,13 @@ export default {
       }
     }
   },
-  // Request Job Form
+  // Gets Components
   components: {
     'driver-form': DriverForm,
     'Footer': Footer
   },
   methods: {
-    // To add driver
+    // When driver clicks login
     submitDriver: function (driver) {
       console.log('submitDriver')
 
@@ -95,13 +95,9 @@ export default {
       }
       AuthService.login(credentials)
         .then(response => {
-          // JSON responses are automatically parsed.
           console.log(response)
-          // localStorage.setItem('token', response.data.token)
           this.$store.dispatch('setDriverToken', response.data.token)
           this.$store.dispatch('setDriver', response.data.driver)
-          // window.location.reload()
-          // this.$router.push('/')
         })
         .catch(err => {
           console.log(err)

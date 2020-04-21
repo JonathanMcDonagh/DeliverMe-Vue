@@ -1,16 +1,16 @@
 <template>
+  <!-- Admin Page To Login through href="/admin" -->
   <div class="hero">
     <h3 class="vue-title">Admin Login</h3>
     <div class="container login-form">
       <form @submit.prevent="submit">
-
         <div class="form-content align-center">
           <div class="column">
             <div class="form-group">
-              <input type="email" class="form-control" placeholder="Email Address*" required="" v-model="email" />
+              <input type="email" class="form-control" placeholder="Email Address" required="" v-model="email" />
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" placeholder="Password*" required="" v-model="password" />
+              <input type="password" class="form-control" placeholder="Password" required="" v-model="password" />
             </div>
           </div>
           <button class="btnSubmit" type="submit" :disabled="submitStatus === 'PENDING'">Login</button>
@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    // For admin login
+    // When admin clicks login
     submit () {
       console.log('submit')
       this.submitStatus = 'PENDING'
@@ -58,6 +58,7 @@ export default {
         this.loginAdmin(this.credentials)
       }, 500)
     },
+    // Logs in the Admin
     loginAdmin: function (credentials) {
       console.log('LoginAdmin')
       AuthService.adminLogin(credentials)
@@ -89,7 +90,6 @@ export default {
     font-size: 30pt;
     margin-bottom: 10px;
   }
-
   .form-control {
     border-radius: 1.5rem;
   }
@@ -101,13 +101,5 @@ export default {
     cursor: pointer;
     background: #3AAFA9;
     color: #fff;
-  }
-  .form-content {
-    padding: 5%;
-    margin-bottom: 2%;
-    border: 2px solid #DEF2F1;
-  }
-  .form-control {
-    border-radius: 1.5rem;
   }
 </style>

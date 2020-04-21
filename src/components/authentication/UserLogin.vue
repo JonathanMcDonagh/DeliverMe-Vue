@@ -1,8 +1,8 @@
 <template id="userLoginPage">
   <div class="hero">
 
+    <!-- Background Image -->
     <section class="pt-5 pb-5 bg-dark position-relative sectionBG">
-
       <div class="bg-overlay"></div>
       <div class="container pt-5 pb-5 position-relative">
         <div class="row d-flex justify-content-between pt-lg-5 align-items-center">
@@ -29,17 +29,16 @@
 
                         </div>
                       </div>
-                      <div class="col">
-
-                  </div>
+                      <div class="col"></div>
               </div>
             </div>
             </div>
           </div>
         </div>
       </div>
-
     </section>
+
+    <!-- Loads Footer -->
     <Footer></Footer>
 
   </div>
@@ -54,11 +53,12 @@ export default {
   mounted () {
     firebaseAuth.firebaseAuthForm('#firebaseui-auth-container')
   },
+  // Gets Components
   components: {
     'Footer': Footer
   },
   methods: {
-    // Redirect for driver login
+    // When driver clicks the login button
     driverLogin: function () {
       this.$router.push('driverlogin')
     }

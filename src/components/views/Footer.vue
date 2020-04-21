@@ -1,6 +1,4 @@
 <template>
-    <!--Bottom Footer-->
-  <!--Footer Links-->
   <footer>
   <div class="container mt-5 mb-4 text-center text-md-left">
     <div class="row mt-3">
@@ -13,7 +11,7 @@
         <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
         <p>Offering fast and reliable delivery services and work to those who need some extra.</p>
       </div>
-      <!--/.First column-->
+      <!-- END First column-->
 
       <!--Second column-->
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -28,7 +26,7 @@
           <router-link to="/myjobs" class="footerLink">My Deliveries</router-link>
         </p>
       </div>
-      <!--/.Second column-->
+      <!-- END Second column-->
 
       <!--Third column-->
       <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -43,7 +41,7 @@
           <router-link to="/RegisterAsDriver" class="footerLink">Become A Driver</router-link>
         </p>
       </div>
-      <!--/.Third column-->
+      <!-- END Third column-->
 
       <!--Fourth column-->
       <div class="col-md-4 col-lg-3 col-xl-3">
@@ -58,21 +56,18 @@
           <i class="fa fa-envelope"></i> 20074520@mail.wit.ie
         </p>
       </div>
-      <!--/.Fourth column-->
+      <!-- END Fourth column-->
 
     </div>
   </div>
-  <!--/.Footer Links-->
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">© 2020 Copyright:
     <a href="https:/deliverme-wit.web.app" target="_blank" class="footerLink"> deliverme-wit.web.app</a>
   </div>
-  <!-- Copyright -->
+  <!-- END Copyright -->
 
   </footer>
-  <!-- Footer -->
-    <!--Bottom Footer-->
 </template>
 
 <script>
@@ -85,10 +80,12 @@ export default {
   a:hover{
     text-decoration:none;
   }
+
   .bottom .copyright {
     color: #17252a;
     font-weight: 600;
   }
+
   .copyright a {
     color: #2B7A78;
     margin-left: 3px;
@@ -100,9 +97,11 @@ export default {
     font-size: 16px;
     font-weight: 400;
   }
+
   .copyright p span {
     color: #17252a;
   }
+
   .bottom .copyright p, .bottom .copyright a:hover{
     color: #17252a;
   }

@@ -56,8 +56,6 @@ export default {
   props: ['jobBtnTitle', 'job'],
   data () {
     return {
-      fname: '',
-      lname: '',
       phoneNum: this.job.phoneNum,
       jobStatus: this.job.jobStatus,
       jobMessage: this.job.jobMessage,
@@ -77,7 +75,7 @@ export default {
     }
   },
   methods: {
-    // Submit Job
+    // Method for submitting
     submit () {
       console.log('submit!')
       this.$v.$touch()
@@ -97,11 +95,6 @@ export default {
           this.$emit('job-is-created-updated', this.job)
         }, 500)
       }
-    },
-    loadDriverDetails () {
-      this.fname = this.$store.state.driver.fname
-      this.lname = this.$store.state.driver.lname
-      this.driverEmail = this.$store.state.driver.email
     }
   }
 }

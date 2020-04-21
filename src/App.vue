@@ -11,22 +11,23 @@
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
           <b-nav-item v-if="$store.state.isDriverLoggedIn" to="/jobs">All Deliveries</b-nav-item>
+
           <b-nav-item v-if="user" to="/myjobs">My Deliveries</b-nav-item>
           <b-nav-item v-if="user" to="/job">Request Delivery</b-nav-item>
+          <b-nav-item v-if="user" to="/drivers">View Drivers</b-nav-item>
           <b-nav-item v-if="user || $store.state.isDriverLoggedIn" to="/map">Map</b-nav-item>
 
           <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/jobs">All Deliveries List</b-nav-item>
           <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/managejobs">Manage Deliveries List</b-nav-item>
+          <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/drivers">All Drivers List</b-nav-item>
           <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/managedrivers">Manage Drivers List</b-nav-item>
         </b-navbar-nav>
 
-        <!-- user nav -->
         <b-navbar-nav class="ml-auto" right v-if="user|| $store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn">
           <b-nav-item v-show="photo" to="/account"><img :src="photo" style="width: 25px; height: 25px; border-radius: 50%"></b-nav-item>
           <b-nav-item v-if="user" to="/account">{{name}}</b-nav-item>
-          <b-nav-item v-if="$store.state.isDriverLoggedIn" href="/driveraccount">My Account</b-nav-item>
-          <b-nav-item v-if="$store.state.isDriverLoggedIn != null" to="/driveraccount">{{fname}}</b-nav-item>
-          <b-nav-item v-if="$store.state.isAdminLoggedIn">{{adminEmail }}</b-nav-item>
+          <b-nav-item v-if="$store.state.isDriverLoggedIn" to="/driveraccount">My Account</b-nav-item>
+          <b-nav-item v-if="$store.state.isAdminLoggedIn">Admin</b-nav-item>
           <b-nav-item v-if="user || $store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" @click="logOut">Log Out</b-nav-item>
         </b-navbar-nav>
 
@@ -47,7 +48,6 @@ import Toasted from 'vue-toasted'
 import Vue from 'vue'
 import firebase from 'firebase'
 import Footer from './components/views/Footer.vue'
-import DriverService from './services/DriverService'
 
 // eslint-disable-next-line no-undef
 Vue.use(Toasted)
@@ -59,9 +59,7 @@ export default {
       fname: '',
       lname: '',
       name: '',
-      email: '',
-      driverEmail: '',
-      adminEmail: ''
+      email: ''
     }
   },
   components: {
@@ -78,10 +76,6 @@ export default {
         loggedUser.userId = loggedUser.user.uid
       }
     })
-
-    this.loadDriverDetails()
-    this.loadAdminDetails()
-    this.getDriver()
   },
   methods: {
     logOut () {
@@ -91,32 +85,13 @@ export default {
         this.$store.dispatch('setDriver', null)
         this.$store.dispatch('setAdminToken', null)
         this.$store.dispatch('setAdmin', null)
+
         Vue.toasted.show('You are logged out').goAway(5000)
+
         this.$router.push('/login')
         window.location.reload()
         // eslint-disable-next-line handle-callback-err,no-undef
       }).catch(err => console.log(error))
-    },
-    getDriver: function () {
-      DriverService.fetchDriver(this.$router.params)
-        .then(response => {
-          this.temp = response.data
-          this.driver = this.temp[0]
-          this.childDataLoaded = true
-          this.fname = this.driver.fname
-        })
-        .catch(error => {
-          this.errors.push(error)
-          console.log(error)
-        })
-    },
-    loadDriverDetails () {
-      this.fname = this.$store.state.driver.fname
-      this.lname = this.$store.state.driver.lname
-      this.driverEmail = this.$store.state.driver.email
-    },
-    loadAdminDetails () {
-      this.adminEmail = this.$store.state.driver.email
     }
   }
 }

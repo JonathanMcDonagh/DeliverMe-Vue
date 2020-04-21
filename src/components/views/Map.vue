@@ -1,6 +1,7 @@
 <template>
   <div class="hero">
 
+    <!-- Top Banner -->
     <div class="banner-header">
         <div class="banner-header-bg">
           <div class="container">
@@ -14,6 +15,7 @@
       </div>
     </div>
 
+    <!-- Map -->
     <div id="app1">
       <div id="map">
         <gmap-map
@@ -30,6 +32,8 @@
         </gmap-map>
       </div>
     </div>
+
+    <!-- Bottom Banner and Footer Components -->
     <Banner></Banner>
     <Footer></Footer>
   </div>
@@ -37,14 +41,12 @@
 
 <script>
 import Footer from '../views/Footer'
-import Banner from '../views/Banner'
+import Banner from './BannerUser'
 
 export default {
   data () {
     return {
-      messagetitle: 'Places In Your Area',
-      // default to Montreal to keep it simple
-      // change this to whatever makes sense
+      messagetitle: 'Map Of Your Area',
       center: { lat: 45.508, lng: -73.587 },
       markers: {
         lat: 45.508,
@@ -57,6 +59,7 @@ export default {
   mounted () {
     this.geolocate()
   },
+  // Gets Components
   components: {
     'Banner': Banner,
     'Footer': Footer

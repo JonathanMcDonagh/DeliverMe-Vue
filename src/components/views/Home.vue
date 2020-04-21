@@ -1,11 +1,13 @@
 <template>
   <div class="hero">
+    <!-- Top Banner -->
     <div class="container-fluid home-main align-center">
     </div>
+
     <!--Main layout-->
     <main class="mt-5">
       <div class="container">
-
+        <!-- About Us Section -->
         <section id="aboutUs">
           <h2 class="mb-5 font-weight-bold text-center">About Us</h2>
           <div class="row">
@@ -29,9 +31,11 @@
                 to make some extra money.</p>
             </div>
           </div>
-          <hr class="my-5">
         </section>
+        <hr class="my-5">
+        <!-- END About Us Section -->
 
+        <!-- What We Offer Section -->
         <section class="text-center">
           <h2 class="mb-5 font-weight-bold">What We Offer</h2>
           <div class="row d-flex justify-content-center mb-4">
@@ -40,12 +44,8 @@
               more information click <a href="#contactUs">here</a> for contact details.</p>
             </div>
           </div>
-          <!--Grid row-->
 
-          <!--Grid row-->
           <div class="row">
-
-            <!--Grid column-->
             <div class="col-md-4 mb-1" style="margin-top: 20px">
               <i class="fa fa-car fa-4x" style="color: #3AAFA9"></i>
               <h4 class="my-4 font-weight-bold">Car</h4>
@@ -53,9 +53,7 @@
               as long as the item is delivered safely and at a appropriate time and location.
               So you can deliver it by car, we do require a image of your driver licence.</p>
             </div>
-            <!--Grid column-->
 
-            <!--Grid column-->
             <div class="col-md-4 mb-1" style="margin-top: 20px">
               <i class="fa fa-bicycle fa-4x" style="color: #3AAFA9"></i>
               <h4 class="my-4 font-weight-bold">Bike</h4>
@@ -63,9 +61,7 @@
               of whether you driver or not. This is why we offer cyclists to delivery items or even by walking, we do require
               some sort of documentation to be provided</p>
             </div>
-            <!--Grid column-->
 
-            <!--Grid column-->
             <div class="col-md-4 mb-1" style="margin-top: 20px">
               <i class="fa fa-fast-forward fa-4x" style="color: #3AAFA9"></i>
               <h4 class="my-4 font-weight-bold">Fast Deliveries</h4>
@@ -73,22 +69,18 @@
                 of whether you driver or not. This is why we offer cyclists to delivery items or even by walking, we do require
                 some sort of documentation to be provided and once the item can be delivered safely.</p>
             </div>
-            <!--Grid column-->
-
           </div>
-          <!--Grid row-->
-
+          <hr class="my-5">
         </section>
-        <hr class="my-5">
+        <!-- END What We Offer Section -->
 
+        <!-- Some Key Features Section -->
         <section>
           <h2 class="mb-5 font-weight-bold">Some Key Features</h2>
           <div class="row wow fadeIn">
 
-            <!--Grid column-->
             <div class="col-lg-6 col-md-12 px-4">
 
-              <!--First row-->
               <div class="row">
                 <div class="col-1 mr-3">
                   <i class="fa fa-sign-in fa-2x" style="color: #3AAFA9"></i>
@@ -99,9 +91,7 @@
                 </div>
               </div>
               <div style="height:30px"></div>
-              <!--First row-->
 
-              <!--Second row-->
               <div class="row">
                 <div class="col-1 mr-3">
                   <i class="fa fa-registered fa-2x" style="color: #3AAFA9"></i>
@@ -111,11 +101,9 @@
                   <p class="grey-text">Allow drivers to register using a form where they provide documentation.</p>
                 </div>
               </div>
-              <!--Second row-->
 
               <div style="height:30px"></div>
 
-              <!--Third row-->
               <div class="row">
                 <div class="col-1 mr-3">
                   <i class="fa fa-shopping-cart fa-2x" style="color: #3AAFA9"></i>
@@ -125,11 +113,9 @@
                   <p class="grey-text">Giving our users options to request anything they need delivered</p>
                 </div>
               </div>
-              <!--/Third row-->
 
               <div style="height:30px"></div>
 
-              <!--/fourth row-->
               <div class="row">
                 <div class="col-1 mr-3">
                   <i class="fa fa-eye fa-2x" style="color: #3AAFA9"></i>
@@ -139,13 +125,11 @@
                   <p class="grey-text">Allowing users to view their own jobs, drivers can view and accept users jobs.</p>
                 </div>
               </div>
-              <!--/fourth row-->
             </div>
 
             <div style="height:30px"></div>
 
             <div class="col-lg-6 col-md-12">
-              <!--First row-->
               <div class="row">
                 <div class="col-1 mr-3">
                   <i class="fa fa-desktop fa-2x" style="color: #3AAFA9"></i>
@@ -155,11 +139,9 @@
                   <p class="grey-text">Created using MongoDB, ExpressJS, VueJS and NodeJS</p>
                 </div>
               </div>
-              <!--/First row-->
 
               <div style="height:30px"></div>
 
-              <!--Second row-->
               <div class="row">
                 <div class="col-1 mr-3">
                   <i class="fa fa-mobile-phone fa-2x" style="color: #3AAFA9"></i>
@@ -170,11 +152,9 @@
                   home page</p>
                 </div>
               </div>
-              <!--/Second row-->
 
               <div style="height:30px"></div>
 
-              <!--Third row-->
               <div class="row">
                 <div class="col-1 mr-3">
                   <i class="fa fa-server fa-2x" style="color: #3AAFA9"></i>
@@ -184,11 +164,9 @@
                   <p class="grey-text">Using Heroku to deploy and host the backend of DeliverMe</p>
                 </div>
               </div>
-              <!--/Third row-->
 
               <div style="height:30px"></div>
 
-              <!--fourth row-->
               <div class="row">
                 <div class="col-1 mr-3">
                   <i class="fa fa-cloud fa-2x" style="color: #3AAFA9"></i>
@@ -198,26 +176,27 @@
                   <p class="grey-text">Using Firebase to deploy and host the frontend of DeliverMe</p>
                 </div>
               </div>
-              <!--/fourth row-->
 
             </div>
           </div>
         </section>
         <hr class="my-5">
+        <!-- END Some Key Features Section -->
       </div>
     </main>
 
+    <!-- Bottom Banner and Footer Components -->
     <Banner></Banner>
     <Footer></Footer>
   </div>
 </template>
 
 <script>
-import Banner from '../views/Banner'
+import Banner from './BannerUser'
 import Footer from '../views/Footer'
 
 export default {
-  // Request Job Form
+  // Get Components
   components: {
     'Banner': Banner,
     'Footer': Footer

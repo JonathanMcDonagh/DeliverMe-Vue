@@ -1,5 +1,7 @@
 <template>
   <div class="hero">
+
+    <!-- Top Banner -->
     <div class="banner-header">
         <div class="banner-header-bg">
           <div class="container">
@@ -13,6 +15,7 @@
       </div>
     </div>
 
+    <!-- 404 Page Content -->
     <div id="app1">
     <div class="error-content">
     <div class="container">
@@ -29,8 +32,10 @@
         </div>
       </div>
     </div>
-  </div>
     </div>
+    </div>
+
+    <!-- Bottom Banner and Footer Components -->
     <Banner></Banner>
     <Footer></Footer>
   </div>
@@ -38,7 +43,7 @@
 
 <script>
 import Footer from '../views/Footer'
-import Banner from '../views/Banner'
+import Banner from './BannerUser'
 
 export default {
   name: '404 Page',
@@ -53,6 +58,7 @@ export default {
       this.$router.push('/')
     }
   },
+  // Gets Components
   components: {
     'Banner': Banner,
     'Footer': Footer

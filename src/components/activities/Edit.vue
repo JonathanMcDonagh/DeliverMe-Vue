@@ -1,7 +1,7 @@
 <template>
-
   <div class="hero">
 
+    <!-- Top Banner -->
     <div class="banner-header">
         <div class="banner-header-bg">
           <div class="container">
@@ -15,7 +15,8 @@
       </div>
     </div>
 
-  <div id="app1">
+    <!-- Update Job Form -->
+    <div id="app1">
     <div class="container mt-3 mt-sm-5">
       <div class="row justify-content-center">
         <div class="col-md-6">
@@ -26,7 +27,9 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
+
+    <!-- Bottom Banner and Footer Components -->
     <Banner></Banner>
     <Footer></Footer>
   </div>
@@ -36,7 +39,7 @@
 import JobForm from '../Forms/JobForm'
 import JobService from '../../services/JobService'
 import Footer from '../views/Footer'
-import Banner from '../views/Banner'
+import Banner from '../views/BannerUser'
 
 export default {
   data () {
@@ -47,13 +50,14 @@ export default {
       temp: {}
     }
   },
-  // Request Job Form
+  // Gets Components
   components: {
     'job-form': JobForm,
     'Banner': Banner,
     'Footer': Footer
   },
   created () {
+    // Get Job
     this.getJob()
   },
   methods: {
@@ -100,5 +104,29 @@ export default {
     font-size: 30pt;
     margin-bottom: 10px;
     color: #17252A;
+  }
+
+  .banner-header-bg {
+    background-color: #3AAFA9;
+    padding: 42px 0 55px;
+    width:100%;
+  }
+  .banner-header h1 {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 40px;
+    position: relative;
+    text-transform: capitalize;
+  }
+  .breadcrumbs_path {
+    color: #fff;
+    margin-top: 8px;
+    position: relative;
+    z-index: 9;
+  }
+  .breadcrumbs_path > a {
+    color: #fff;
+    transition: all 0.3s ease 0s;
   }
 </style>

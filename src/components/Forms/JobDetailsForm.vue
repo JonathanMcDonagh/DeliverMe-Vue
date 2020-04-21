@@ -3,7 +3,7 @@
       <div class="col-lg-12 col-md-12 col-sm-12 align-center">
 
     <div class="form-content align-center">
-
+      <label class="form__label" style="text-align: center">Only Drivers Can Edit This Information</label>
       <!-- Displays job status to the users which they cannot edit -->
       <div class="form-group"  :class="{ 'form-group--error': $v.jobStatus.$error }">
         <label class="form__label">Accepted By</label>
@@ -69,7 +69,7 @@ export default {
     }
   },
   methods: {
-    // Submit Job
+    // Method for submitting
     submit () {
       console.log('submit!')
       this.$v.$touch()

@@ -1,6 +1,7 @@
 <template>
   <div class="hero">
 
+    <!-- Top Banner -->
     <div class="banner-header">
         <div class="banner-header-bg">
           <div class="container">
@@ -14,6 +15,7 @@
       </div>
     </div>
 
+    <!-- Accept Job Form -->
     <div id="app1">
     <div class="container mt-3 mt-sm-5">
       <div class="row justify-content-center">
@@ -25,7 +27,9 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
+
+    <!-- Bottom Banner and Footer Components -->
     <Banner></Banner>
     <Footer></Footer>
   </div>
@@ -35,7 +39,7 @@
 import AcceptJobForm from '../Forms/AcceptJobForm'
 import JobService from '../../services/JobService'
 import Footer from '../views/Footer'
-import Banner from '../views/Banner'
+import Banner from '../views/BannerUser'
 
 export default {
   data () {
@@ -46,13 +50,14 @@ export default {
       temp: {}
     }
   },
-  // Request Job Form
+  // Gets Components
   components: {
     'accept-form': AcceptJobForm,
     'Banner': Banner,
     'Footer': Footer
   },
   created () {
+    // Get Job
     this.getJob()
   },
   methods: {

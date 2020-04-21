@@ -52,16 +52,17 @@ export default {
         this.loginDriver(this.credentials)
       }, 500)
     },
+    // Go back to the login page
     goBack: function () {
       this.$router.push('login')
     },
+    // Login driver method
     loginDriver: function (credentials) {
       console.log('LoginDriver')
       AuthService.driverLogin(credentials)
         .then(response => {
           this.submitStatus = 'OK'
           console.log(response)
-          // Sets token for driver through store.js
           this.$store.dispatch('setDriverToken', response.data.token)
           this.$store.dispatch('setDriver', response.data.driver)
           this.$router.push('/')

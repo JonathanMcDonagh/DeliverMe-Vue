@@ -1,6 +1,7 @@
 <template>
   <div class="hero">
 
+    <!-- Top Banner -->
     <div class="banner-header">
         <div class="banner-header-bg">
           <div class="container">
@@ -14,28 +15,30 @@
       </div>
     </div>
 
-  <div id="app1">
+    <!-- Job Details Form -->
+    <div id="app1">
     <div class="container mt-3 mt-sm-5">
       <div class="row justify-content-center">
         <div class="col-md-6">
           <template v-if="childDataLoaded">
-            <accept-form :job="job" jobBtnTitle="Accept Job"
-                           @job-is-created-updated="updateStatus"></accept-form>
+            <job-details-form :job="job" jobBtnTitle="OK"></job-details-form>
           </template>
         </div>
       </div>
     </div>
-  </div>
+    </div>
+
+    <!-- Bottom Banner and Footer Components -->
     <Banner></Banner>
     <Footer></Footer>
   </div>
 </template>
 
 <script>
-import AcceptedJobDetailsForm from '../Forms/JobDetailsForm'
+import JobDetailsForm from '../Forms/JobDetailsForm'
 import JobService from '../../services/JobService'
 import Footer from '../views/Footer'
-import Banner from '../views/Banner'
+import Banner from '../views/BannerUser'
 
 export default {
   data () {
@@ -46,9 +49,9 @@ export default {
       temp: {}
     }
   },
-  // Request Job Form
+  // Gets Components
   components: {
-    'accept-form': AcceptedJobDetailsForm,
+    'job-details-form': JobDetailsForm,
     'Banner': Banner,
     'Footer': Footer
   },
@@ -56,7 +59,7 @@ export default {
     this.getJob()
   },
   methods: {
-    // To select the job to edit
+    // To select the job to view the details of that job
     getJob: function () {
       JobService.fetchJob(this.$router.params)
         .then(response => {
@@ -67,18 +70,6 @@ export default {
         })
         .catch(error => {
           this.errors.push(error)
-          console.log(error)
-        })
-    },
-    // To update the job
-    updateStatus: function (job) {
-      console.log('Before PUT ' + JSON.stringify(job, null, 5))
-      JobService.putJob(this.$router.params, job)
-        .then(response => {
-          console.log(response)
-          console.log('AFTER PUT ' + JSON.stringify(job, null, 5))
-        })
-        .catch(error => {
           console.log(error)
         })
     }

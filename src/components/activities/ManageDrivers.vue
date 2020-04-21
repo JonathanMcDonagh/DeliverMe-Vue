@@ -1,7 +1,10 @@
 <template>
+  <!-- Admin Page To Manage Drivers -->
   <div class="hero">
     <h3 class="vue-title">Manage Drivers</h3>
     <div id="app1">
+
+      <!-- Drivers Table -->
       <v-client-table :columns="columns" :data="drivers" :options="options">
         <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteDriver(props.row._id)"></a>
       </v-client-table>
@@ -41,6 +44,7 @@ export default {
     this.loadDrivers()
   },
   methods: {
+    // Fetches all drivers
     loadDrivers: function () {
       DriverService.fetchDrivers()
         .then(response => {

@@ -17,6 +17,7 @@ import PageNotFound from '../components/views/PageNotFound'
 import UserProfile from '../components/views/UserProfile'
 import DriverProfile from '../components/views/DriverProfile'
 import Map from '../components/views/Map'
+import Drivers from '../components/activities/Drivers'
 
 Vue.use(Router)
 
@@ -37,6 +38,11 @@ let router = new Router({
       path: '/jobs',
       name: 'Jobs',
       component: Jobs
+    },
+    {
+      path: '/drivers',
+      name: 'Drivers',
+      component: Drivers
     },
     {
       path: '/managejobs',

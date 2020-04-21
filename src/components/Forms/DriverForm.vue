@@ -85,6 +85,7 @@ export default {
       password: this.driver.password,
       confirmpassword: this.driver.password,
       uploadURL: this.driver.uploadURL,
+      likes: 0,
       selectedFile: null,
       drivers: {},
       submitStatus: null,
@@ -122,9 +123,8 @@ export default {
           if (this.password === this.confirmpassword) {
             this.submitStatus = 'OK'
             this.submitStatus = 'OK'
-            const name = (+new Date()) + '-' + this.selectedFile.name
             const metadata = { contentType: this.selectedFile.type }
-            const task = firebase.storage().ref().child(name).put(this.selectedFile, metadata)
+            const task = firebase.storage().ref().child.put(this.selectedFile, metadata)
             task
               .then(snapshot => snapshot.ref.getDownloadURL())
               .then(url => {
@@ -135,7 +135,8 @@ export default {
                   lname: this.lname,
                   email: this.email,
                   password: this.password,
-                  uploadURL: this.uploadURL
+                  uploadURL: this.uploadURL,
+                  likes: this.likes
                 }
                 this.driver = driver
                 console.log('Submitting in DriverForm : ' + JSON.stringify(this.driver, null, 5))

@@ -1,4 +1,5 @@
 <template>
+  <!-- Admin Page To Manage Deliveries -->
   <div class="hero">
     <h3 class="vue-title">Manage Deliveries</h3>
     <div id="app1">
@@ -60,6 +61,7 @@ export default {
     this.loadJobs()
   },
   methods: {
+    // Fetches all jobs
     loadJobs: function () {
       JobService.fetchJobs()
         .then(response => {

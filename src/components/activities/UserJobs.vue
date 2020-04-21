@@ -1,6 +1,7 @@
 <template>
   <div class="hero">
 
+    <!-- Top Banner -->
     <div class="banner-header">
         <div class="banner-header-bg">
           <div class="container">
@@ -14,6 +15,7 @@
       </div>
     </div>
 
+    <!-- Jobs Table For Users -->
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
         <a slot="user" slot-scope="props">
@@ -26,6 +28,7 @@
             <img src="../../assets/blankprofile.png" class="profileImage"><br>
           </div>
         </a>
+
         <!-- User -->
         <a slot="jobStatus" slot-scope="props" class="acceptText" @click="viewUserJob(props.row._id)">{{props.row.jobStatus}}</a>
         <a slot="completed" slot-scope="props" class="fa fa-check-square-o  fa-2x" @click="completedJob(props.row._id)"></a>
@@ -36,6 +39,8 @@
       <p>Slide to the right to see <br>the rest of the table</p>
       </div>
     </div>
+
+    <!-- Bottom Banner and Footer Components -->
     <Banner></Banner>
     <Footer></Footer>
   </div>
@@ -47,7 +52,7 @@ import Vue from 'vue'
 import VueTables from 'vue-tables-2'
 import JobService from '../../services/JobService'
 import Footer from '../views/Footer'
-import Banner from '../views/Banner'
+import Banner from '../views/BannerUser'
 
 Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
 
@@ -75,11 +80,12 @@ export default {
       }
     }
   },
+  // Gets Components
   components: {
     'Banner': Banner,
     'Footer': Footer
   },
-  // Loads all jobs
+  // Loads all user jobs
   created () {
     this.loadUserJobs()
     // Gets user information from Firebase
@@ -109,6 +115,7 @@ export default {
           console.log(error)
         })
     },
+    // Deletes Job but user sees mark as complete
     completedJob: function (id) {
       this.$swal({
         title: 'Has this job be successfully completed?',
