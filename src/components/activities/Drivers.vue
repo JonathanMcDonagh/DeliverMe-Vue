@@ -83,9 +83,9 @@ export default {
     },
     like: function (id) {
       DriverService.likeDriver(id)
-      Vue.toasted.show('You liked this driver').goAway(2500)
         .then(response => {
           this.loadDrivers()
+          Vue.toasted.show('You liked this driver').goAway(2500)
           console.log(response)
         })
         .catch(error => {
