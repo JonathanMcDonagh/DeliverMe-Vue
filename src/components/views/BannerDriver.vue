@@ -3,7 +3,7 @@
   <div class="hero-image">
     <div class="hero-text">
       <h1>Need a delivery? Sign up as a user today!</h1>
-      <button class="btn btn-primary btn1">Sign In</button>
+      <button class="btn btn-primary btn1" @click="userLogin">Sign In</button>
     </div>
   </div>
 
@@ -11,7 +11,15 @@
 
 <script>
 export default {
-  name: 'pagebanner'
+  name: 'Driver Banner',
+  data () {
+    return {}
+  },
+  methods: {
+    userLogin: function () {
+      this.$router.push('login')
+    }
+  }
 }
 </script>
 

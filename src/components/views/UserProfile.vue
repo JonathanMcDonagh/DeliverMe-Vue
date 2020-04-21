@@ -64,6 +64,7 @@ export default {
         loggedUser.userId = loggedUser.user.uid
       }
     })
+    this.user = firebase.auth().currentUser || false
   }
 }
 </script>

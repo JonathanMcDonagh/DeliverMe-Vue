@@ -20,10 +20,12 @@
         </h6>
         <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
         <p>
-          <router-link to="/job" class="footerLink">Request Delivery</router-link>
+          <router-link v-if="user" to="/job" class="footerLink">Request Delivery</router-link>
+          <router-link v-else to="/login" class="footerLink">Request Delivery</router-link>
         </p>
         <p>
-          <router-link to="/myjobs" class="footerLink">My Deliveries</router-link>
+          <router-link v-if="user" to="/myjobs" class="footerLink">My Deliveries</router-link>
+          <router-link v-else to="/login" class="footerLink">My Deliveries</router-link>
         </p>
       </div>
       <!-- END Second column-->
@@ -71,8 +73,31 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+
 export default {
-  name: 'pagefooter'
+  name: 'footer',
+  data () {
+    return {}
+  },
+  methods: {
+    // Loads all user jobs
+    created () {
+      this.loadUserJobs()
+      // Gets user information from Firebase
+      var loggedUser = this
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          loggedUser.user = user
+          loggedUser.email = loggedUser.user.email
+          loggedUser.name = loggedUser.user.displayName
+          loggedUser.photo = loggedUser.user.photoURL
+          loggedUser.userId = loggedUser.user.uid
+        }
+      })
+      this.user = firebase.auth().currentUser || false
+    }
+  }
 }
 </script>
 

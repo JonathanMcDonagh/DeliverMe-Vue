@@ -3,7 +3,7 @@
   <div class="hero-image">
     <div class="hero-text">
       <h1>In need of some extra cash? Become a driver for DeliverMe today</h1>
-      <button class="btn btn-primary btn1">Register Now</button>
+      <button class="btn btn-primary btn1" @click="driverLogin">Register Now</button>
     </div>
   </div>
 
@@ -11,7 +11,15 @@
 
 <script>
 export default {
-  name: 'pagebanner'
+  name: 'User Banner',
+  data () {
+    return {}
+  },
+  methods: {
+    driverLogin: function () {
+      this.$router.push('RegisterAsDriver')
+    }
+  }
 }
 </script>
 

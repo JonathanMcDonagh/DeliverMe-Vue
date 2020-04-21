@@ -17,6 +17,7 @@
 
     <!-- Jobs Table For Users -->
     <div id="app1">
+      <h3 v-if="user == null">You must be logged in to view your jobs</h3>
       <v-client-table :columns="columns" :data="jobs" :options="options">
         <a slot="user" slot-scope="props">
           <div v-if="props.row.profilephoto">
