@@ -123,11 +123,15 @@ export default {
           if (this.password === this.confirmpassword) {
             this.submitStatus = 'OK'
             this.submitStatus = 'OK'
-            const metadata = { contentType: this.selectedFile.type }
-            const task = firebase.storage().ref().child.put(this.selectedFile, metadata)
+
+            const file = this.selectedFile
+            const ref = firebase.storage().ref()
+            const name = (+new Date()) + '-' + file.name
+            const metadata = { contentType: file.type }
+            const task = ref.child(name).put(file, metadata)
             task
               .then(snapshot => snapshot.ref.getDownloadURL())
-              .then(url => {
+              .then((url) => {
                 this.uploadURL = url
 
                 var driver = {
