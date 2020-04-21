@@ -1,7 +1,21 @@
 <template>
   <!-- Admin Page To Manage Deliveries -->
   <div class="hero">
-    <h3 class="vue-title">Manage Deliveries</h3>
+
+    <!-- Top Banner -->
+    <div class="banner-header">
+      <div class="banner-header-bg">
+        <div class="container">
+          <div class="container text-left">
+            <h3 class="vue-title" style="color: #feffff">{{messagetitle}}</h3>
+            <div class="breadcrumbs_path">
+              <a><router-link style="color: #feffff" to="/">Home</router-link></a> > {{messagetitle}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="app1">
       <v-client-table :columns="columns" :data="jobs" :options="options">
         <!-- User Image -->
@@ -22,6 +36,9 @@
         <p>Slide to the right to see <br>the rest of the table</p>
       </div>
     </div>
+    <!-- Bottom Banner and Footer Components -->
+    <Banner></Banner>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -29,6 +46,8 @@
 import Vue from 'vue'
 import VueTables from 'vue-tables-2'
 import JobService from '../../services/JobService'
+import Footer from '../views/Footer'
+import Banner from '../views/BannerDriver'
 
 Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
 
@@ -36,6 +55,7 @@ export default {
   name: 'Jobs',
   data () {
     return {
+      messagetitle: 'Manage Jobs',
       columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus', 'phoneNum', 'delete'],
       jobs: [],
       props: ['_id'],
@@ -59,6 +79,11 @@ export default {
   // Loads all jobs
   created () {
     this.loadJobs()
+  },
+  // Gets Components
+  components: {
+    'Banner': Banner,
+    'Footer': Footer
   },
   methods: {
     // Fetches all jobs
@@ -160,5 +185,29 @@ export default {
     .slideToRight {
       display: block !important;
     }
+  }
+
+  .banner-header-bg {
+    background-color: #3AAFA9;
+    padding: 42px 0 55px;
+    width:100%;
+  }
+  .banner-header h1 {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 40px;
+    position: relative;
+    text-transform: capitalize;
+  }
+  .breadcrumbs_path {
+    color: #fff;
+    margin-top: 8px;
+    position: relative;
+    z-index: 9;
+  }
+  .breadcrumbs_path > a {
+    color: #fff;
+    transition: all 0.3s ease 0s;
   }
 </style>

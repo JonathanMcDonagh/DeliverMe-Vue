@@ -1,7 +1,21 @@
 <template>
   <!-- Admin Page To Manage Drivers -->
   <div class="hero">
-    <h3 class="vue-title">Manage Drivers</h3>
+
+    <!-- Top Banner -->
+    <div class="banner-header">
+      <div class="banner-header-bg">
+        <div class="container">
+          <div class="container text-left">
+            <h3 class="vue-title" style="color: #feffff">{{messagetitle}}</h3>
+            <div class="breadcrumbs_path">
+              <a><router-link style="color: #feffff" to="/">Home</router-link></a> > {{messagetitle}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="app1">
 
       <!-- Drivers Table -->
@@ -9,6 +23,10 @@
         <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteDriver(props.row._id)"></a>
       </v-client-table>
     </div>
+
+    <!-- Bottom Banner and Footer Components -->
+    <Banner></Banner>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -16,6 +34,8 @@
 import Vue from 'vue'
 import VueTables from 'vue-tables-2'
 import DriverService from '../../services/DriverService'
+import Footer from '../views/Footer'
+import Banner from '../views/BannerDriver'
 
 Vue.use(VueTables.ClientTable, {compileTemplates: true, filterByColumn: true})
 
@@ -23,6 +43,7 @@ export default {
   name: 'drivers',
   data () {
     return {
+      messagetitle: 'Manage Drivers',
       drivers: [],
       props: ['_id'],
       errors: [],
@@ -42,6 +63,11 @@ export default {
   // Loads drivers
   created () {
     this.loadDrivers()
+  },
+  // Gets Components
+  components: {
+    'Banner': Banner,
+    'Footer': Footer
   },
   methods: {
     // Fetches all drivers
@@ -97,10 +123,35 @@ export default {
     width: 80%;
     margin: 5% auto;
   }
+
   .vue-title {
     margin-top: 125px;
     text-align: center;
     font-size: 30pt;
     margin-bottom: 10px;
+  }
+
+  .banner-header-bg {
+    background-color: #3AAFA9;
+    padding: 42px 0 55px;
+    width:100%;
+  }
+  .banner-header h1 {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 40px;
+    position: relative;
+    text-transform: capitalize;
+  }
+  .breadcrumbs_path {
+    color: #fff;
+    margin-top: 8px;
+    position: relative;
+    z-index: 9;
+  }
+  .breadcrumbs_path > a {
+    color: #fff;
+    transition: all 0.3s ease 0s;
   }
 </style>

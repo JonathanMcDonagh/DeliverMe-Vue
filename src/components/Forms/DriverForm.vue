@@ -177,7 +177,7 @@ export default {
     border: none;
     border-radius: 1.5rem;
     padding: 1%;
-    width: 20%;
+    width: 100%;
     margin-bottom: 10px;
     cursor: pointer;
     background: #3AAFA9;
