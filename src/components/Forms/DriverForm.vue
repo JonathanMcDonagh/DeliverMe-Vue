@@ -2,59 +2,66 @@
   <div id="app1" class="hero">
 
     <form @submit.prevent="submit">
-        <div class="col-lg-12 col-md-12 col-sm-12 align-center">
+      <div class="col-lg-12 col-md-12 col-sm-12 align-center">
 
-      <div class="form-content align-center">
-        <div class="column">
-          <div class="form-group">
-            <input type="text" class="form-control" name="fname" placeholder="First Name*" required="" v-model.trim="fname" />
-            <div class="error" v-if="!$v.fname.required">First Name is Required</div>
+        <div class="form-content align-center">
+          <div class="column">
+            <div class="form-group">
+              <b-form-file
+                placeholder="Profile Image"
+                drop-placeholder=""
+                @change="onProfileFileSelected"
+              ></b-form-file>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="fname" placeholder="First Name*" required="" v-model.trim="fname" />
+              <div class="error" v-if="!$v.fname.required">First Name is Required</div>
+            </div>
+
+            <div class="form-group">
+              <input type="text" class="form-control" name="lname" placeholder="Last Name*" required="" v-model="lname" />
+              <div class="error" v-if="!$v.lname.required">Last Name is Required</div>
+            </div>
+
+            <div class="form-group">
+              <input type="email" class="form-control" name="email" placeholder="Email Address*" required="" v-model="email" />
+              <div class="error" v-if="!$v.email.required">Email is Required</div>
+            </div>
+
+            <div class="form-group">
+              <input type="password" class="form-control" name="password" placeholder="Password*" required="" v-model="password" />
+              <div class="error" v-if="!$v.password.required">Password is Required</div>
+            </div>
+
+            <div class="form-group">
+              <input type="password" class="form-control" name="passwordconfirm" placeholder="Confirm Password*" required=""
+                     v-model="confirmpassword" />
+              <div class="error" v-if="!$v.confirmpassword.required">Confirm Password is Required</div>
+            </div>
+
+            <label class="signUpLabels">Please note we require proof of a Full Drivers Licence or Proof of Address if cyclist</label><br>
+
+            <label class="signUpLabels">Please upload a clear image</label><br>
+
+            <div class="form-group">
+              <b-form-file
+                placeholder="Upload document"
+                drop-placeholder="Drag and drop you form"
+                @change="onFileSelected"
+              ></b-form-file>
+            </div>
+
+            <div>
+              <button class="btnSubmit" v-if="selectedFile != null" type="submit" :disabled="submitStatus === 'PENDING'">Register</button>
+            </div>
+
           </div>
-
-          <div class="form-group">
-            <input type="text" class="form-control" name="lname" placeholder="Last Name*" required="" v-model="lname" />
-            <div class="error" v-if="!$v.lname.required">Last Name is Required</div>
-          </div>
-
-          <div class="form-group">
-            <input type="email" class="form-control" name="email" placeholder="Email Address*" required="" v-model="email" />
-            <div class="error" v-if="!$v.email.required">Email is Required</div>
-          </div>
-
-          <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password*" required="" v-model="password" />
-            <div class="error" v-if="!$v.password.required">Password is Required</div>
-          </div>
-
-          <div class="form-group">
-            <input type="password" class="form-control" name="passwordconfirm" placeholder="Confirm Password*" required=""
-                   v-model="confirmpassword" />
-            <div class="error" v-if="!$v.confirmpassword.required">Confirm Password is Required</div>
-          </div>
-
-          <label class="signUpLabels">Please note we require proof of a Full Drivers Licence or Proof of Address if cyclist</label><br>
-
-          <label class="signUpLabels">Please upload a clear image</label><br>
-
-          <div class="form-group">
-            <b-form-file
-              placeholder="Upload document"
-              drop-placeholder="Drag and drop you form"
-              @change="onFileSelected"
-            ></b-form-file>
-          </div>
-
-          <div>
-            <button class="btnSubmit" v-if="selectedFile != null" type="submit" :disabled="submitStatus === 'PENDING'">Register</button>
-          </div>
-
+          <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Check if the passwords match</p>
+          <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for Registering!</p>
+          <p class="typo__p" v-if="submitStatus === 'PENDING'">Pending...</p>
         </div>
-        <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Check if the passwords match</p>
-        <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for Registering!</p>
-        <p class="typo__p" v-if="submitStatus === 'PENDING'">Pending...</p>
+
       </div>
-
-        </div>
     </form>
 
   </div>
@@ -84,8 +91,10 @@ export default {
       email: this.driver.email,
       password: this.driver.password,
       confirmpassword: this.driver.password,
+      driverprofilepicture: this.driver.driverprofilepicture,
       uploadURL: this.driver.uploadURL,
       likes: 0,
+      selectedProfileFile: null,
       selectedFile: null,
       drivers: {},
       submitStatus: null,
@@ -127,25 +136,37 @@ export default {
             const file = this.selectedFile
             const ref = firebase.storage().ref()
             const name = (+new Date()) + '-' + file.name
-            const metadata = { contentType: file.type }
+            const metadata = {contentType: file.type}
             const task = ref.child(name).put(file, metadata)
             task
               .then(snapshot => snapshot.ref.getDownloadURL())
               .then((url) => {
                 this.uploadURL = url
 
-                var driver = {
-                  fname: this.fname,
-                  lname: this.lname,
-                  email: this.email,
-                  password: this.password,
-                  uploadURL: this.uploadURL,
-                  likes: this.likes
-                }
-                this.driver = driver
-                console.log('Submitting in DriverForm : ' + JSON.stringify(this.driver, null, 5))
-                this.$emit('driver-is-created-updated', this.driver)
-                this.$router.push('/driverlogin')
+                const file = this.selectedProfileFile
+                const ref = firebase.storage().ref()
+                const name = (+new Date()) + '-' + file.name
+                const metadata = {contentType: file.type}
+                const task = ref.child(name).put(file, metadata)
+                task
+                  .then(snapshot => snapshot.ref.getDownloadURL())
+                  .then((url) => {
+                    this.driverprofilepicture = url
+
+                    var driver = {
+                      fname: this.fname,
+                      lname: this.lname,
+                      email: this.email,
+                      password: this.password,
+                      driverprofilepicture: this.driverprofilepicture,
+                      uploadURL: this.uploadURL,
+                      likes: this.likes
+                    }
+                    this.driver = driver
+                    console.log('Submitting in DriverForm : ' + JSON.stringify(this.driver, null, 5))
+                    this.$emit('driver-is-created-updated', this.driver)
+                    this.$router.push('/driverlogin')
+                  }, 500)
               }, 500)
           } else {
             this.submitStatus = 'ERROR'
@@ -157,6 +178,9 @@ export default {
           }
         }, 500)
       }
+    },
+    onProfileFileSelected (event) {
+      this.selectedProfileFile = event.target.files[0]
     },
     onFileSelected (event) {
       this.selectedFile = event.target.files[0]

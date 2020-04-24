@@ -20,6 +20,14 @@
 
       <!-- Drivers Table -->
       <v-client-table :columns="columns" :data="drivers" :options="options">
+        <a slot="driver" slot-scope="props">
+          <div v-if="props.row.driverprofilepicture">
+            <img :src="props.row.driverprofilepicture" class="profileImage">
+          </div>
+          <div v-else>
+            <img src="../../assets/blankprofile.png" class="profileImage"><br>
+          </div>
+        </a>
         <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteDriver(props.row._id)"></a>
       </v-client-table>
     </div>
@@ -47,7 +55,7 @@ export default {
       drivers: [],
       props: ['_id'],
       errors: [],
-      columns: ['fname', 'lname', 'email', 'uploadURL', 'delete'],
+      columns: ['driver', 'fname', 'lname', 'email', 'uploadURL', 'likes', 'delete'],
       options: {
         perPage: 8,
         headings: {
@@ -153,5 +161,11 @@ export default {
   .breadcrumbs_path > a {
     color: #fff;
     transition: all 0.3s ease 0s;
+  }
+  .profileImage {
+    color: white;
+    font-size: 10px;
+    border: 1px solid white;
+    width: 100px;
   }
 </style>

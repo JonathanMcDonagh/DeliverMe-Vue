@@ -18,7 +18,16 @@
 
     <div id="app1">
       <v-client-table :columns="columns" :data="drivers" :options="options">
+        <a slot="driver" slot-scope="props">
+          <div v-if="props.row.driverprofilepicture">
+            <img :src="props.row.driverprofilepicture" class="profileImage">
+          </div>
+          <div v-else>
+            <img src="../../assets/blankprofile.png" class="profileImage"><br>
+          </div>
+        </a>
         <a slot="like" slot-scope="props" class="fa fa-thumbs-o-up fa-2x" @click="like(props.row._id)"></a>
+        <a slot="dislike" slot-scope="props" class="fa fa-thumbs-o-down fa-2x" @click="dislike(props.row._id)"></a>
       </v-client-table>
     </div>
 
@@ -47,7 +56,7 @@ export default {
       drivers: [],
       props: ['_id'],
       errors: [],
-      columns: ['fname', 'lname', 'likes', 'like'],
+      columns: ['driver', 'fname', 'lname', 'likes', 'like', 'dislike'],
       options: {
         perPage: 8,
         headings: {
@@ -86,6 +95,18 @@ export default {
         .then(response => {
           this.loadDrivers()
           Vue.toasted.show('You liked this driver').goAway(2500)
+          console.log(response)
+        })
+        .catch(error => {
+          this.errors.push(error)
+          console.log(error)
+        })
+    },
+    dislike: function (id) {
+      DriverService.dislikeDriver(id)
+        .then(response => {
+          this.loadDrivers()
+          Vue.toasted.show('You disliked this driver').goAway(2500)
           console.log(response)
         })
         .catch(error => {
@@ -131,5 +152,11 @@ export default {
   .breadcrumbs_path > a {
     color: #fff;
     transition: all 0.3s ease 0s;
+  }
+  .profileImage {
+    color: white;
+    font-size: 10px;
+    border: 1px solid white;
+    width: 100px;
   }
 </style>

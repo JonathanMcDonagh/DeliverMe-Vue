@@ -61,6 +61,7 @@ export default {
         lname: '',
         email: '',
         password: '',
+        driverprofilepicture: '',
         confirmpassword: '',
         uploadURL: ''
       }
