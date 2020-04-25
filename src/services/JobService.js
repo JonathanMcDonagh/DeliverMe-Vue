@@ -9,6 +9,10 @@ export default {
   fetchUserJobs (usertoken) {
     return Api().get(`/jobs/user/${usertoken}`)
   },
+  // Get all jobs based on user
+  fetchJobsByStatus (jobStatus) {
+    return Api().get(`/jobs/driver/${jobStatus}`)
+  },
   // Gets job based on id
   fetchJob (id) {
     return Api().get(`/jobs/${id}`)

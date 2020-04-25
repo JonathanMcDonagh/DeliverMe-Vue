@@ -24,7 +24,7 @@
         <p class="useremail">Registered User For DeliverMe</p>
         <p class="useremail">Logged In Using {{platform}}</p>
 
-        <p><button>View My Jobs</button></p>
+        <p><button class="profileBtn" @click="myJobs">View My Jobs</button></p>
       </div>
     </div>
 
@@ -70,6 +70,11 @@ export default {
       }
     })
     this.user = firebase.auth().currentUser || false
+  },
+  methods: {
+    myJobs: function () {
+      this.$router.push('myjobs')
+    }
   }
 }
 </script>
@@ -120,7 +125,7 @@ export default {
     font-size: 18px;
   }
 
-  button {
+  .profileBtn {
     text-align: center;
     cursor: pointer;
     width: 100%;
@@ -133,7 +138,7 @@ export default {
     background-color: #3AAFA9;
   }
 
-  button:hover, a:hover {
+  .profileBtn:hover {
     opacity: 0.5;
   }
 </style>

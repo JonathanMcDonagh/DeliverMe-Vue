@@ -18,6 +18,7 @@ import UserProfile from '../components/views/UserProfile'
 import DriverProfile from '../components/views/DriverProfile'
 import Map from '../components/views/Map'
 import Drivers from '../components/activities/Drivers'
+import DriverJobs from '../components/activities/DriverJobs'
 
 Vue.use(Router)
 
@@ -58,6 +59,11 @@ let router = new Router({
       path: '/myjobs',
       name: 'UserJobs',
       component: UserJobs
+    },
+    {
+      path: '/driverjobs',
+      name: 'DriverJobs',
+      component: DriverJobs
     },
     {
       path: '/job',

@@ -27,8 +27,9 @@
           </div>
         </a>
         <!-- Driver -->
-        <a slot="jobStatus" v-if="$store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" slot-scope="props" class="acceptText" @click="acceptJob(props.row._id)">{{props.row.jobStatus}}</a>
+        <a slot="jobStatus" v-if="$store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" slot-scope="props" class="acceptText" @click="jobDetails(props.row._id)">{{props.row.jobStatus}}</a>
         <a slot="jobStatus" v-else slot-scope="props">You need to be a driver to accept jobs</a>
+        <a slot="completed" slot-scope="props" class="fa fa-check-square-o  fa-2x" @click="completedJob(props.row._id)"></a>
       </v-client-table>
       <div class="slideToRight">
         <p>Slide to the right to see <br>the rest of the table</p>
@@ -55,12 +56,12 @@ export default {
   name: 'Jobs',
   data () {
     return {
-      messagetitle: ' All Jobs ',
+      messagetitle: ' My Jobs ',
       jobs: [],
       status: '',
       props: ['_id'],
       errors: [],
-      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus'],
+      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus', 'completed'],
       options: {
         perPage: 8,
         headings: {
@@ -100,7 +101,7 @@ export default {
   methods: {
     // To Load jobs
     loadJobs: function () {
-      JobService.fetchJobsByStatus('Not Accepted Yet')
+      JobService.fetchJobsByStatus(this.$store.state.driver.fname + ' (' + this.$store.state.driver.email + ')')
         .then(response => {
           // JSON responses are automatically parsed.
           this.jobs = response.data
@@ -111,10 +112,41 @@ export default {
           console.log(error)
         })
     },
+    // Deletes Job but user sees mark as complete
+    completedJob: function (id) {
+      this.$swal({
+        title: 'Has this job be successfully completed?',
+        text: 'You can\'t undo this action',
+        type: 'success',
+        showCancelButton: true,
+        confirmButtonText: 'Mark Completed',
+        cancelButtonText: 'Cancel',
+        showCloseButton: true,
+        showLoaderOnConfirm: true
+      }).then((result) => {
+        console.log('SWAL Result : ' + result)
+        if (result === true) {
+          JobService.deleteJob(id)
+            .then(response => {
+              this.message = response.data
+              console.log(this.message)
+              this.loadJobs()
+              this.$swal('Completed', 'This job has been completed')
+            })
+            .catch(error => {
+              this.$swal('ERROR', 'Something went wrong trying to complete ' + error, 'error')
+              this.errors.push(error)
+              console.log(error)
+            })
+        } else {
+          this.$swal('Cancelled', 'Your job is still there!', 'info')
+        }
+      })
+    },
     // To Accept jobs
-    acceptJob: function (id) {
+    jobDetails: function (id) {
       this.$router.params = id
-      this.$router.push('accept')
+      this.$router.push('jobdetails')
     }
   }
 }

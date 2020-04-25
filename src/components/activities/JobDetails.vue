@@ -8,8 +8,16 @@
             <div class="container text-left">
               <h3 class="vue-title" style="color: #feffff">{{messagetitle}}</h3>
               <div class="breadcrumbs_path">
-                <a><router-link style="color: #feffff" to="/">Home</router-link></a> > <a><router-link style="color: #feffff" to="/myjobs">My Deliveries</router-link></a> > {{messagetitle}}
-              </div>
+                <div v-if="$store.state.isDriverLoggedIn">
+                <a><router-link style="color: #feffff" to="/">Home</router-link></a> > <a><router-link style="color: #feffff" to="/driverjobs">My Jobs</router-link></a> > {{messagetitle}}
+                </div>
+                <div v-else-if="$store.state.isAdminLoggedIn">
+                  <a><router-link style="color: #feffff" to="/">Home</router-link></a> > <a><router-link style="color: #feffff" to="/managejobs">Manage Jobs</router-link></a> > {{messagetitle}}
+                </div>
+                <div v-else>
+                  <a><router-link style="color: #feffff" to="/">Home</router-link></a> > <a><router-link style="color: #feffff" to="/myjobs">My Deliveries</router-link></a> > {{messagetitle}}
+                </div>
+                </div>
             </div>
         </div>
       </div>

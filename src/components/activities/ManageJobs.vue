@@ -102,7 +102,7 @@ export default {
     // To Accept jobs
     acceptJob: function (id) {
       this.$router.params = id
-      this.$router.push('accept')
+      this.$router.push('jobdetails')
     },
     // To Delete jobs
     deleteJob: function (id) {

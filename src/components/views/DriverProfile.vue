@@ -25,7 +25,7 @@
         <p class="driveremail">Total Likes: {{likes}}</p>
         <p class="driveremail">Uploaded Documentation:</p>
 
-        <a :href="uploadURL" target="_blank">
+        <a :href="uploadURL" class="profileLink" target="_blank">
           <div class="imageContainer">
             <img :src="uploadURL" alt="Avatar" class="image">
             <div class="overlay">
@@ -33,7 +33,7 @@
             </div>
           </div>
         </a>
-        <p><button @click="findJob">Find A Job</button></p>
+        <p><button class="profileBtn" @click="findJob">Find A Job</button></p>
       </div>
     </div>
 
@@ -131,7 +131,7 @@ export default {
     font-size: 18px;
   }
 
-  button {
+  .profileBtn {
     text-align: center;
     cursor: pointer;
     width: 100%;
@@ -144,7 +144,7 @@ export default {
     background-color: #3AAFA9;
   }
 
-  button:hover, a:hover {
+  .profileBtn:hover, .profileLink:hover {
     opacity: 0.5;
   }
 

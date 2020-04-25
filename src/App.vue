@@ -10,16 +10,15 @@
 
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav>
-          <b-nav-item v-if="$store.state.isDriverLoggedIn" to="/jobs">All Deliveries</b-nav-item>
+          <b-nav-item v-if="$store.state.isDriverLoggedIn" to="/jobs">Jobs</b-nav-item>
+          <b-nav-item v-if="$store.state.isDriverLoggedIn" to="/driverjobs">My Jobs</b-nav-item>
 
           <b-nav-item v-if="user" to="/myjobs">My Deliveries</b-nav-item>
           <b-nav-item v-if="user" to="/job">Request Delivery</b-nav-item>
           <b-nav-item v-if="user" to="/drivers">View Drivers</b-nav-item>
           <b-nav-item v-if="user || $store.state.isDriverLoggedIn" to="/map">Map</b-nav-item>
 
-          <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/jobs">All Deliveries List</b-nav-item>
           <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/managejobs">Manage Deliveries List</b-nav-item>
-          <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/drivers">All Drivers List</b-nav-item>
           <b-nav-item v-if="$store.state.isAdminLoggedIn" to="/managedrivers">Manage Drivers List</b-nav-item>
         </b-navbar-nav>
 

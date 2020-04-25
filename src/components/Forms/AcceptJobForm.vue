@@ -5,8 +5,8 @@
 
         <!-- Displays job status to the users which they cannot edit -->
         <div class="form-group"  :class="{ 'form-group--error': $v.jobStatus.$error }">
-          <label class="form__label">Job Status (i.e. Accepted By Your Name)</label>
-          <input class="form__input" v-model.trim="$v.jobStatus.$model"/>
+          <label class="form__label">Job Status (Accepted By)</label>
+          <input class="form__input" style="background-color: #def2f1" disabled v-model.trim="$v.jobStatus.$model"/>
           <div class="error" v-if="!$v.jobStatus.required">This field is Required</div>
         </div>
 
@@ -74,6 +74,9 @@ export default {
       required
     }
   },
+  created () {
+    this.loadDriverDetails()
+  },
   methods: {
     // Method for submitting
     submit () {
@@ -95,6 +98,9 @@ export default {
           this.$emit('job-is-created-updated', this.job)
         }, 500)
       }
+    },
+    loadDriverDetails () {
+      this.jobStatus = this.$store.state.driver.fname + ' (' + this.$store.state.driver.email + ')'
     }
   }
 }

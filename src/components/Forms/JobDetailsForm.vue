@@ -3,7 +3,6 @@
       <div class="col-lg-12 col-md-12 col-sm-12 align-center">
 
     <div class="form-content align-center">
-      <label class="form__label" style="text-align: center">Only Drivers Can Edit This Information</label>
       <!-- Displays job status to the users which they cannot edit -->
       <div class="form-group"  :class="{ 'form-group--error': $v.jobStatus.$error }">
         <label class="form__label">Accepted By</label>
@@ -18,8 +17,18 @@
         <div class="error" v-if="!$v.jobMessage.required">This field is Required</div>
       </div>
 
+      <!-- Displays job status to the users which they cannot edit -->
+      <div class="form-group"  :class="{ 'form-group--error': $v.phoneNum.$error }">
+        <label class="form__label">Users Phone Number</label>
+        <input class="form__input" style="background-color: #def2f1" disabled v-model.trim="$v.phoneNum.$model"/>
+        <div class="error" v-if="!$v.phoneNum.required">This field is Required</div>
+      </div>
+
       <p>
-        <button class="btn btn-primary btn1" @click="myJobs">Go Back</button>
+        <button v-if="$store.state.isDriverLoggedIn" class="btn btn-primary btn1" @click="driverJobs">Go Back</button>
+        <button v-else-if="$store.state.isAdminLoggedIn" class="btn btn-primary btn1" @click="adminJobs">Go Back</button>
+        <button v-else class="btn btn-primary btn1" @click="userJobs">Go Back</button>
+
       </p>
 
       <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your help</p>
@@ -53,9 +62,9 @@ export default {
     return {
       fname: '',
       lname: '',
-      phoneNum: this.job.phoneNum,
       jobStatus: this.job.jobStatus,
       jobMessage: this.job.jobMessage,
+      phoneNum: this.job.phoneNum,
       submitStatus: null
     }
   },
@@ -65,6 +74,9 @@ export default {
       required
     },
     jobMessage: {
+      required
+    },
+    phoneNum: {
       required
     }
   },
@@ -90,8 +102,14 @@ export default {
       }
     },
     // To redirect user to their jobs
-    myJobs: function () {
+    userJobs: function () {
       this.$router.push('myjobs')
+    },
+    driverJobs: function () {
+      this.$router.push('driverjobs')
+    },
+    adminJobs: function () {
+      this.$router.push('managejobs')
     },
     loadDriverDetails () {
       this.fname = this.$store.state.driver.fname
