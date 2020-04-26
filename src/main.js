@@ -14,6 +14,7 @@ import firebaseAuth from './firebaseAuth'
 import {sync} from 'vuex-router-sync'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'vue-googlemaps/dist/vue-googlemaps.css'
 
 Vue.use(VueRouter)
 Vue.use(BootstrapVue)

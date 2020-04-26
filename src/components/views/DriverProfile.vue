@@ -18,11 +18,21 @@
     <!-- User Information -->
     <div id="app1" style="margin-top: 5%; margin-bottom: 5%">
       <div class="profileCard">
-        <img :src="driverprofilepicture" alt="Profile Image" style="width:100%">
+
+        <img :src="driverprofilepicture" alt="Profile Image" style="width:100%;">
         <h1>{{fname}} {{lname}}</h1>
         <p class="driveremail">{{driverEmail}}</p>
         <p class="driveremail">Registered Driver For DeliverMe</p>
-        <p class="driveremail">Total Likes: {{likes}}</p>
+        <v-client-table :columns="columns" :data="driver" :options="options">
+          <a slot="driver" slot-scope="props">
+            <div v-if="props.row.driverprofilepicture">
+              <img :src="props.row.driverprofilepicture" class="profileImage">
+            </div>
+            <div v-else>
+              <img src="../../assets/blankprofile.png" class="profileImage"><br>
+            </div>
+          </a>
+        </v-client-table>
         <p class="driveremail">Uploaded Documentation:</p>
 
         <a :href="uploadURL" class="profileLink" target="_blank">
@@ -46,6 +56,7 @@
 <script>
 import Footer from '../views/Footer'
 import Banner from '../views/BannerDriver'
+import DriverService from '../../services/DriverService'
 
 export default {
   data () {
@@ -57,11 +68,21 @@ export default {
       driverEmail: '',
       uploadURL: '',
       driverprofilepicture: '',
-      likes: 0
+      driver: [],
+      errors: [],
+      columns: ['driver', 'email', 'fname', 'lname', 'likes', 'uploadURL'],
+      options: {
+        perPage: 8,
+        headings: {
+          fname: 'First Name',
+          lname: 'Last Name'
+        }
+      }
     }
   },
   created () {
     this.loadDriverDetails()
+    this.loadDriver()
   },
   // Gets Components
   components: {
@@ -69,13 +90,26 @@ export default {
     'Footer': Footer
   },
   methods: {
+    // Fetches all drivers
+    loadDriver: function () {
+      DriverService.fetchDriver(this.driverEmail)
+        .then(response => {
+          // JSON responses are automatically parsed.
+          this.driver = response.data
+          console.log(this.driver)
+        })
+        .catch(error => {
+          this.errors.push(error)
+          console.log(error)
+        })
+    },
     loadDriverDetails () {
+      this.id = this.$store.state.driver.id
       this.fname = this.$store.state.driver.fname
       this.lname = this.$store.state.driver.lname
       this.driverEmail = this.$store.state.driver.email
       this.uploadURL = this.$store.state.driver.uploadURL
       this.driverprofilepicture = this.$store.state.driver.driverprofilepicture
-      this.likes = this.$store.state.driver.likes
     },
     // Find Job
     findJob: function () {
@@ -120,7 +154,7 @@ export default {
 
   .profileCard {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 500px;
+    max-width: 600px;
     margin: 5% auto;
     text-align: center;
     font-family: arial;
@@ -187,5 +221,11 @@ export default {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     text-align: center;
+  }
+  .profileImage {
+    color: white;
+    font-size: 10px;
+    border: 1px solid white;
+    width: 100px;
   }
 </style>

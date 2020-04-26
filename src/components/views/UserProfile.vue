@@ -114,7 +114,7 @@ export default {
 
   .profileCard {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 500px;
+    max-width: 600px;
     margin: 5% auto;
     text-align: center;
     font-family: arial;
