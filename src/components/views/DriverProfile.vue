@@ -17,9 +17,9 @@
 
     <!-- User Information -->
     <div id="app1" style="margin-top: 5%; margin-bottom: 5%">
-      <div class="profileCard">
 
-        <img :src="driverprofilepicture" alt="Profile Image" style="width:100%;">
+      <div class="profileCard">
+        <img :src="driverprofilepicture" alt="Profile Image" style="width:100%">
         <h1>{{fname}} {{lname}}</h1>
         <p class="driveremail">{{driverEmail}}</p>
         <p class="driveremail">Registered Driver For DeliverMe</p>
@@ -63,6 +63,7 @@ export default {
     return {
       props: ['id'],
       messagetitle: ' My Account ',
+      id: '',
       fname: '',
       lname: '',
       driverEmail: '',
@@ -70,7 +71,7 @@ export default {
       driverprofilepicture: '',
       driver: [],
       errors: [],
-      columns: ['driver', 'email', 'fname', 'lname', 'likes', 'uploadURL'],
+      columns: ['driver', 'fname', 'likes'],
       options: {
         perPage: 8,
         headings: {
@@ -92,7 +93,7 @@ export default {
   methods: {
     // Fetches all drivers
     loadDriver: function () {
-      DriverService.fetchDriver(this.driverEmail)
+      DriverService.fetchDriverByEmail(this.driverEmail)
         .then(response => {
           // JSON responses are automatically parsed.
           this.driver = response.data
@@ -104,7 +105,6 @@ export default {
         })
     },
     loadDriverDetails () {
-      this.id = this.$store.state.driver.id
       this.fname = this.$store.state.driver.fname
       this.lname = this.$store.state.driver.lname
       this.driverEmail = this.$store.state.driver.email
@@ -154,7 +154,7 @@ export default {
 
   .profileCard {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 600px;
+    max-width: 500px;
     margin: 5% auto;
     text-align: center;
     font-family: arial;

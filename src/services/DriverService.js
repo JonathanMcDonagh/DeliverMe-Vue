@@ -6,8 +6,12 @@ export default {
     return Api().get('/drivers')
   },
   // Get driver based on id
-  fetchDriver (email) {
-    return Api().get(`/driver/${email}`)
+  fetchDriver (id) {
+    return Api().get(`/driver/${id}`)
+  },
+  // Get driver based on id
+  fetchDriverByEmail (email) {
+    return Api().get(`/driver/account/${email}`)
   },
   // Like a driver
   likeDriver (id) {
