@@ -26,7 +26,7 @@ Below Are Some Functional Requirements of the Web App
 
 ## Links.
 
-Heroku Hosting (Backend): https://deliverme-wit.herokuapp.com/
+Heroku Hosting (Backend): https://deliverme-wit-fyp.herokuapp.com/
 
 Firebase Hosting (Frontend): https://deliverme-wit.web.app/
 
