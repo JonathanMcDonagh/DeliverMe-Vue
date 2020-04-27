@@ -8,7 +8,7 @@
           <div class="column">
             <div class="form-group">
               <b-form-file
-                placeholder="Profile Image"
+                placeholder="Upload Profile Picture"
                 drop-placeholder=""
                 @change="onProfileFileSelected"
               ></b-form-file>

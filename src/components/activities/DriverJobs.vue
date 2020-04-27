@@ -65,7 +65,7 @@ export default {
       options: {
         perPage: 8,
         headings: {
-          user: '',
+          user: 'User',
           name: 'Name',
           deliveryRequest: 'Delivery Request',
           place: 'Collection Place',

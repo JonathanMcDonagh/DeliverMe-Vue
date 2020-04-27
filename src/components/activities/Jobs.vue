@@ -55,7 +55,7 @@ export default {
   name: 'Jobs',
   data () {
     return {
-      messagetitle: ' All Jobs ',
+      messagetitle: ' Available Jobs ',
       jobs: [],
       status: '',
       props: ['_id'],
