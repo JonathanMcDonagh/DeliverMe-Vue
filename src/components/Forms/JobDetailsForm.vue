@@ -24,7 +24,7 @@
           <div class="error" v-if="!$v.phoneNum.required">This field is Required</div>
         </div>
 
-        <div>
+        <div v-if="user">
           <div v-if="!paidFor">
             <h1>Pay Delivery Fee - €{{ product.price }}</h1>
             <p>{{ product.description }}</p>
@@ -57,12 +57,15 @@ import Vue from 'vue'
 import VueForm from 'vueform'
 import Vuelidate from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
+import firebase from 'firebase'
+
 Vue.use(VueForm, {
   inputClasses: {
     valid: 'form-control-success',
     invalid: 'form-control-danger'
   }
 })
+
 Vue.use(Vuelidate)
 export default {
   name: 'FormData',
@@ -94,6 +97,21 @@ export default {
     phoneNum: {
       required
     }
+  },
+  // Gets user information
+  created () {
+    var loggedUser = this
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        loggedUser.user = user
+        loggedUser.name = loggedUser.user.displayName
+        loggedUser.email = loggedUser.user.email
+        loggedUser.photo = loggedUser.user.photoURL
+        loggedUser.userId = loggedUser.user.uid
+        loggedUser.platform = loggedUser.user.providerId
+      }
+    })
+    this.user = firebase.auth().currentUser || false
   },
   mounted: function () {
     const script = document.createElement('script')
