@@ -26,8 +26,8 @@
 
         <div v-if="user">
           <div v-if="!paidFor">
-            <h1>Pay Delivery Fee - €{{ product.price }}</h1>
-            <p>{{ product.description }}</p>
+            <h1>Pay Delivery Fee - €{{ delivery.price }}</h1>
+            <p>{{ delivery.description }}</p>
           </div>
 
           <div v-if="paidFor">
@@ -79,7 +79,7 @@ export default {
       phoneNum: this.job.phoneNum,
       loaded: false,
       paidFor: false,
-      product: {
+      delivery: {
         price: this.job.deliveryFee + 0.50,
         description: 'Delivery Fee' + '(€' + this.job.deliveryFee + ')' + ' Serivce Charge (€0.50)'
       },
@@ -164,9 +164,9 @@ export default {
             return actions.order.create({
               purchase_units: [
                 {
-                  description: this.product.description,
+                  description: this.delivery.description,
                   amount: {
-                    value: this.product.price
+                    value: this.delivery.price
                   }
                 }
               ]
