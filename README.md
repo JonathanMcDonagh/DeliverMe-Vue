@@ -23,6 +23,7 @@ Below Are Some Functional Requirements of the Web App
     • Allow the users to pay using cash.
     • Allow the users to upvote drivers.
     • Comment functionality between the driver to the user of the site when the driver is accepting a delivery request.
+    • PayPal Payment Method
 
 ## Links.
 
