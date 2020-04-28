@@ -65,9 +65,9 @@
           <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Place Job (Cash)</button>
         </p>
 
-      <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your request someone will be in contact with you shortly</p>
-      <p class="typo__p" v-if="submitStatus === 'ERROR'">Please Fill in the Form Correctly.</p>
-      <p class="typo__p" v-if="submitStatus === 'PENDING'">adding...</p>
+      <p class="typo__p" style="width: 60%; margin-left: auto; margin-right: auto" v-if="submitStatus === 'OK'">Thanks for your request someone will be in contact with you shortly</p>
+      <p class="typo__p" style="width: 60%" v-if="submitStatus === 'ERROR'">Please Fill in the Form Correctly.</p>
+      <p class="typo__p" style="width: 60%" v-if="submitStatus === 'PENDING'">adding...</p>
     </div>
       </div>
   </form>

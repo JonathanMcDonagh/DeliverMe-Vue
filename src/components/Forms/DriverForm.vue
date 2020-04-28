@@ -14,29 +14,39 @@
               ></b-form-file>
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="fname" placeholder="First Name*" required="" v-model.trim="fname" />
-              <div class="error" v-if="!$v.fname.required">First Name is Required</div>
+              <div class="input-container">
+                <i class="fa fa-user icon"></i>
+              <input type="text" class="form-control" style="border-radius: 0!important;" name="fname" placeholder="First Name*" required="" v-model.trim="fname" />
+              </div>
             </div>
 
             <div class="form-group">
-              <input type="text" class="form-control" name="lname" placeholder="Last Name*" required="" v-model="lname" />
-              <div class="error" v-if="!$v.lname.required">Last Name is Required</div>
+              <div class="input-container">
+                <i class="fa fa-user icon"></i>
+              <input type="text" class="form-control" style="border-radius: 0!important;" name="lname" placeholder="Last Name*" required="" v-model="lname" />
+              </div>
             </div>
 
             <div class="form-group">
-              <input type="email" class="form-control" name="email" placeholder="Email Address*" required="" v-model="email" />
-              <div class="error" v-if="!$v.email.required">Email is Required</div>
+              <div class="input-container">
+                <i class="fa fa-envelope icon"></i>
+              <input type="email" class="form-control" style="border-radius: 0!important;" name="email" placeholder="Email Address*" required="" v-model="email" />
+              </div>
             </div>
 
             <div class="form-group">
-              <input type="password" class="form-control" name="password" placeholder="Password*" required="" v-model="password" />
-              <div class="error" v-if="!$v.password.required">Password is Required</div>
+              <div class="input-container">
+                <i class="fa fa-key icon"></i>
+              <input type="password" class="form-control" style="border-radius: 0!important;" name="password" placeholder="Password*" required="" v-model="password" />
+              </div>
             </div>
 
             <div class="form-group">
-              <input type="password" class="form-control" name="passwordconfirm" placeholder="Confirm Password*" required=""
+              <div class="input-container">
+                <i class="fa fa-key icon"></i>
+              <input type="password" class="form-control" style="border-radius: 0!important;" name="passwordconfirm" placeholder="Confirm Password*" required=""
                      v-model="confirmpassword" />
-              <div class="error" v-if="!$v.confirmpassword.required">Confirm Password is Required</div>
+              </div>
             </div>
 
             <label class="signUpLabels">Please note we require proof of a Full Drivers Licence or Proof of Address if cyclist</label><br>
@@ -45,6 +55,7 @@
 
             <div class="form-group">
               <b-form-file
+                style="border-radius: 0!important;"
                 placeholder="Upload document"
                 drop-placeholder="Drag and drop you form"
                 @change="onFileSelected"
@@ -230,5 +241,20 @@ export default {
   }
   .form-control {
     border-radius: 1.5rem;
+  }
+
+  .input-container {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .icon {
+    padding: 10px;
+    background: #3AAFA9;
+    color: white;
+    min-width: 50px;
+    text-align: center;
   }
 </style>

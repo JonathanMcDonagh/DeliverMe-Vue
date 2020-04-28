@@ -3,12 +3,18 @@
       <div class="col-lg-12 col-md-12 col-sm-12 align-center">
         <div class="form-content align-center">
           <div class="form-group">
-            <input type="email" class="form-control" placeholder="Email Address*" required="" v-model="email" />
+            <div class="input-container">
+              <i class="fa fa-user icon"></i>
+            <input type="email" style="border-radius: 0!important;" class="form-control" placeholder="Email Address*" required="" v-model="email" />
+            </div>
           </div>
           <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password*" required="" v-model="password" />
+            <div class="input-container">
+              <i class="fa fa-key icon"></i>
+            <input type="password" style="border-radius: 0!important;" class="form-control" placeholder="Password*" required="" v-model="password" />
+            </div>
           </div>
-            <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Login</button>
+          <button class="btn btn-primary btn1" type="submit" :disabled="submitStatus === 'PENDING'">Login</button>
         </div>
         <p class="typo__p" v-if="submitStatus === 'OK'">Thank you</p>
         <p class="typo__p" v-if="submitStatus === 'PENDING'">Logging</p>
@@ -83,7 +89,6 @@ export default {
 
 <style scoped>
   .form-control {
-    border-radius: 1.5rem;
   }
   .btnSubmit {
     border-radius: 1.5rem;
@@ -104,7 +109,6 @@ export default {
     cursor: pointer;
   }
   .form-control {
-    border-radius: 1.5rem;
   }
 
   .btn-primary {
@@ -117,5 +121,20 @@ export default {
     border: 2px solid #3AAFA9;
     background-color: white;
     border-radius: 1.5rem;
+  }
+
+  .input-container {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .icon {
+    padding: 10px;
+    background: #3AAFA9;
+    color: white;
+    min-width: 50px;
+    text-align: center;
   }
 </style>
