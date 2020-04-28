@@ -81,7 +81,7 @@ export default {
       paidFor: false,
       delivery: {
         price: this.job.deliveryFee + 0.50,
-        description: 'Delivery Fee' + '(€' + this.job.deliveryFee + ')' + ' Serivce Charge (€0.50)'
+        description: 'Delivery Fee' + '(€' + this.job.deliveryFee + ')' + ' Service Charge (€0.50)'
       },
       submitStatus: null
     }
