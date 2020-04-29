@@ -29,7 +29,8 @@
         <!-- Driver -->
         <a slot="jobStatus" v-if="$store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" slot-scope="props" class="acceptText" @click="jobDetails(props.row._id)">{{props.row.jobStatus}}</a>
         <a slot="jobStatus" v-else slot-scope="props">You need to be a driver to accept jobs</a>
-        <a slot="completed" slot-scope="props" class="fa fa-check-square-o  fa-2x" @click="completedJob(props.row._id)"></a>
+        <a slot="completed" v-if="$store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" slot-scope="props" class="fa fa-check-square-o  fa-2x" @click="completedJob(props.row._id)"></a>
+        <a slot="completed" v-else slot-scope="props">You need to be a driver to mark this as complete jobs</a>
       </v-client-table>
       <div class="slideToRight">
         <p>Slide to the right to see <br>the rest of the table</p>

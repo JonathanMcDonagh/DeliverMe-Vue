@@ -30,7 +30,8 @@
         </a>
         <a slot="jobStatus" v-if="$store.state.isDriverLoggedIn || $store.state.isAdminLoggedIn" slot-scope="props" class="acceptText" @click="acceptJob(props.row._id)">{{props.row.jobStatus}}</a>
         <a slot="jobStatus" v-else slot-scope="props">You need to be a driver to accept jobs</a>
-        <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
+        <a slot="delete" v-if="$store.state.isAdminLoggedIn" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteJob(props.row._id)"></a>
+        <a slot="delete" v-else slot-scope="props">You need to be a driver to accept jobs</a>
       </v-client-table>
       <div class="slideToRight">
         <p>Slide to the right to see <br>the rest of the table</p>
@@ -56,7 +57,7 @@ export default {
   data () {
     return {
       messagetitle: 'Manage Jobs',
-      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus', 'phoneNum', 'delete'],
+      columns: ['user', 'name', 'deliveryRequest', 'place', 'deliveryFee', 'dropOffLocation', 'dropOffTime', 'jobStatus', 'delete'],
       jobs: [],
       props: ['_id'],
       errors: [],

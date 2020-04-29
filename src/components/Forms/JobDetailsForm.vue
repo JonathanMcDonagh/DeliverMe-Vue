@@ -40,7 +40,6 @@
           <button v-if="$store.state.isDriverLoggedIn" class="btn btn-primary btn1" @click="driverJobs">Go Back</button>
           <button v-else-if="$store.state.isAdminLoggedIn" class="btn btn-primary btn1" @click="adminJobs">Go Back</button>
           <button v-else class="btn btn-primary btn1" @click="userJobs">Go Back</button>
-
         </p>
 
         <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your help</p>

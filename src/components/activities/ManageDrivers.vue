@@ -28,7 +28,8 @@
             <img src="../../assets/blankprofile.png" class="profileImage"><br>
           </div>
         </a>
-        <a slot="delete" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteDriver(props.row._id)"></a>
+        <a slot="delete" v-if="$store.state.isAdminLoggedIn" slot-scope="props" class="fa fa-trash-o fa-2x" @click="deleteDriver(props.row._id)"></a>
+        <a slot="delete" v-else slot-scope="props">You must be an admin to do this</a>
       </v-client-table>
     </div>
 
