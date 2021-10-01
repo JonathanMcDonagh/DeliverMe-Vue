@@ -1,14 +1,18 @@
-# Final Year Project - DeliverMe
+# DeliverMe - Front-end (Vue)
 
 Name: Jonathan McDonagh
 
-Grade: 74%
+## Final Year Project
+
+BSc (Hons) in Software Systems Development - Year 4
+
+**Grade:** 74%  
 
 ## App Description
-DeliverMe is built using the MVEN Stack for my Final Year Project. In the course 
-BSc(Hons) Software Systems Development Year 4.
 
-Below Are Some Functional Requirements of the Web App
+**DeliverMe is built using the MVEN Stack.**
+
+Below are some of the features included within this app
 
     • Allow users to sign up using Facebook or Google or Email.
     • Allow drivers to sign up using a form that requires either a driving licence or proof of address.
@@ -30,7 +34,6 @@ Below Are Some Functional Requirements of the Web App
 Github (Frontend): https://github.com/JonathanMcDonagh/DeliverMe-Vue
 
 Github (Bakend): https://github.com/JonathanMcDonagh/DeliverMe
-
 
 Heroku Hosting (Backend): https://deliverme-wit-fyp.herokuapp.com/
 
