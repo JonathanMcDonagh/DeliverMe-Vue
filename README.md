@@ -36,3 +36,5 @@ Heroku Hosting (Backend): https://deliverme-wit-fyp.herokuapp.com/
 
 Firebase Hosting (Frontend): https://deliverme-wit.web.app/
 
+## Completed by Jonathan McDonagh - May 2020
+
